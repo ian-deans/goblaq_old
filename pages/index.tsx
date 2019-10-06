@@ -1,33 +1,61 @@
-import React from 'react'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import React from "react";
+import Head from "next/head";
+import Nav from "../components/nav";
+import { LinkData } from "../types";
+import apollo, { gql } from "../services/apollo";
 
-const Home = () => (
+apollo
+  .query({
+    query: gql`
+      {
+        rates(currency: "USD") {
+          currency
+        }
+      }
+    `
+  })
+  .then(results => console.log(results));
+
+interface HomeProps {
+  title: string;
+  description: string;
+  message?: string;
+}
+
+const links: LinkData[] = [
+  { href: "https://zeit.co/now", label: " ZEIT" },
+  { href: "https://github.com/zeit/next.js", label: "GitHub" }
+].map((link: LinkData) => {
+  link.key = `nav-link-${link.href}-${link.label}`;
+  return link;
+});
+
+const Home: React.FunctionComponent<HomeProps> = ({ title, description }) => (
   <div>
     <Head>
       <title>Home</title>
     </Head>
 
-    <Nav />
+    <Nav links={links} />
 
-    <div className='hero'>
-      <h1 className='title'>Welcome to Next.js!</h1>
-      <p className='description'>
+    <div className="hero">
+      <h1 className="title">Welcome to Next.js!</h1>
+      <p className="description">
         To get started, edit <code>pages/index.js</code> and save to reload.
       </p>
 
-      <div className='row'>
-        <a href='https://nextjs.org/docs' className='card'>
+      <div className="row">
+        <a href="https://nextjs.org/docs" className="card">
           <h3>Documentation &rarr;</h3>
           <p>Learn more about Next.js in the documentation.</p>
         </a>
-        <a href='https://nextjs.org/learn' className='card'>
+        <a href="https://nextjs.org/learn" className="card">
           <h3>Next.js Learn &rarr;</h3>
           <p>Learn about Next.js by following an interactive tutorial!</p>
         </a>
         <a
-          href='https://github.com/zeit/next.js/tree/master/examples'
-          className='card'
+          href="https://github.com/zeit/next.js/tree/master/examples"
+          className="card"
         >
           <h3>Examples &rarr;</h3>
           <p>Find other example boilerplates on the Next.js GitHub.</p>
@@ -35,7 +63,7 @@ const Home = () => (
       </div>
     </div>
 
-    <style jsx>{`
+    <style jsx={true}>{`
       .hero {
         width: 100%;
         color: #333;
@@ -82,6 +110,6 @@ const Home = () => (
       }
     `}</style>
   </div>
-)
+);
 
-export default Home
+export default Home;
