@@ -1,114 +1,53 @@
 import React from "react";
 import Head from "next/head";
-import Nav from "../components/nav";
-import { LinkData } from "../types";
-import apollo, { gql } from "../services/apollo";
+import { Signup } from "../components/Auth/SignUp/Signup";
 
-apollo
-  .query({
-    query: gql`
-      {
-        rates(currency: "USD") {
-          currency
-        }
-      }
-    `
-  })
-  .then(results => console.log(results));
-
-interface HomeProps {
-  title: string;
-  description: string;
-  message?: string;
-}
-
-const links: LinkData[] = [
-  { href: "https://zeit.co/now", label: " ZEIT" },
-  { href: "https://github.com/zeit/next.js", label: "GitHub" }
-].map((link: LinkData) => {
-  link.key = `nav-link-${link.href}-${link.label}`;
-  return link;
-});
-
-const Home: React.FunctionComponent<HomeProps> = ({ title, description }) => (
+const Home = () => (
   <div>
     <Head>
-      <title>Home</title>
+      <title>Goblaq</title>
+      <link rel="icon" href="/static/favicon.ico" />
+      <link
+        rel="stylesheet"
+        href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+      />
     </Head>
 
-    <Nav links={links} />
-
-    <div className="hero">
-      <h1 className="title">Welcome to Next.js!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
-
-      <div className="row">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
+    <div className="backdrop">
+      <div className="red-side">
+        GoBlaq Logo
+        mission statement and stuff
+      </div>
+      <div className="white-side">
+        <Signup />
       </div>
     </div>
-
     <style jsx={true}>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
+      .backdrop {
+        height: 100vh;
+        width: 100vw;
+        background-color: red;
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        align-content: stretch;
       }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
+      .red-side, .white-side {
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-      .card:hover {
-        border-color: #067df7;
+      .white-side {
+        background-color: #fff;
+        overflow-y: scroll;
       }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
+      .form-container {
+        background-color: #fff;
+        padding-top: 10em;
       }
     `}</style>
+    <script src="https://www.google.com/recaptcha/api.js" />
   </div>
 );
 
