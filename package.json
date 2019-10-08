@@ -8,6 +8,7 @@
     "start": "next start",
     "export": "next export",
     "deploy": "now",
+    "secrets:add": "now secret add",
     "fb:emulate": "firebase emulators:start"
   },
   "dependencies": {
