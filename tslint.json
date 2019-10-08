@@ -1,0 +1,29 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "member-access": false,
+        "ordered-imports": false,
+        "quotemark": false,
+        "no-console": false,
+        "semicolon": true,
+        "jsx-no-lambda": false,
+        "jsx-no-multiline-js": false,
+        "space-before-funciton-paren": true,
+        "space-within-parens": false,
+        "no-trailing-whitespace": true,
+        "curly": true,
+        "no-duplicate-variable": true,
+        "jsx-curly-spacing": true
+    },
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "config/**/*.js",
+            "node_modules/**/*.ts"
+        ]
+    }
+}
