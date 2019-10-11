@@ -38,26 +38,6 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         />
       </Form.Field>
       <Form.Field required={true}>
-        <label>Password</label>
-        <input
-          onChange={handleChangeFn}
-          id="passwordInput"
-          type="password"
-          value={data.password}
-          name="password"
-        />
-      </Form.Field>
-      <Form.Field required={true}>
-        <label>Confirm Password</label>
-        <input
-          onChange={handleChangeFn}
-          id="passwordConfirmInput"
-          type="password"
-          value={data.password_confirm}
-          name="password_confirm"
-        />
-      </Form.Field>
-      <Form.Field required={true}>
         <label>Address</label>
         <input
           onChange={handleChangeFn}

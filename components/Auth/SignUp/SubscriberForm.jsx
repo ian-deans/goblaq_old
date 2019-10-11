@@ -20,19 +20,6 @@ export const SubscriberForm = ( { data, handleChangeFn, handleSubmitFn, loading 
         <input onChange={ handleChangeFn } id="cityInput" className="form-control" value={ data.email } name="email" placeholder="Your email Address" />
 
       </Form.Field>
-      <Form.Field required={ true }>
-
-        <label>Password</label>
-        <input onChange={ handleChangeFn } id="passwordInput" type="password" value={ data.password } name="password" className="form-control" />
-
-      </Form.Field>
-      <Form.Field required={ true }>
-
-        <label>Confirm Password</label>
-        <input onChange={ handleChangeFn } id="passwordConfirmInput" type="password"
-          value={ data.password_confirm } name="password_confirm" placeholder="Confirm your password" className="form-control" />
-
-      </Form.Field>
       <Form.Group widths={ 16 }>
         <Form.Field width={ 10 }>
           <label>City</label>
