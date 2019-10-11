@@ -17,7 +17,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
             onChange={handleChangeFn}
             id="businessNameInput"
             value={data.name}
-            name="name"
+            name="businessName"
             placeholder="Enter your business name"
           />
         </Form.Field>
