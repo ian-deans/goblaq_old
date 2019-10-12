@@ -1,8 +1,12 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useEffect } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import firebase from "~/services/firebase";
+
 import { Message } from "semantic-ui-react";
 import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
-import firebase from "~/services/firebase";
+
 
 const initialState = {
   isLoading: false,
@@ -10,203 +14,200 @@ const initialState = {
   form: {},
   error: {},
   success: {},
-  loading: false,
+  loading: false
 };
 
-const reducer = ( state = initialState, action ) => {
-  switch ( action.type ) {
+const ADD_EARLY_SIGNUP = gql`
+  mutation insert_early_signups($objects: [early_signups_insert_input!]!) {
+    insert_early_signups(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
     case "set_current_form":
       return {
         ...state,
         form: {},
         error: {},
-        currentForm: action.payload,
+        currentForm: action.payload
       };
 
     case "update_field": {
       return {
         ...state,
-        form: { ...action.payload.form },
-      }
+        form: { ...action.payload.form }
+      };
     }
 
     case "clear_form": {
       return {
         ...state,
-        form: {},
-      }
+        form: {}
+      };
     }
 
     case "set_error": {
       return {
         ...state,
-        error: action.payload.error,
-      }
+        error: action.payload.error
+      };
     }
 
     case "set_loading": {
       return {
         ...state,
         loading: action.payload.loading
-      }
+      };
     }
   }
-}
+};
 
 export const Signup = props => {
-  const [ state, dispatch ] = useReducer( reducer, initialState );
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [ addEarlySignup, mutationData ] = useMutation( ADD_EARLY_SIGNUP );
+
+  useEffect(() => {
+    console.log("mutationData changed: ", mutationData)
+    
+    if ( mutationData.loading ) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+
+    if ( mutationData.error ) {
+      setError( mutationData.error );
+    }
+
+    if ( mutationData.data ) {
+      const { id } = mutationData.data.insert_early_signups.returning[0];
+      console.log(`Early Signup graphql insertion successful. Data added under id ${id}`);
+    }
+
+  },[mutationData]);
+
   const handleChange = event => {
     const copy = { ...state.form };
-    copy[ event.target.name ] = event.target.value;
-    dispatch( { type: "update_field", payload: { form: copy } } );
-  }
-  const setLoading = loading => dispatch( { type: "set_loading", payload: { loading } } )
+    copy[event.target.name] = event.target.value;
+    dispatch({ type: "update_field", payload: { form: copy } });
+  };
 
-  const clearForm = () => dispatch( { type: "clear_form" } );
+  const setLoading = loading =>
+    dispatch({ type: "set_loading", payload: { loading } });
+
+  const clearForm = () => dispatch({ type: "clear_form" });
 
   const setError = error => {
-    dispatch( { type: "set_error", payload: { error } } );
-    setLoading( false );
-  }
-
+    dispatch({ type: "set_error", payload: { error } });
+    setLoading(false);
+  };
 
   const formIsValid = () => {
     let error;
-    console.log( state )
-    if ( formIsEmpty( state.form ) ) {
+    if (formIsEmpty(state.form)) {
       error = { message: "Fill in all fields." };
-      setError( error );
+      setError(error);
       return false;
     }
 
-    console.log( passwordIsInvalid( state.form ))
-    if ( passwordIsInvalid( state.form ) ) {
-      error = { message: "Password is invalid" };
-      setError( error );
-      return false;
-    }
-
-    if ( addressFieldsAreEmpty( state.form ) ) {
+    if (addressFieldsAreEmpty(state.form)) {
       error = { message: "Address fields are required." };
-      setError( error );
+      setError(error);
       return false;
     }
     return true;
-  }
-
-  const formIsEmpty = ( { name, email, password, password_confirm } ) => {
-    return (
-      !name ||
-      !email ||
-      !password ||
-      !password_confirm
-    )
   };
 
-  const passwordIsInvalid = ( { password, password_confirm } ) => {
-    console.log(password.length < 6, password_confirm.length < 6)
-    if ( password.length < 6 || password_confirm.length < 6 ) {
-      return true;
-    }
-    // if ( password !== password_confirm ) {
-    //   return false;
-    // }
-    return false;
+  const formIsEmpty = ({ businessName, name, email }) => {
+    return (!name && !businessName) || !email;
   };
 
-  const addressFieldsAreEmpty = ( { address, city, state, zip } ) => {
-    return (
-      !city ||
-      !state ||
-      !zip
-    );
+  const addressFieldsAreEmpty = ({ city, state, zip }) => {
+    return !city || !state || !zip;
   };
-
-
-  const updateUser = async createdUser => {
-
-    await createdUser.user.updateProfile( {
-      displayName: state.form.name,
-      address: state.form.address,
-      city: state.form.city,
-      state: state.form.state,
-      zip: state.form.zip,
-      type: state.currentForm,
-    } );
-    
-    return firebase
-    .firestore()
-    .collection("users")
-    .doc( createdUser.user.uid)
-    .set( createdUser.user )
-  }
-    
 
   const saveNewUser = () => {
-    if ( formIsValid() ) {
-      setError( {} );
-      setLoading( true );
+    if (formIsValid()) {
+      setError({});
+
+      addEarlySignup({variables: {
+        objects: [
+          {
+            business_name: state.form.businessName,
+            email_address: state.form.email,
+            city: state.form.city,
+            state: state.form.state,
+          }
+        ]
+      }});
 
       firebase
-        .auth()
-        .createUserWithEmailAndPassword( state.form.email, state.form.password )
-        .then( updateUser )
-        .then( () => clearForm() )
-        .then( () => setLoading( false ) )
-        .catch( setError );
+        .firestore()
+        .collection("early_signups")
+        .add(state.form)
+        .then(ref => {
+          console.log(`Early Signup recorded with id ${ref.id}`);
+          clearForm();
+          // setLoading(false);
+        })
+        .catch(setError);
     }
   };
 
   const handleSubmit = event => {
     event.preventDefault();
     saveNewUser();
-  }
+  };
 
   const Form = state.currentForm === "business" ? BusinessForm : SubscriberForm;
-  const switchForm = formName => () => dispatch( { type: "set_current_form", payload: formName } );
-  const viewBusinessForm = switchForm( "business" );
-  const viewSubsciberForm = switchForm( "subscriber" );
 
-  const busClasses = [ "toggle-btn" ];
-  const subClasses = [ ...busClasses ];
-  if ( state.currentForm === "business" ) {
-    busClasses.push( "active" );
+  const switchForm = formName => () =>
+    dispatch({ type: "set_current_form", payload: formName });
+
+  const viewBusinessForm = switchForm("business");
+
+  const viewSubsciberForm = switchForm("subscriber");
+
+  const busClasses = ["toggle-btn"];
+  const subClasses = [...busClasses];
+  if (state.currentForm === "business") {
+    busClasses.push("active");
   } else {
-    subClasses.push( "active" );
+    subClasses.push("active");
   }
 
   return (
     <div className="signup">
       <div className="top-row">
-        <span onClick={ viewBusinessForm } className={ busClasses.join( " " ) }>Business</span>
-        <span onClick={ viewSubsciberForm } className={ subClasses.join( " " ) }>Subscriber</span>
+        <span onClick={viewBusinessForm} className={busClasses.join(" ")}>
+          Business
+        </span>
+        <span onClick={viewSubsciberForm} className={subClasses.join(" ")}>
+          Subscriber
+        </span>
       </div>
       <div className="form-container">
         <Form
-          data={ state }
-          handleChangeFn={ handleChange }
-          handleSubmitFn={ handleSubmit }
-          loading={ state.loading }
+          data={state}
+          handleChangeFn={handleChange}
+          handleSubmitFn={handleSubmit}
+          loading={mutationData.loading}
         />
-        { state.error.message && (
+        {state.error.message && (
           <div className="errors">
             <Message negative compact size="large">
-              <p>{ state.error.message }</p>
+              <p>{state.error.message}</p>
             </Message>
           </div>
-        ) }
+        )}
       </div>
-      <style jsx>{ `
-
-        .signup {
-          width: 70%;
-          height: 50vh;
-        }
-
-        .form-container {
-          width: 100%;
-        }
-
+      <style jsx>{`
         .top-row {
           display: flex;
           justify-content: space-around;
@@ -234,7 +235,7 @@ export const Signup = props => {
         .active {
           color: red;
         }
-        `}</style>
+      `}</style>
     </div>
-  )
-}
+  );
+};

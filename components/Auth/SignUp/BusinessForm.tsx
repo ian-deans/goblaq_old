@@ -17,7 +17,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
             onChange={handleChangeFn}
             id="businessNameInput"
             value={data.name}
-            name="name"
+            name="businessName"
             placeholder="Enter your business name"
           />
         </Form.Field>
@@ -35,26 +35,6 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
           id="emailInput"
           value={data.email}
           name="email"
-        />
-      </Form.Field>
-      <Form.Field required={true}>
-        <label>Password</label>
-        <input
-          onChange={handleChangeFn}
-          id="passwordInput"
-          type="password"
-          value={data.password}
-          name="password"
-        />
-      </Form.Field>
-      <Form.Field required={true}>
-        <label>Confirm Password</label>
-        <input
-          onChange={handleChangeFn}
-          id="passwordConfirmInput"
-          type="password"
-          value={data.password_confirm}
-          name="password_confirm"
         />
       </Form.Field>
       <Form.Field required={true}>
