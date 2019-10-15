@@ -32,6 +32,7 @@
     "mime-types": "^2.1.24",
     "tslint": "^5.20.0",
     "tslint-react": "^4.1.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "uuidv4": "^5.0.1"
   }
 }

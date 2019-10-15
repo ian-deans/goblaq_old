@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { Icon, Image } from "semantic-ui-react";
+import { ErrorBoundary } from "../components/common/ErrorBoundary/ErrorBoundary";
 import { Signup } from "../components/Auth/SignUp/Signup";
 
 export default () => (
@@ -39,7 +40,9 @@ export default () => (
       </div>
       <div className="white-side">
         <div className="form-container">
-          <Signup />
+          <ErrorBoundary>
+            <Signup />
+          </ErrorBoundary>
         </div>
       </div>
     </div>
@@ -126,9 +129,11 @@ export default () => (
           height: auto;
         }
 
-        .white-side, .red-side {
+        .white-side,
+        .red-side {
           height: auto;
           width: 100%;
+
         }
 
         .white-side {
