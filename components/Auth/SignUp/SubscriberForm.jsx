@@ -45,6 +45,12 @@ export const SubscriberForm = ( { data, handleChangeFn, handleSubmitFn, loading 
         </Form.Field>
       </Form.Group>
       <Form.Field>
+        <div
+          className="g-recaptcha"
+          data-sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
+        />
+      </Form.Field>
+      <Form.Field>
         <input name="userType" value="subscriber" type="hidden" />
       </Form.Field>
       <Button.Group fluid>
