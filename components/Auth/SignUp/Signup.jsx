@@ -1,111 +1,51 @@
 import React, { useReducer, useEffect } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import firebase from "~/services/firebase";
-
+import { useMutation } from "@apollo/react-hooks";
+import { ADD_EARLY_SIGNUP } from "~/services/graphql/mutations";
 import { Message } from "semantic-ui-react";
 import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
+import uuidv4 from "uuidv4";
 
+import { reducer, actions, initialState } from "./reducer";
 
-const initialState = {
-  isLoading: false,
-  currentForm: "business",
-  form: {},
-  error: {},
-  success: {},
-  loading: false
-};
+const storageRef = firebase.storage().ref();
 
-const ADD_EARLY_SIGNUP = gql`
-  mutation insert_early_signups($objects: [early_signups_insert_input!]!) {
-    insert_early_signups(objects: $objects) {
-      returning {
-        id
-      }
-    }
-  }
-`;
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "set_current_form":
-      return {
-        ...state,
-        form: {},
-        error: {},
-        currentForm: action.payload
-      };
-
-    case "update_field": {
-      return {
-        ...state,
-        form: { ...action.payload.form }
-      };
-    }
-
-    case "clear_form": {
-      return {
-        ...state,
-        form: {}
-      };
-    }
-
-    case "set_error": {
-      return {
-        ...state,
-        error: action.payload.error
-      };
-    }
-
-    case "set_loading": {
-      return {
-        ...state,
-        loading: action.payload.loading
-      };
-    }
-  }
-};
-
-export const Signup = props => {
+export const Signup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [ addEarlySignup, mutationData ] = useMutation( ADD_EARLY_SIGNUP );
+  const [addEarlySignup, mutationData] = useMutation(ADD_EARLY_SIGNUP);
 
   useEffect(() => {
-    console.log("mutationData changed: ", mutationData)
-    
-    if ( mutationData.loading ) {
+    if (mutationData.loading) {
       setLoading(true);
     } else {
       setLoading(false);
     }
 
-    if ( mutationData.error ) {
-      setError( mutationData.error );
+    if (mutationData.error) {
+      setError(mutationData.error);
     }
 
-    if ( mutationData.data ) {
+    if (mutationData.data) {
       const { id } = mutationData.data.insert_early_signups.returning[0];
-      console.log(`Early Signup graphql insertion successful. Data added under id ${id}`);
+      console.log(
+        `Early Signup graphql insertion successful. Data added under id ${id}`
+      );
     }
-
-  },[mutationData]);
+  }, [mutationData]);
 
   const handleChange = event => {
     const copy = { ...state.form };
     copy[event.target.name] = event.target.value;
-    dispatch({ type: "update_field", payload: { form: copy } });
+    dispatch(actions.updateField(copy));
   };
 
-  const setLoading = loading =>
-    dispatch({ type: "set_loading", payload: { loading } });
-
-  const clearForm = () => dispatch({ type: "clear_form" });
-
+  const setLoading = loading => dispatch(actions.setLoading(loading));
+  const clearForm = () => dispatch(actions.clearForm());
   const setError = error => {
-    dispatch({ type: "set_error", payload: { error } });
-    setLoading(false);
+    dispatch(actions.setError(error));
+    dispatch(actions.setLoading(false));
   };
 
   const formIsValid = () => {
@@ -136,28 +76,57 @@ export const Signup = props => {
     if (formIsValid()) {
       setError({});
 
-      addEarlySignup({variables: {
-        objects: [
-          {
-            business_name: state.form.businessName,
-            email_address: state.form.email,
-            city: state.form.city,
-            state: state.form.state,
-          }
-        ]
-      }});
+      addEarlySignup({
+        variables: {
+          objects: [
+            {
+              business_name: state.form.businessName,
+              email_address: state.form.email,
+              city: state.form.city,
+              state: state.form.state,
+            },
+          ],
+        },
+      });
 
       firebase
         .firestore()
         .collection("early_signups")
-        .add(state.form)
+        .add({...state.form, logoUrl: state.logoUrl})
         .then(ref => {
           console.log(`Early Signup recorded with id ${ref.id}`);
           clearForm();
-          // setLoading(false);
         })
         .catch(setError);
     }
+  };
+
+  const uploadFile = (file, metadata) => {
+    dispatch( actions.setUploadState("uploading"));
+    const filePath = `business_logos/${uuidv4()}.jpg`;
+    // actions.setUploadTask(storageRef.child(filePath).put(file, metadata))
+    let uploadTask = storageRef.child(filePath).put(file, metadata);
+
+    uploadTask.on(
+      "state_changed",
+      snap => {
+        const uploadPercent = Math.round(
+          (snap.bytesTransferred / snap.totalBytes) * 100
+        );
+        dispatch(actions.setUploadPercent(uploadPercent));
+      },
+      err => {
+        console.error(err);
+        dispatch(actions.setUploadState("error "));
+        dispatch(actions.setUploadTask(null));
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
+          dispatch(actions.setUploadState("complete"));
+          dispatch(actions.setLogoUrl(downloadUrl));
+        });
+      }
+    );
   };
 
   const handleSubmit = event => {
@@ -168,7 +137,7 @@ export const Signup = props => {
   const Form = state.currentForm === "business" ? BusinessForm : SubscriberForm;
 
   const switchForm = formName => () =>
-    dispatch({ type: "set_current_form", payload: formName });
+    dispatch(actions.setCurrentForm(formName));
 
   const viewBusinessForm = switchForm("business");
 
@@ -198,6 +167,10 @@ export const Signup = props => {
           handleChangeFn={handleChange}
           handleSubmitFn={handleSubmit}
           loading={mutationData.loading}
+          uploadFile={uploadFile}
+          uploadState={state.uploadState}
+          uploadPercent={state.uploadPercent}
+          logoUrl={state.logoUrl}
         />
         {state.error.message && (
           <div className="errors">

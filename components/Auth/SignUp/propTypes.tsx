@@ -3,4 +3,8 @@ export interface formProps {
   handleChangeFn: any;
   handleSubmitFn: any;
   loading: boolean;
+  uploadFile?: any;
+  uploadState?: string;
+  uploadPercent?: number;
+  logoUrl?: string;
 }

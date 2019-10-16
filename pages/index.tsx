@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { Icon, Image } from "semantic-ui-react";
+import { ErrorBoundary } from "../components/common/ErrorBoundary/ErrorBoundary";
 import { Signup } from "../components/Auth/SignUp/Signup";
 
 export default () => (
@@ -39,7 +40,9 @@ export default () => (
       </div>
       <div className="white-side">
         <div className="form-container">
-          <Signup />
+          <ErrorBoundary>
+            <Signup />
+          </ErrorBoundary>
         </div>
       </div>
     </div>
@@ -52,8 +55,6 @@ export default () => (
         width: 100vw;
         background-color: red;
         display: flex;
-        // justify-content: space-evenly;
-        // align-content: stretch;
       }
       .red-side,
       .white-side {
@@ -64,15 +65,17 @@ export default () => (
         background-color: #fff;
         overflow-y: scroll;
         display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-columns: auto;
         grid-template-rows: 1fr 2fr 1fr;
         grid-template-areas:
-          ". top ."
-          ". form ."
-          ". bottom .";
-        grid-gap: 10px;
+          "top"
+          "form"
+          "bottom";
+        grid-gap: 2em;
         justify-content: stretch;
         align-content: stretch;
+
+        padding: 0 2em;
       }
       .form-container {
         background-color: #fff;
@@ -83,15 +86,16 @@ export default () => (
 
       .red-side {
         display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-columns: auto;
         grid-template-rows: 2fr 2fr 1fr;
         grid-template-areas:
-          ". logo ."
-          ". text ."
-          ". footer .";
-        grid-gap: 20px;
+          "logo"
+          "text"
+          "footer";
+        grid-gap: 2em;
         justify-content: stretch;
         align-content: stretch;
+        padding: 0 2em;
       }
       .logo-container {
         grid-area: logo;
@@ -117,6 +121,41 @@ export default () => (
 
       .description-header {
         font-size: 30px;
+      }
+
+      @media only screen and (max-width: 975px) {
+        .backdrop {
+          flex-direction: column;
+          height: auto;
+        }
+
+        .white-side,
+        .red-side {
+          height: auto;
+          width: 100%;
+
+        }
+
+        .white-side {
+          order: 2;
+          align-items: flex-start;
+          grid-template-rows: 4fr 1fr;
+          grid-template-areas:
+            "form"
+            "bottom";
+          padding: 2em 1em;
+        }
+
+        .red-side {
+          order: 1;
+          padding: 2em 1em;
+        }
+      }
+
+      @media only screen and (max-width: 600px) {
+        .red-side {
+          grid-template-rows: auto 2fr 1fr;
+        }
       }
     `}</style>
     <script src="https://www.google.com/recaptcha/api.js" />

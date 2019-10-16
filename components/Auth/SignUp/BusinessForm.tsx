@@ -1,12 +1,17 @@
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
 import { formProps } from "./propTypes";
+import { LogoUpload } from "./LogoUpload";
 
 export const BusinessForm: React.FunctionComponent<formProps> = ({
   data,
   handleChangeFn,
   handleSubmitFn,
-  loading
+  loading,
+  uploadFile,
+  uploadState,
+  uploadPercent,
+  logoUrl,
 }) => {
   return (
     <Form size={"small"} onSubmit={handleSubmitFn} loading={loading}>
@@ -79,6 +84,15 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
           />
         </Form.Field>
       </Form.Group>
+      <Form.Field>
+        <label>Upload Logo</label>
+        <LogoUpload
+          uploadState={uploadState}
+          uploadPercent={uploadPercent}
+          uploadFile={uploadFile}
+          logoUrl={logoUrl}
+        />
+      </Form.Field>
       <Form.Field>
         <div
           className="g-recaptcha"
