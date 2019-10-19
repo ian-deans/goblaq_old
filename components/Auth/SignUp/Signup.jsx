@@ -195,7 +195,7 @@ export const Signup = () => {
     uploadFile: uploadFile,
     uploadState: state.uploadState,
     uploadPercent: state.uploadPercent,
-    logoUrl: state.logoUrl,
+    logoUrl: state.form.logoUrl,
     businessCategories: formatCategoryData(state.businessCategories),
   };
 
