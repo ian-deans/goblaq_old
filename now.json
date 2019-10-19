@@ -10,5 +10,8 @@
       "FIREBASE_APP_ID": "@firebase_app_id", 
       "FIREBASE_MEASUREMENT_ID": "@firebase_measurement_id" 
     }
-  }
+  },
+  "alias": [
+    "www.goblaq.com"
+  ]
 }

@@ -7,4 +7,5 @@ export interface formProps {
   uploadState?: string;
   uploadPercent?: number;
   logoUrl?: string;
+  businessCategories?: any;
 }

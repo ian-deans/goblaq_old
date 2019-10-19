@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Select } from "semantic-ui-react";
 import { formProps } from "./propTypes";
 import { LogoUpload } from "./LogoUpload";
 
@@ -12,6 +12,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
   uploadState,
   uploadPercent,
   logoUrl,
+  businessCategories
 }) => {
   return (
     <Form size={"small"} onSubmit={handleSubmitFn} loading={loading}>
@@ -28,9 +29,17 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         </Form.Field>
         <Form.Field width={4} required={true}>
           <label>Category</label>
-          <select>
+          <Select
+            fluid={true}
+            inline={true}
+            placeholder="Select One"
+            name="businessCategory"
+            options={businessCategories}
+            onChange={handleChangeFn}
+          />
+          {/* <select>
             <option>Select One</option>
-          </select>
+          </select> */}
         </Form.Field>
       </Form.Group>
       <Form.Field required={true}>

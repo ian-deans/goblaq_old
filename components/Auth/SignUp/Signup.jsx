@@ -1,22 +1,44 @@
 import React, { useReducer, useEffect } from "react";
 import firebase from "~/services/firebase";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_EARLY_SIGNUP } from "~/services/graphql/mutations";
+import { GET_BUSINESS_CATEGORIES } from "~/services/graphql/queries";
 import { Message } from "semantic-ui-react";
 import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
 import uuidv4 from "uuidv4";
-
 import { reducer, actions, initialState } from "./reducer";
 
-const storageRef = firebase.storage().ref();
+
+const storageRef = firebase.storage.ref();
 
 export const Signup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const [addEarlySignup, mutationData] = useMutation(ADD_EARLY_SIGNUP);
+  const [addEarlySignup, addEarlySignupData] = useMutation(ADD_EARLY_SIGNUP);
+  const { loading, error, data } = useQuery(GET_BUSINESS_CATEGORIES);
 
   useEffect(() => {
+  }, [state])
+
+  const handleGetCategories = () => {
+    if (loading) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+
+    if (error) {
+      setError(error);
+    } else {
+      setError({});
+    }
+
+    if (data) {
+      setCategories(data.business_categories);
+    }
+  };
+
+  const handleEarlySignup = mutationData => () => {
     if (mutationData.loading) {
       setLoading(true);
     } else {
@@ -33,20 +55,33 @@ export const Signup = () => {
         `Early Signup graphql insertion successful. Data added under id ${id}`
       );
     }
-  }, [mutationData]);
-
-  const handleChange = event => {
-    const copy = { ...state.form };
-    copy[event.target.name] = event.target.value;
-    dispatch(actions.updateField(copy));
   };
 
+  useEffect(handleGetCategories, [loading, error, data]);
+  useEffect(handleEarlySignup(addEarlySignupData), [addEarlySignupData]);
+
+  const handleChange = (event, data) => {
+    const change = {};
+    if (data) {
+      change[data.name] = data.value;
+    } else {
+      change[event.target.name] = event.target.value;
+    }
+    updateForm(change);
+  };
+
+  const setCategories = categories =>
+    dispatch(actions.setBusinessCategories(categories));
   const setLoading = loading => dispatch(actions.setLoading(loading));
   const clearForm = () => dispatch(actions.clearForm());
   const setError = error => {
     dispatch(actions.setError(error));
     dispatch(actions.setLoading(false));
   };
+  const updateForm = change => {
+    const copy = { ...state.form, ...change };
+    dispatch(actions.updateField(copy))
+  }
 
   const formIsValid = () => {
     let error;
@@ -84,6 +119,8 @@ export const Signup = () => {
               email_address: state.form.email,
               city: state.form.city,
               state: state.form.state,
+              business_category: state.form.businessCategory,
+              logo_url: state.form.logoUrl,
             },
           ],
         },
@@ -92,7 +129,7 @@ export const Signup = () => {
       firebase
         .firestore()
         .collection("early_signups")
-        .add({...state.form, logoUrl: state.logoUrl})
+        .add({ ...state.form })
         .then(ref => {
           console.log(`Early Signup recorded with id ${ref.id}`);
           clearForm();
@@ -102,9 +139,8 @@ export const Signup = () => {
   };
 
   const uploadFile = (file, metadata) => {
-    dispatch( actions.setUploadState("uploading"));
+    dispatch(actions.setUploadState("uploading"));
     const filePath = `business_logos/${uuidv4()}.jpg`;
-    // actions.setUploadTask(storageRef.child(filePath).put(file, metadata))
     let uploadTask = storageRef.child(filePath).put(file, metadata);
 
     uploadTask.on(
@@ -123,7 +159,7 @@ export const Signup = () => {
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
           dispatch(actions.setUploadState("complete"));
-          dispatch(actions.setLogoUrl(downloadUrl));
+          updateForm({logoUrl: downloadUrl });
         });
       }
     );
@@ -151,6 +187,18 @@ export const Signup = () => {
     subClasses.push("active");
   }
 
+  const formProps = {
+    data: state,
+    handleChangeFn: handleChange,
+    handleSubmitFn: handleSubmit,
+    loading: addEarlySignupData.loading,
+    uploadFile: uploadFile,
+    uploadState: state.uploadState,
+    uploadPercent: state.uploadPercent,
+    logoUrl: state.logoUrl,
+    businessCategories: formatCategoryData(state.businessCategories),
+  };
+
   return (
     <div className="signup">
       <div className="top-row">
@@ -162,16 +210,7 @@ export const Signup = () => {
         </span>
       </div>
       <div className="form-container">
-        <Form
-          data={state}
-          handleChangeFn={handleChange}
-          handleSubmitFn={handleSubmit}
-          loading={mutationData.loading}
-          uploadFile={uploadFile}
-          uploadState={state.uploadState}
-          uploadPercent={state.uploadPercent}
-          logoUrl={state.logoUrl}
-        />
+        <Form {...formProps} />
         {state.error.message && (
           <div className="errors">
             <Message negative compact size="large">
@@ -212,3 +251,8 @@ export const Signup = () => {
     </div>
   );
 };
+
+function formatCategoryData(dataArray) {
+  // const sortedKeys = Object.keys(dataArray ).sort();
+  return dataArray.map(({ id, text }) => ({ key: id, value: id, text }));
+}
