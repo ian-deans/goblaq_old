@@ -9,6 +9,7 @@ export const initialState: ReducerState = {
   uploadPercent: 0,
   uploaded: false,
   signupComplete: false,
+  businessCategories: [],
 };
 
 export const reducer = (
@@ -34,7 +35,7 @@ export const reducer = (
     case "set_logo_url": {
       return {
         ...state,
-        logoUrl: action.payload.logoUrl,
+        form: action.payload.logoUrl,
       };
     }
 
@@ -72,11 +73,27 @@ export const reducer = (
         uploadPercent: action.payload.uploadPercent,
       };
     }
+
+    case "set_business_categories": {
+      return {
+        ...state,
+        businessCategories: [...action.payload.businessCategories],
+      };
+    }
+
+    default: {
+      return state;
+    }
   }
 };
 
 export const actions = {
   clearForm: (): Action => ({ type: "clear_form" }),
+
+  setBusinessCategories: (businessCategories: any): Action => ({
+    type: "set_business_categories",
+    payload: { businessCategories },
+  }),
 
   setUploadState: (uploadState: string): Action => ({
     type: "set_upload_state",
@@ -135,4 +152,5 @@ type ReducerState = {
   uploadPercent: number;
   uploaded: boolean;
   signupComplete: boolean;
+  businessCategories: any;
 };
