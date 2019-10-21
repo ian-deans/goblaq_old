@@ -119,7 +119,7 @@ export const Signup = () => {
               email_address: state.form.email,
               city: state.form.city,
               state: state.form.state,
-              business_category: state.form.businessCategory,
+              business_category_id: state.form.businessCategory,
               logo_url: state.form.logoUrl,
             },
           ],
@@ -127,7 +127,7 @@ export const Signup = () => {
       });
 
       firebase
-        .firestore()
+        .firestore
         .collection("early_signups")
         .add({ ...state.form })
         .then(ref => {

@@ -93,7 +93,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
           />
         </Form.Field>
       </Form.Group>
-      <Form.Field>
+      <Form.Field required={true}>
         <label>Upload Logo</label>
         <LogoUpload
           uploadState={uploadState}
