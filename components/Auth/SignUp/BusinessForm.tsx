@@ -7,6 +7,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
   data,
   handleChangeFn,
   handleSubmitFn,
+  setFileFn,
   loading,
   uploadFile,
   uploadState,
@@ -42,6 +43,17 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
           </select> */}
         </Form.Field>
       </Form.Group>
+      <Form.Field required={true}>
+        <label>Name</label>
+        <input
+          onChange={handleChangeFn}
+          id="businessNameInput"
+          className="form-control"
+          value={data.name}
+          name="name"
+          placeholder="Enter your name"
+        />
+      </Form.Field>
       <Form.Field required={true}>
         <label>Email</label>
         <input
@@ -98,7 +110,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         <LogoUpload
           uploadState={uploadState}
           uploadPercent={uploadPercent}
-          uploadFile={uploadFile}
+          setFile={setFileFn}
           logoUrl={logoUrl}
         />
       </Form.Field>
