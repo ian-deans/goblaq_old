@@ -33,7 +33,7 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
         />
       </Form.Field>
       <Form.Group widths={16}>
-        <Form.Field width={10}>
+        <Form.Field required={true} width={10}>
           <label>City</label>
           <input
             onChange={handleChangeFn}
@@ -44,7 +44,7 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
             placeholder="City"
           />
         </Form.Field>
-        <Form.Field width={3}>
+        <Form.Field required={true} width={3}>
           <label>State</label>
           <input
             onChange={handleChangeFn}
@@ -55,7 +55,7 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
             placeholder="State"
           />
         </Form.Field>
-        <Form.Field width={3}>
+        <Form.Field required={true} width={3}>
           <label>Zip</label>
           <input
             onChange={handleChangeFn}
@@ -67,7 +67,7 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
           />
         </Form.Field>
       </Form.Group>
-      <Form.Field>
+      <Form.Field required={true}>
         <div
           className="g-recaptcha"
           data-sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"

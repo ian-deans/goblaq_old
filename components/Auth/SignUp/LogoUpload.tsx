@@ -1,29 +1,12 @@
 import React, { useState } from "react";
 import { Button, Image, Input, Progress } from "semantic-ui-react";
-import mime from "mime-types";
 
-const authorizedFileTypes = ["image/jpeg", "image/png", "image/gif"];
-
-const isAuthorized = (fileName: any) =>
-  authorizedFileTypes.includes(mime.lookup(fileName));
-
-export const LogoUpload = ({ uploadFile, uploadState, uploadPercent, logoUrl }) => {
-  const [file, setFile] = useState(null);
+export const LogoUpload = ({ setFile, uploadState, uploadPercent, logoUrl }) => {
 
   const handleChange = (event: any) => {
     const file: any = event.target.files[0];
     if (file) {
       setFile(file);
-    }
-  };
-
-  const sendFile = event => {
-    event.preventDefault();
-    if (file !== null) {
-      if (isAuthorized(file.name)) {
-        const metadata = { contentType: mime.lookup(file.name) };
-        uploadFile(file, metadata);
-      }
     }
   };
 
@@ -43,7 +26,7 @@ export const LogoUpload = ({ uploadFile, uploadState, uploadPercent, logoUrl }) 
   return (
     <Input onChange={handleChange} type="file" name="logo_file" fluid={true}>
       <input />
-      <Button onClick={sendFile}>Upload</Button>
+      {/* <Button onClick={sendFile}>Upload</Button> */}
     </Input>
   );
 };

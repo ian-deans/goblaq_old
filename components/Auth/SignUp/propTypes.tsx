@@ -2,6 +2,7 @@ export interface formProps {
   data?: any;
   handleChangeFn: any;
   handleSubmitFn: any;
+  setFileFn: any;
   loading: boolean;
   uploadFile?: any;
   uploadState?: string;

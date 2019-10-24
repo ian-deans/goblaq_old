@@ -8,7 +8,7 @@ export const initialState: ReducerState = {
   uploadState: "none",
   uploadPercent: 0,
   uploaded: false,
-  signupComplete: false,
+  formSubmitted: false,
   businessCategories: [],
 };
 
@@ -81,6 +81,13 @@ export const reducer = (
       };
     }
 
+    case "form_submitted": {
+      return {
+        ...state,
+        formSubmitted: true,
+      };
+    }
+
     default: {
       return state;
     }
@@ -134,6 +141,10 @@ export const actions = {
     type: "update_field",
     payload: { form },
   }),
+
+  formSubmitted: (): Action => ({
+    type: "form_submitted",
+  })
 };
 
 type Action = {
@@ -151,6 +162,6 @@ type ReducerState = {
   uploadState: string;
   uploadPercent: number;
   uploaded: boolean;
-  signupComplete: boolean;
+  formSubmitted: boolean;
   businessCategories: any;
 };

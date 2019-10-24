@@ -21,20 +21,27 @@ export default () => (
           <Image size="medium" src="/static/goblaq_logo.png" />
         </div>
         <div className="company-description">
+          {/* <span className="description-header">
+          Goblaq is an online business directory service and crowd-sourced review forum connecting subscribers with African American businesses and business owners.
+          </span> */}
           <span className="description-header">
-            Goblaq is an online business directory and review forum for African
-            Americans
-          </span>
-          <span className="description">
             Goblaq is an online business directory service and crowd-sourced
             review forum connecting subscribers with African American businesses
             and business owners.
           </span>
           <span className="social-links-container">
-            <Icon inverted={true} name="facebook f" size="big" />
-            <Icon inverted={true} name="instagram" size="big" />
-            <Icon inverted={true} name="twitter" size="big" />
-            <Icon inverted={true} name="linkedin" size="big" />
+            <a href="https://www.facebook.com/goblaqapp/">
+              <Icon inverted={true} name="facebook f" size="big" />
+            </a>
+            <a href="https://instagram.com/goblaqapp">
+              <Icon inverted={true} name="instagram" size="big" />
+            </a>
+            <a href="https://twitter.com/goblaqapp">
+              <Icon inverted={true} name="twitter" size="big" />
+            </a>
+            <a href="https://www.linkedin.com/in/goblaq-app-22a301195/">
+              <Icon inverted={true} name="linkedin" size="big" />
+            </a>
           </span>
         </div>
       </div>
@@ -97,10 +104,12 @@ export default () => (
         align-content: stretch;
         padding: 0 2em;
       }
+
       .logo-container {
         grid-area: logo;
         display: flex;
         align-items: flex-end;
+        margin: 0 0 2em 0;
       }
 
       .company-description {
@@ -117,10 +126,11 @@ export default () => (
         font-weight: 700;
         line-height: 1.5em;
         letter-spacing: 4px;
+        margin: 0 0 2em 0;
       }
 
       .description-header {
-        font-size: 30px;
+        font-size: 20px;
       }
 
       @media only screen and (max-width: 975px) {
@@ -133,21 +143,30 @@ export default () => (
         .red-side {
           height: auto;
           width: 100%;
+        }
 
+        .red-side {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 2em 1em;
+          order: 1;
         }
 
         .white-side {
           order: 2;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
           align-items: flex-start;
-          grid-template-rows: 4fr 1fr;
-          grid-template-areas:
-            "form"
-            "bottom";
           padding: 2em 1em;
-        }
 
-        .red-side {
-          order: 1;
+          // align-items: flex-start;
+          // grid-template-rows: 6fr 1fr;
+          // grid-template-areas:
+          //   "form"
+          //   "bottom";
           padding: 2em 1em;
         }
       }
