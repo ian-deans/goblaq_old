@@ -24,22 +24,22 @@ export default () => (
           {/* <span className="description-header">
           Goblaq is an online business directory service and crowd-sourced review forum connecting subscribers with African American businesses and business owners.
           </span> */}
-          <span className="description">
+          <span className="description-header">
             Goblaq is an online business directory service and crowd-sourced
             review forum connecting subscribers with African American businesses
             and business owners.
           </span>
           <span className="social-links-container">
-            <a href="http://google.com">
+            <a href="https://www.facebook.com/goblaqapp/">
               <Icon inverted={true} name="facebook f" size="big" />
             </a>
-            <a href="#">
+            <a href="https://instagram.com/goblaqapp">
               <Icon inverted={true} name="instagram" size="big" />
             </a>
-            <a href="#">
+            <a href="https://twitter.com/goblaqapp">
               <Icon inverted={true} name="twitter" size="big" />
             </a>
-            <a href="#">
+            <a href="https://www.linkedin.com/in/goblaq-app-22a301195/">
               <Icon inverted={true} name="linkedin" size="big" />
             </a>
           </span>
@@ -130,7 +130,7 @@ export default () => (
       }
 
       .description-header {
-        font-size: 30px;
+        font-size: 20px;
       }
 
       @media only screen and (max-width: 975px) {
