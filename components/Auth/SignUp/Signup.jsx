@@ -10,8 +10,10 @@ import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
 import { reducer, actions, initialState } from "./reducer";
 
+import errorLogger from "../../../services/ErrorLogger";
+
 const storageRef = firebase.storage.ref();
-const logo_storage_path = "business_logos_dev";
+const logo_storage_path = "business_logos";
 
 const authorizedFileTypes = ["image/jpeg", "image/png", "image/gif"];
 
@@ -114,16 +116,15 @@ export const Signup = () => {
     }
 
     if (onBusinessForm()) {
-      if ( state.form.businessCategory === undefined ) {
-        error = {message: "A category is required for businesses."};
+      if (state.form.businessCategory === undefined) {
+        error = { message: "A category is required for businesses." };
         setError(error);
         return false;
       }
-      
+
       if (file === null) {
         error = {
-          message:
-            "A logo is required for businesses.",
+          message: "A logo is required for businesses.",
         };
         setError(error);
         return false;
@@ -148,7 +149,6 @@ export const Signup = () => {
 
   //* overarching function that handles registering an early signup
   const saveEarlySignup = () => {
-
     // call the graphql mutation first, success/failure is recorded in firestore
     addEarlySignup({
       variables: {
@@ -172,7 +172,6 @@ export const Signup = () => {
     // const mailchimp_subscriber_list_id = "e5420d6327";
     // const mailchimp_base_url = listId =>
     //   `https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members`;
-
   };
 
   const addFirestoreEntry = () => {
@@ -184,8 +183,11 @@ export const Signup = () => {
         // clearForm();
         completeSignup();
       })
-      .catch(setError);
-  }
+      .catch(error => {
+        setError(error);
+        errorLogger.log(error);
+      });
+  };
 
   //* function uploads an image file and stores the returned url in state via updateForm()
   const uploadFile = (file, metadata) => {
@@ -220,7 +222,7 @@ export const Signup = () => {
     event.preventDefault();
     if (formIsValid() && !state.formSubmitted) {
       setError({});
-      if (onBusinessForm() && state.form.logoUrl === undefined ) {
+      if (onBusinessForm() && state.form.logoUrl === undefined) {
         if (isAuthorized(file.name)) {
           const metadata = { contentType: mime.lookup(file.name) };
           uploadFile(file, metadata);
@@ -279,10 +281,12 @@ export const Signup = () => {
         <Form {...formProps} />
         {state.formSubmitted && (
           <div className="success-message">
-
-          <Message positive compact size="large">
-            <p>Thank you for signing up for Goblaq! Please check your email for a message from us.</p>
-          </Message>
+            <Message positive compact size="large">
+              <p>
+                Thank you for signing up for Goblaq! Please check your email for
+                a message from us.
+              </p>
+            </Message>
           </div>
         )}
         {state.error.message && (
@@ -311,7 +315,8 @@ export const Signup = () => {
           cursor: pointer;
         }
 
-        .errors, .success-message {
+        .errors,
+        .success-message {
           margin-top: 2em;
           width: 100%;
           display: flex;
