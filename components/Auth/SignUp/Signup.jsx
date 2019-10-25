@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useState } from "react";
 import firebase from "~/services/firebase";
+import mailChimpAPI from "~/services/MailChimpAPI";
 import mime from "mime-types";
 import uuidv4 from "uuidv4";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -9,16 +10,21 @@ import { Message } from "semantic-ui-react";
 import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
 import { reducer, actions, initialState } from "./reducer";
+import errorLogger from "~/services/ErrorLogger";
 
-import errorLogger from "../../../services/ErrorLogger";
 
+const CONFIG = {
+  firestoreCollection: "early_signups",
+  logoStoragePath: "business_logos",
+  authorizedFileTypes: ["image/jpeg", "image/png", "image/gif"],
+};
+
+const recaptchaRef = React.createRef();
 const storageRef = firebase.storage.ref();
-const logo_storage_path = "business_logos";
-
-const authorizedFileTypes = ["image/jpeg", "image/png", "image/gif"];
 
 const isAuthorized = fileName =>
-  authorizedFileTypes.includes(mime.lookup(fileName));
+  CONFIG.authorizedFileTypes.includes(mime.lookup(fileName));
+
 
 export const Signup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -67,13 +73,26 @@ export const Signup = () => {
         `Early Signup graphql insertion successful. Data added under id ${id}`
       );
 
-      addFirestoreEntry();
+      console.log(mutationData.data);
+
+      //* after successful insertion into the database, store the returned id and the rest
+      //* of the form data in Firestore.
+      addFirestoreEntry(id);
     }
   };
 
   //* Effect Hooks
   useEffect(handleGetCategories, [loading, error, data]);
   useEffect(handleEarlySignup(addEarlySignupData), [addEarlySignupData]);
+
+  useEffect(() => {
+    // fires off function intiating chain of events pertainging to saving an early
+    // sign up. initiating save based on state allows time for any necessary state
+    // updates to take place.
+    if (state.readyToSubmit === true) {
+      saveEarlySignup();
+    }
+  }, [state.readyToSubmit]);
 
   //* Dispatch Functions
   const clearForm = () => dispatch(actions.clearForm());
@@ -95,9 +114,26 @@ export const Signup = () => {
 
   const completeSignup = () => dispatch(actions.formSubmitted());
 
+  
+
   //* Form Input Change Handler
   const handleChange = (event, data) => {
+    console.log("TARGET ", typeof event)
+    if ( !event.target && typeof event === "string") {
+      // the event is the ReCaptcha value
+      updateForm({recaptchaString: event})
+    }
+    if (event.target.name === "zip") {
+      if ( state.form.zip && state.form.zip.length >= 5) {
+        return
+      }
+      if ( !stringContainsOnlyNumbers(event.target.value) ) {
+        return
+      }
+    }
+
     const change = {};
+
     if (data) {
       change[data.name] = data.value;
     } else {
@@ -108,18 +144,30 @@ export const Signup = () => {
 
   //* form validation function
   const formIsValid = () => {
+    const { form } = state;
     let error;
-    if (formIsEmpty(state.form)) {
+
+    if ( form.recaptchaString.length < 1 ) {
+      error = { message: "Please verify you are not a robot." };
+      setError(error);
+      return false;
+    }
+
+    if (formIsEmpty(form)) {
       error = { message: "Please fill in all fields." };
       setError(error);
       return false;
     }
 
     if (onBusinessForm()) {
-      if (state.form.businessCategory === undefined) {
+      if (noBusinessCategory(form)) {
         error = { message: "A category is required for businesses." };
         setError(error);
         return false;
+      }
+
+      if (noBusinessName(form)) {
+        error = { message: "Please provide the name of your business." };
       }
 
       if (file === null) {
@@ -129,9 +177,17 @@ export const Signup = () => {
         setError(error);
         return false;
       }
+
+      if (!form.address) {
+        error = {
+          message: "A street address is required for businesses."
+        };
+        setError(error);
+        return false;
+      }
     }
 
-    if (addressFieldsAreEmpty(state.form)) {
+    if (addressFieldsAreEmpty(form)) {
       error = { message: "Address fields are required." };
       setError(error);
       return false;
@@ -139,11 +195,13 @@ export const Signup = () => {
     return true;
   };
 
-  const formIsEmpty = ({ businessName, name, email }) => {
-    return (!name && !businessName) || !email;
-  };
 
-  const addressFieldsAreEmpty = ({ city, state, zip }) => {
+  const noBusinessCategory = ({ businessCategory }) => !businessCategory
+  const noBusinessName = ({ businessName }) => !businessName;
+  const formIsEmpty = ({ name, email }) => {
+    return !name || !email;
+  };
+  const addressFieldsAreEmpty = ({ address, city, state, zip }) => {
     return !city || !state || !zip;
   };
 
@@ -154,33 +212,28 @@ export const Signup = () => {
       variables: {
         objects: [
           {
-            business_name: state.form.businessName,
+            business_name: state.form.businessName || null,
+            business_category_id: state.form.businessCategory || null,
             email_address: state.form.email,
+            name: state.form.name,
+            address: state.form.address || null,
             city: state.form.city,
             state: state.form.state,
-            business_category_id: state.form.businessCategory,
-            logo_url: state.form.logoUrl,
+            zip: state.form.zip,
+            logo_url: state.form.logoUrl || null,
           },
         ],
       },
     });
-
-    // const mailchimp_api_key = "4150de0906b2e01661030d8a294f7f62-us12";
-    // const dc = mailchimp_api_key.split("-")[1];
-    // const mailchimp_authstring = window.btoa(`anystring:${mailchimp_api_key}`);
-    // const mailchimp_business_list_id = "540b068fae";
-    // const mailchimp_subscriber_list_id = "e5420d6327";
-    // const mailchimp_base_url = listId =>
-    //   `https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members`;
   };
 
-  const addFirestoreEntry = () => {
+  //* insert data into firestore, form state and id returned from hasura stored.
+  const addFirestoreEntry = id => {
     firebase.firestore
-      .collection("early_signups")
-      .add({ ...state.form })
+      .collection(CONFIG.firestoreCollection)
+      .add({ ...state.form, hasuraId: id })
       .then(ref => {
         console.log(`Early Signup recorded with id ${ref.id}`);
-        // clearForm();
         completeSignup();
       })
       .catch(error => {
@@ -192,7 +245,7 @@ export const Signup = () => {
   //* function uploads an image file and stores the returned url in state via updateForm()
   const uploadFile = (file, metadata) => {
     dispatch(actions.setUploadState("uploading"));
-    const filePath = `${logo_storage_path}/${uuidv4()}.jpg`;
+    const filePath = `${CONFIG.logoStoragePath}/${uuidv4()}.jpg`;
     let uploadTask = storageRef.child(filePath).put(file, metadata);
 
     uploadTask.on(
@@ -206,13 +259,13 @@ export const Signup = () => {
       err => {
         console.error(err);
         dispatch(actions.setUploadState("error "));
-        // dispatch(actions.setUploadTask(null));
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
-          dispatch(actions.setUploadState("complete"));
+          console.log("TASK DONE ", downloadUrl);
           updateForm({ logoUrl: downloadUrl });
-          saveEarlySignup();
+          dispatch(actions.setUploadState("complete"));
+          dispatch(actions.readyToSubmit());
         });
       }
     );
@@ -220,8 +273,10 @@ export const Signup = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    //* validate form and make sure it hasnt already been submitted
     if (formIsValid() && !state.formSubmitted) {
       setError({});
+
       if (onBusinessForm() && state.form.logoUrl === undefined) {
         if (isAuthorized(file.name)) {
           const metadata = { contentType: mime.lookup(file.name) };
@@ -232,7 +287,7 @@ export const Signup = () => {
           });
         }
       } else {
-        saveEarlySignup();
+        dispatch(actions.readyToSubmit());
       }
     }
   };
@@ -255,7 +310,7 @@ export const Signup = () => {
   }
 
   const formProps = {
-    data: state,
+    data: state.form,
     handleChangeFn: handleChange,
     handleSubmitFn: handleSubmit,
     setFileFn: setFile,
@@ -265,6 +320,7 @@ export const Signup = () => {
     uploadPercent: state.uploadPercent,
     logoUrl: state.form.logoUrl,
     businessCategories: formatCategoryData(state.businessCategories),
+    recaptchaRef,
   };
 
   return (
@@ -332,6 +388,29 @@ export const Signup = () => {
 };
 
 function formatCategoryData(dataArray) {
-  // const sortedKeys = Object.keys(dataArray ).sort();
   return dataArray.map(({ id, text }) => ({ key: id, value: id, text }));
 }
+
+function stringContainsOnlyNumbers(str){
+  return /^\d+$/.test(str);
+}
+
+// function addToMailChimpList() {
+//         let addToList;
+
+//       if (onBusinessForm()) {
+//         addToList = mailChimpAPI.addToBusinessList;
+//       } else {
+//         addToList = mailChimpAPI.addToSubscriberList;
+//       }
+
+//       addToList({
+//         email: state.form.email,
+//         // name: state.form.name,
+//         status: "subscribed",
+//       })
+//         .then(() => {
+//           addFireStoreEntry(id)
+//         })
+//         .catch(errorLogger.log);
+// }

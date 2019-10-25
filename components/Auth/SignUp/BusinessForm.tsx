@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Form, Select } from "semantic-ui-react";
+import { Button, Form, Input, Select } from "semantic-ui-react";
 import { formProps } from "./propTypes";
 import { LogoUpload } from "./LogoUpload";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const BusinessForm: React.FunctionComponent<formProps> = ({
   data,
@@ -9,23 +10,23 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
   handleSubmitFn,
   setFileFn,
   loading,
-  uploadFile,
   uploadState,
   uploadPercent,
   logoUrl,
-  businessCategories
+  businessCategories,
+  recaptchaRef
 }) => {
   return (
     <Form size={"small"} onSubmit={handleSubmitFn} loading={loading}>
       <Form.Group widths={16}>
         <Form.Field width={12} required={true}>
           <label>Business Name</label>
-          <input
+          <Input
             onChange={handleChangeFn}
             id="businessNameInput"
-            value={data.name}
+            value={data.businessName}
             name="businessName"
-            placeholder="Enter your business name"
+            placeholder="Enter the name of your business"
           />
         </Form.Field>
         <Form.Field width={4} required={true}>
@@ -38,25 +39,20 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
             options={businessCategories}
             onChange={handleChangeFn}
           />
-          {/* <select>
-            <option>Select One</option>
-          </select> */}
         </Form.Field>
       </Form.Group>
-      <Form.Field required={true}>
+      <Form.Field width={16} required={true}>
         <label>Name</label>
-        <input
+        <Input
           onChange={handleChangeFn}
-          id="businessNameInput"
           className="form-control"
           value={data.name}
           name="name"
-          placeholder="Enter your name"
         />
       </Form.Field>
       <Form.Field required={true}>
         <label>Email</label>
-        <input
+        <Input
           onChange={handleChangeFn}
           id="emailInput"
           value={data.email}
@@ -65,7 +61,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
       </Form.Field>
       <Form.Field required={true}>
         <label>Address</label>
-        <input
+        <Input
           onChange={handleChangeFn}
           id="cityInput"
           value={data.address}
@@ -76,7 +72,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
       <Form.Group widths={16} required={true}>
         <Form.Field width={10} required={true}>
           <label>City</label>
-          <input
+          <Input
             onChange={handleChangeFn}
             id="cityInput"
             value={data.city}
@@ -86,7 +82,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         </Form.Field>
         <Form.Field width={3} required={true}>
           <label>State</label>
-          <input
+          <Input
             onChange={handleChangeFn}
             id="stateInput"
             value={data.state}
@@ -96,9 +92,8 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         </Form.Field>
         <Form.Field width={3} required={true}>
           <label>Zip</label>
-          <input
+          <Input
             onChange={handleChangeFn}
-            id="zipInput"
             value={data.zip}
             name="zip"
             placeholder="Zip"
@@ -115,12 +110,18 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         />
       </Form.Field>
       <Form.Field>
-        <div
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
+          name="captcha"
+          onChange={handleChangeFn}
+        />
+        {/* <div
           className="g-recaptcha"
           data-sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
-        />
+        /> */}
       </Form.Field>
-      <Button.Group fluid>
+      <Button.Group fluid={true}>
         <Button color="black">Join Goblaq</Button>
       </Button.Group>
     </Form>
