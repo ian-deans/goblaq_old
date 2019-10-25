@@ -277,7 +277,7 @@ export const Signup = () => {
     if (formIsValid() && !state.formSubmitted) {
       setError({});
 
-      if (onBusinessForm() && state.form.logoUrl === undefined) {
+      if (onBusinessForm() && state.form.logoUrl === "") {
         if (isAuthorized(file.name)) {
           const metadata = { contentType: mime.lookup(file.name) };
           uploadFile(file, metadata);
