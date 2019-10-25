@@ -1,16 +1,33 @@
+const initialFormState = {
+  businessName: "",
+  businessCategory: null,
+  logoUrl: "",
+  name: "",
+  email: "",
+  address: "",
+  city: "",
+  state: "",
+  zip: "",
+  recaptchaString: "",
+};
+
+
 export const initialState: ReducerState = {
   currentForm: "business",
-  form: {},
-  logoUrl: "",
+  businessCategories: [],
   error: {},
-  success: {},
+  form: {...initialFormState},
+  formSubmitted: false,
   loading: false,
+  logoUrl: "",
+  success: {},
   uploadState: "none",
   uploadPercent: 0,
   uploaded: false,
-  formSubmitted: false,
-  businessCategories: [],
+
+  readyToSubmit: false,
 };
+
 
 export const reducer = (
   state: ReducerState = initialState,
@@ -20,7 +37,7 @@ export const reducer = (
     case "set_current_form":
       return {
         ...state,
-        form: {},
+        form: {...initialFormState},
         error: {},
         currentForm: action.payload.currentForm,
       };
@@ -28,7 +45,7 @@ export const reducer = (
     case "update_field": {
       return {
         ...state,
-        form: { ...action.payload.form },
+        form: action.payload.form,
       };
     }
 
@@ -78,6 +95,13 @@ export const reducer = (
       return {
         ...state,
         businessCategories: [...action.payload.businessCategories],
+      };
+    }
+
+    case "set_ready_to_submit": {
+      return {
+        ...state,
+        readyToSubmit: true,
       };
     }
 
@@ -142,9 +166,13 @@ export const actions = {
     payload: { form },
   }),
 
+  readyToSubmit: (): Action => ({
+    type: "set_ready_to_submit",
+  }),
+
   formSubmitted: (): Action => ({
     type: "form_submitted",
-  })
+  }),
 };
 
 type Action = {
@@ -164,4 +192,5 @@ type ReducerState = {
   uploaded: boolean;
   formSubmitted: boolean;
   businessCategories: any;
+  readyToSubmit: boolean;
 };

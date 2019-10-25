@@ -1,26 +1,26 @@
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
 import { formProps } from "./propTypes";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const SubscriberForm: React.FunctionComponent<formProps> = ({
   data,
   handleChangeFn,
   handleSubmitFn,
   loading,
+  recaptchaRef,
 }) => {
   return (
     <Form size="small" onSubmit={handleSubmitFn} loading={loading}>
-      <Form.Field required={true}>
-        <label>Name</label>
-        <input
-          onChange={handleChangeFn}
-          id="businessNameInput"
-          className="form-control"
-          value={data.name}
-          name="name"
-          placeholder="Enter your name"
-        />
-      </Form.Field>
+        <Form.Field required={true}>
+          <label>Name</label>
+          <input
+            onChange={handleChangeFn}
+            className="form-control"
+            value={data.name}
+            name="name"
+          />
+        </Form.Field>
       <Form.Field required={true}>
         <label>Email</label>
         <input
@@ -68,10 +68,16 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
         </Form.Field>
       </Form.Group>
       <Form.Field required={true}>
-        <div
+      <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
+          name="captcha"
+          onChange={handleChangeFn}
+        />
+        {/* <div
           className="g-recaptcha"
           data-sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
-        />
+        /> */}
       </Form.Field>
       <Form.Field>
         <input name="userType" value="subscriber" type="hidden" />
