@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, useState } from "react";
 import firebase from "~/services/firebase";
-import mailChimpAPI from "~/services/MailChimpAPI";
+// import mailChimpAPI from "~/services/MailChimpAPI";
 import mime from "mime-types";
 import uuidv4 from "uuidv4";
 import { useMutation, useQuery } from "@apollo/react-hooks";
