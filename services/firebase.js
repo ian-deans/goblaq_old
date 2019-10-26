@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-// import admin from "firebase-admin"
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
@@ -15,12 +14,11 @@ const config = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-// prevent spinning up extra app instances
-// export default !firebase.apps.length ? firebase.initializeApp( config ) : firebase.app();
 
 
 class Firebase {
   constructor() {
+    // prevent spinning up extra app instances
     !firebase.apps.length 
       ? firebase.initializeApp( config ) 
       : firebase.app()
