@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, useState } from "react";
 import firebase from "~/services/firebase";
-// import mime from "mime-types";
+import mime from "mime-types";
 import uuidv4 from "uuidv4";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_EARLY_SIGNUP } from "~/services/graphql/mutations";
