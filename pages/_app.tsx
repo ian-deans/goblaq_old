@@ -3,7 +3,7 @@ import App from "next/app";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { Layout } from "../components/Layout/Layout";
 import client from "../services/graphql/apollo";
-import firebase from "../services/firebase/app";
+import firebase from "../services/firebase";
 
 export default class GoblaqApp extends App {
   componentDidMount() {

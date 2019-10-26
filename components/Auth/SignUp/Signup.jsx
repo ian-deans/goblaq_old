@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect, useState } from "react";
 import firebase from "~/services/firebase";
-import mailChimpAPI from "~/services/MailChimpAPI";
-import mime from "mime-types";
+// import mime from "mime-types";
 import uuidv4 from "uuidv4";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_EARLY_SIGNUP } from "~/services/graphql/mutations";
@@ -22,8 +21,8 @@ const CONFIG = {
 const recaptchaRef = React.createRef();
 const storageRef = firebase.storage.ref();
 
-const isAuthorized = fileName =>
-  CONFIG.authorizedFileTypes.includes(mime.lookup(fileName));
+const isAuthorized = fileName => true;
+  // CONFIG.authorizedFileTypes.includes(mime.lookup(fileName));
 
 
 export const Signup = () => {
