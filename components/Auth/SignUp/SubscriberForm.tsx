@@ -8,7 +8,7 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
   handleChangeFn,
   handleSubmitFn,
   loading,
-  recaptchaRef,
+  reCAPTCHA,
 }) => {
   return (
     <Form size="small" onSubmit={handleSubmitFn} loading={loading}>
@@ -68,12 +68,8 @@ export const SubscriberForm: React.FunctionComponent<formProps> = ({
         </Form.Field>
       </Form.Group>
       <Form.Field required={true}>
-      <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
-          name="captcha"
-          onChange={handleChangeFn}
-        />
+        <label>Are you a robot?</label>
+        {reCAPTCHA}
         {/* <div
           className="g-recaptcha"
           data-sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"

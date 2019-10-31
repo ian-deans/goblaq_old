@@ -11,12 +11,14 @@ export default class GoblaqApp extends App {
       if (user) {
         console.log("--> user auth state changed <--");
         console.log("logged in user: ", user);
+        sessionStorage.setItem("USER_FUID", user.uid);
+        // load user from graphql
       } else {
         console.log("--> no user found <--");
       }
     });
   }
-  
+
   componentWillUnmount() {
     // firebase.doSignOut();
   }

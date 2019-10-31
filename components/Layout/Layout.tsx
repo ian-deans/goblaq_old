@@ -7,7 +7,7 @@ export const Layout = props => {
     <React.Fragment>
       <Head>
         <title>Goblaq</title>
-        {/* <link rel="icon" href="/static/favicon.ico" type="image/x-icon" /> */}
+        <meta name="Description" content="An online business directory helping connect African American businesses" />
         <link rel="icon" href="/static/favicon_png.png" type="image/png" />
         <link
           rel="stylesheet"

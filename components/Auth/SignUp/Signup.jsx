@@ -9,12 +9,13 @@ import { Message } from "semantic-ui-react";
 import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
 import { reducer, actions, initialState } from "./reducer";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import errorLogger from "~/services/ErrorLogger";
 
-
 const CONFIG = {
-  firestoreCollection: "early_signups",
-  logoStoragePath: "business_logos",
+  firestoreCollection: "early_signups_dev",
+  logoStoragePath: "business_logos_dev",
   authorizedFileTypes: ["image/jpeg", "image/png", "image/gif"],
 };
 
@@ -22,8 +23,7 @@ const recaptchaRef = React.createRef();
 const storageRef = firebase.storage.ref();
 
 const isAuthorized = fileName => true;
-  // CONFIG.authorizedFileTypes.includes(mime.lookup(fileName));
-
+// CONFIG.authorizedFileTypes.includes(mime.lookup(fileName));
 
 export const Signup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -113,21 +113,19 @@ export const Signup = () => {
 
   const completeSignup = () => dispatch(actions.formSubmitted());
 
-  
-
   //* Form Input Change Handler
   const handleChange = (event, data) => {
-    console.log("TARGET ", typeof event)
-    if ( !event.target && typeof event === "string") {
+    console.log("TARGET ", typeof event);
+    if (!event.target && typeof event === "string") {
       // the event is the ReCaptcha value
-      updateForm({recaptchaString: event})
+      updateForm({ recaptchaString: event });
     }
     if (event.target.name === "zip") {
-      if ( state.form.zip && state.form.zip.length >= 5) {
-        return
+      if (state.form.zip && state.form.zip.length >= 5) {
+        return;
       }
-      if ( !stringContainsOnlyNumbers(event.target.value) ) {
-        return
+      if (!stringContainsOnlyNumbers(event.target.value)) {
+        return;
       }
     }
 
@@ -146,7 +144,7 @@ export const Signup = () => {
     const { form } = state;
     let error;
 
-    if ( form.recaptchaString.length < 1 ) {
+    if (form.recaptchaString.length < 1) {
       error = { message: "Please verify you are not a robot." };
       setError(error);
       return false;
@@ -179,7 +177,7 @@ export const Signup = () => {
 
       if (!form.address) {
         error = {
-          message: "A street address is required for businesses."
+          message: "A street address is required for businesses.",
         };
         setError(error);
         return false;
@@ -194,8 +192,7 @@ export const Signup = () => {
     return true;
   };
 
-
-  const noBusinessCategory = ({ businessCategory }) => !businessCategory
+  const noBusinessCategory = ({ businessCategory }) => !businessCategory;
   const noBusinessName = ({ businessName }) => !businessName;
   const formIsEmpty = ({ name, email }) => {
     return !name || !email;
@@ -233,6 +230,8 @@ export const Signup = () => {
       .add({ ...state.form, hasuraId: id })
       .then(ref => {
         console.log(`Early Signup recorded with id ${ref.id}`);
+        console.log(ref);
+        // sendWelcomeEmail();
         completeSignup();
       })
       .catch(error => {
@@ -308,6 +307,17 @@ export const Signup = () => {
     subClasses.push("active");
   }
 
+  const siteKey = process.env.RECAPTCHA_SITE_KEY
+
+  const reCAPTCHA = (
+    <ReCAPTCHA
+      ref={recaptchaRef}
+      sitekey={siteKey}
+      name="captcha"
+      onChange={handleChange}
+    />
+  );
+
   const formProps = {
     data: state.form,
     handleChangeFn: handleChange,
@@ -319,8 +329,10 @@ export const Signup = () => {
     uploadPercent: state.uploadPercent,
     logoUrl: state.form.logoUrl,
     businessCategories: formatCategoryData(state.businessCategories),
-    recaptchaRef,
+    reCAPTCHA,
   };
+
+
 
   return (
     <div className="signup">
@@ -390,26 +402,6 @@ function formatCategoryData(dataArray) {
   return dataArray.map(({ id, text }) => ({ key: id, value: id, text }));
 }
 
-function stringContainsOnlyNumbers(str){
+function stringContainsOnlyNumbers(str) {
   return /^\d+$/.test(str);
 }
-
-// function addToMailChimpList() {
-//         let addToList;
-
-//       if (onBusinessForm()) {
-//         addToList = mailChimpAPI.addToBusinessList;
-//       } else {
-//         addToList = mailChimpAPI.addToSubscriberList;
-//       }
-
-//       addToList({
-//         email: state.form.email,
-//         // name: state.form.name,
-//         status: "subscribed",
-//       })
-//         .then(() => {
-//           addFireStoreEntry(id)
-//         })
-//         .catch(errorLogger.log);
-// }

@@ -9,3 +9,12 @@ export const GET_BUSINESS_CATEGORIES = gql`
     }
 }
 `;
+
+export const GET_BUSINESSES = gql`
+  query business_categories {
+    businesses {
+        id
+        name
+    }
+}
+`;
