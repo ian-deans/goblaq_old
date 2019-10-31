@@ -6,24 +6,12 @@ import { Signup } from "../components/Auth/SignUp/Signup";
 
 export default () => (
   <div>
-    <Head>
-      <title>Goblaq</title>
-      <link rel="icon" href="/static/favicon.ico" />
-      <link
-        rel="stylesheet"
-        href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-      />
-    </Head>
-
     <div className="backdrop">
       <div className="red-side">
         <div className="logo-container">
-          <Image size="medium" src="/static/goblaq_logo.png" />
+          <Image alt="Goblaq" size="medium" src="/static/goblaq_logo_2.png" />
         </div>
         <div className="company-description">
-          {/* <span className="description-header">
-          Goblaq is an online business directory service and crowd-sourced review forum connecting subscribers with African American businesses and business owners.
-          </span> */}
           <span className="description-header">
             Goblaq is an online business directory service and crowd-sourced
             review forum connecting subscribers with African American businesses
@@ -62,12 +50,15 @@ export default () => (
         width: 100vw;
         background-color: red;
         display: flex;
+        min-width: 370px;
       }
+
       .red-side,
       .white-side {
         width: 50%;
         height: 100vh;
       }
+
       .white-side {
         background-color: #fff;
         overflow-y: scroll;
@@ -84,6 +75,7 @@ export default () => (
 
         padding: 0 2em;
       }
+
       .form-container {
         background-color: #fff;
         grid-area: form;
@@ -140,9 +132,11 @@ export default () => (
         }
 
         .white-side,
-        .red-side {
+        .red-side,
+        .form-container {
           height: auto;
           width: 100%;
+          padding: 1em;
         }
 
         .red-side {
@@ -152,6 +146,11 @@ export default () => (
           align-items: flex-start;
           padding: 2em 1em;
           order: 1;
+          font-size: ;
+        }
+
+        .description-header {
+          font-size: 16px;
         }
 
         .white-side {
@@ -160,13 +159,6 @@ export default () => (
           flex-direction: column;
           justify-content: center;
           align-items: flex-start;
-          padding: 2em 1em;
-
-          // align-items: flex-start;
-          // grid-template-rows: 6fr 1fr;
-          // grid-template-areas:
-          //   "form"
-          //   "bottom";
           padding: 2em 1em;
         }
       }

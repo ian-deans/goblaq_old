@@ -9,5 +9,5 @@ export interface formProps {
   uploadPercent?: number;
   logoUrl?: string;
   businessCategories?: any;
-  recaptchaRef: any;
+  reCAPTCHA: any;
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Form, Input, Select } from "semantic-ui-react";
 import { formProps } from "./propTypes";
 import { LogoUpload } from "./LogoUpload";
-import ReCAPTCHA from "react-google-recaptcha";
 
 export const BusinessForm: React.FunctionComponent<formProps> = ({
   data,
@@ -14,7 +13,7 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
   uploadPercent,
   logoUrl,
   businessCategories,
-  recaptchaRef
+  reCAPTCHA,
 }) => {
   return (
     <Form size={"small"} onSubmit={handleSubmitFn} loading={loading}>
@@ -110,12 +109,8 @@ export const BusinessForm: React.FunctionComponent<formProps> = ({
         />
       </Form.Field>
       <Form.Field>
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
-          name="captcha"
-          onChange={handleChangeFn}
-        />
+        <label>Are you a robot?</label>
+        {reCAPTCHA}
         {/* <div
           className="g-recaptcha"
           data-sitekey="6LfQM7sUAAAAAG-CxCHZ7sfpR284B-rrd89dGS76"
