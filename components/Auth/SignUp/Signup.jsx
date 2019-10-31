@@ -14,8 +14,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import errorLogger from "~/services/ErrorLogger";
 
 const CONFIG = {
-  firestoreCollection: "early_signups_dev",
-  logoStoragePath: "business_logos_dev",
+  firestoreCollection: "early_signups",
+  logoStoragePath: "business_logos",
   authorizedFileTypes: ["image/jpeg", "image/png", "image/gif"],
 };
 
