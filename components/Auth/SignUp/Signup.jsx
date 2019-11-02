@@ -33,6 +33,26 @@ export const Signup = () => {
 
   const onBusinessForm = () => state.currentForm === "business";
 
+  //* Dispatch Functions
+  const clearForm = () => dispatch(actions.clearForm());
+
+  const setCategories = categories =>
+    dispatch(actions.setBusinessCategories(categories));
+
+  const setError = error => {
+    dispatch(actions.setError(error));
+    dispatch(actions.setLoading(false));
+  };
+
+  const setLoading = loading => dispatch(actions.setLoading(loading));
+
+  const updateForm = change => {
+    const copy = { ...state.form, ...change };
+    dispatch(actions.updateField(copy));
+  };
+
+  const completeSignup = () => dispatch(actions.formSubmitted());
+
   //* Effect Functions
   const handleGetCategories = () => {
     if (loading) {
@@ -92,26 +112,6 @@ export const Signup = () => {
       saveEarlySignup();
     }
   }, [state.readyToSubmit]);
-
-  //* Dispatch Functions
-  const clearForm = () => dispatch(actions.clearForm());
-
-  const setCategories = categories =>
-    dispatch(actions.setBusinessCategories(categories));
-
-  const setError = error => {
-    dispatch(actions.setError(error));
-    dispatch(actions.setLoading(false));
-  };
-
-  const setLoading = loading => dispatch(actions.setLoading(loading));
-
-  const updateForm = change => {
-    const copy = { ...state.form, ...change };
-    dispatch(actions.updateField(copy));
-  };
-
-  const completeSignup = () => dispatch(actions.formSubmitted());
 
   //* Form Input Change Handler
   const handleChange = (event, data) => {
@@ -230,8 +230,6 @@ export const Signup = () => {
       .add({ ...state.form, hasuraId: id })
       .then(ref => {
         console.log(`Early Signup recorded with id ${ref.id}`);
-        console.log(ref);
-        // sendWelcomeEmail();
         completeSignup();
       })
       .catch(error => {
@@ -307,7 +305,7 @@ export const Signup = () => {
     subClasses.push("active");
   }
 
-  const siteKey = process.env.RECAPTCHA_SITE_KEY
+  const siteKey = process.env.RECAPTCHA_SITE_KEY;
 
   const reCAPTCHA = (
     <ReCAPTCHA
@@ -331,8 +329,6 @@ export const Signup = () => {
     businessCategories: formatCategoryData(state.businessCategories),
     reCAPTCHA,
   };
-
-
 
   return (
     <div className="signup">

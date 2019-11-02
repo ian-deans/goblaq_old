@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 import { Icon, Image } from "semantic-ui-react";
 import { ErrorBoundary } from "../components/common/ErrorBoundary/ErrorBoundary";
 import { Signup } from "../components/Auth/SignUp/Signup";
@@ -13,9 +12,7 @@ export default () => (
         </div>
         <div className="company-description">
           <span className="description-header">
-            Goblaq is an online business directory service and crowd-sourced
-            review forum connecting subscribers with African American businesses
-            and business owners.
+          Goblaq is a community directory service and crowd-sourced review forum that connects individuals with African American businesses and business owners.
           </span>
           <span className="social-links-container">
             <a href="https://www.facebook.com/goblaqapp/">
@@ -27,7 +24,7 @@ export default () => (
             <a href="https://twitter.com/goblaqapp">
               <Icon inverted={true} name="twitter" size="big" />
             </a>
-            <a href="https://www.linkedin.com/in/goblaq-app-22a301195/">
+            <a href="https://www.linkedin.com/company/goblaq/">
               <Icon inverted={true} name="linkedin" size="big" />
             </a>
           </span>
