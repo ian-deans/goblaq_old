@@ -12,7 +12,9 @@ export default () => (
         </div>
         <div className="company-description">
           <span className="description-header">
-          Goblaq is a community directory service and crowd-sourced review forum that connects individuals with African American businesses and business owners.
+          Goblaq is a community directory service and <br />
+          crowd-sourced review forum that connects individuals
+          with African American businesses and business owners.
           </span>
           <span className="social-links-container">
             <a href="https://www.facebook.com/goblaqapp/">
@@ -148,6 +150,8 @@ export default () => (
 
         .description-header {
           font-size: 16px;
+          text-align: left;
+          margin-left: 1em;
         }
 
         .white-side {
