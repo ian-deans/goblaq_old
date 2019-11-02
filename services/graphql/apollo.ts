@@ -1,15 +1,12 @@
 import fetch from "isomorphic-unfetch";
 import ApolloClient, { gql, InMemoryCache } from "apollo-boost";
-// import { InMemoryCache } from "apollo-cache-inmemory";
+
+console.log("ENV: ",process.env.NODE_ENV)
 
 const cache = new InMemoryCache();
 
-console.log(process.env.NODE_ENV)
-
-
 const client = new ApolloClient( {
   uri: 'https://goblaq.herokuapp.com/v1/graphql',
-  // connectToDevTools: true,
   fetch,
   cache,
   request: operation => {
@@ -21,7 +18,6 @@ const client = new ApolloClient( {
   },
 } );
 
-// window.__APOLLO_CLIENT__ = client;
 
 export default client;
 export { gql };
