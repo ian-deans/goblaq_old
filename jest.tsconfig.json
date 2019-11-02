@@ -1,0 +1,9 @@
+
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "module": "esnext"
+  },
+  "exclude": ["node_modules"]
+}
