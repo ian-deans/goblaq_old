@@ -21,6 +21,13 @@ export default withRouter(
     };
 
     componentDidMount() {
+      const jssStyles = document.querySelector("#jss-server-side");
+      if (jssStyles) {
+        console.log("Removing jssStyles")
+        console.log(jssStyles)
+        // jssStyles.parentElement.removeChild(jssStyles);
+      }
+
       const { router } = this.props;
       firebase.auth.onAuthStateChanged(user => {
         if (user) {
@@ -40,13 +47,13 @@ export default withRouter(
       // firebase.doSignOut();
     }
 
-    static async getInitialProps({ Component, ctx }) {
-      let pageProps = {};
-      if (Component.getInitialProps) {
-        pageProps = await Component.getInitialProps(ctx);
-      }
-      return { pageProps };
-    }
+    // static async getInitialProps({ Component, ctx }) {
+    //   let pageProps = {};
+    //   if (Component.getInitialProps) {
+    //     pageProps = await Component.getInitialProps(ctx);
+    //   }
+    //   return { pageProps };
+    // }
 
     render() {
       const { Component, pageProps } = this.props;

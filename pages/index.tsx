@@ -22,15 +22,14 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      alignSelf: "stretch",
-      minWidth: "80px",
-      minHeight: "2em",
-      width: "100%",
-      padding: "1em",
+      // alignSelf: "stretch",
+      // minWidth: "80px",
+      // minHeight: "2em",
+      // width: "100%",
+      // padding: "1em",
       border: "solid transparent 1px",
       "&:hover": {
         border: "solid #ff0000 1px",
-        // borderColor: theme.palette.primary,
       },
     },
     categoryLinkBox: {
@@ -86,7 +85,7 @@ function CategorySearchLinks(props) {
 
 function CategorySearchLink({ icon, name, ...props }) {
   return (
-    <Box flexGrow="1" m={1}>
+    <Box {...props} flexGrow="1" m={1}>
       {icon}
       <Typography align="center" variant="body1">
         {name}
