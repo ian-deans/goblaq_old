@@ -7,7 +7,7 @@ import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { ErrorBoundary } from "../src/components/common/ErrorBoundary/ErrorBoundary";
-import { Signup } from "../src/components/Auth/SignUp/Signup";
+// import { Signup } from "../src/components/Auth/SignUp/Signup";
 import { Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,50 +41,51 @@ const useStyles = makeStyles((theme: Theme) =>
 export default props => {
   const classes = useStyles(props);
   return (
-    <Grid>
-      <Grid container={true} item={true} xs={12}>
-        <Container className={classes.redSide}>
-          {/* <div className="logo-container"> */}
-            <img width="350" src="/public/goblaq_logo_2.png" />
-          {/* </div> */}
-          <Typography 
-            className={classes.description}
-            variant="body1"
-          >
-            <Box component="p" color="white" textAlign="center" alignSelf="center">
-              Goblaq is an online business directory service and crowd-sourced
-              review forum connecting subscribers with African American
-              businesses and business owners.
-            </Box>
-          </Typography>
-          <Box component="span" className="social-links-container">
-            <a href="https://www.facebook.com/goblaqapp/">
-              <Icon color="primary" className="fa fa-facebook-f" />
-              <Icon className="fa fa-plus-cirlce"/>
-            </a>
-            <a href="https://instagram.com/goblaqapp">
-              <Icon className="fa fa-instagram" />
-            </a>
-            <a href="https://twitter.com/goblaqapp">
-              <Icon className="fa twitter" />
-            </a>
-            <a href="linkedin.com/company/goblaq">
-              <Icon className="fa linkedin" />
-            </a>
-          </Box>
-        </Container>
-      </Grid>
+    <div>Landing</div>
+    // <Grid>
+    //   <Grid container={true} item={true} xs={12}>
+    //     <Container className={classes.redSide}>
+    //       {/* <div className="logo-container"> */}
+    //         <img width="350" src="/public/goblaq_logo_2.png" />
+    //       {/* </div> */}
+    //       <Typography 
+    //         className={classes.description}
+    //         variant="body1"
+    //       >
+    //         <Box component="p" color="white" textAlign="center" alignSelf="center">
+    //           Goblaq is an online business directory service and crowd-sourced
+    //           review forum connecting subscribers with African American
+    //           businesses and business owners.
+    //         </Box>
+    //       </Typography>
+    //       <Box component="span" className="social-links-container">
+    //         <a href="https://www.facebook.com/goblaqapp/">
+    //           <Icon color="primary" className="fa fa-facebook-f" />
+    //           <Icon className="fa fa-plus-cirlce"/>
+    //         </a>
+    //         <a href="https://instagram.com/goblaqapp">
+    //           <Icon className="fa fa-instagram" />
+    //         </a>
+    //         <a href="https://twitter.com/goblaqapp">
+    //           <Icon className="fa twitter" />
+    //         </a>
+    //         <a href="linkedin.com/company/goblaq">
+    //           <Icon className="fa linkedin" />
+    //         </a>
+    //       </Box>
+    //     </Container>
+    //   </Grid>
 
-      <Grid container={true} item={true}>
-        <Container className={classes.whiteSide}>
-          <div className="form-container">
-            <ErrorBoundary>
-              <Signup />
-            </ErrorBoundary>
-          </div>
-        </Container>
-      </Grid>
-    </Grid>
+    //   <Grid container={true} item={true}>
+    //     <Container className={classes.whiteSide}>
+    //       <div className="form-container">
+    //         <ErrorBoundary>
+    //           <Signup />
+    //         </ErrorBoundary>
+    //       </div>
+    //     </Container>
+    //   </Grid>
+    // </Grid>
 
     // <script src="https://www.google.com/recaptcha/api.js" />
     // </Box>
