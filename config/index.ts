@@ -24,3 +24,8 @@ export const navbarLinks: NavbarLinks = {
   Explore: "/explore",
 
 };
+
+const graphqlProductionURL = "https://goblaq.herokuapp.com/v1/graphql";
+const graphqlDevURL = "https://goblaq.herokuapp.com/v1/graphql";
+
+export const graphqlURL = inProduction ? graphqlProductionURL : graphqlDevURL

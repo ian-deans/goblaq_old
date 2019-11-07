@@ -38,10 +38,8 @@ function _pageTitle(urlPathname: string): string {
 
 export const NavBar = props => {
   const router = useRouter();
-
-  console.log(router.pathname);
-
   const classes = useStyles(props);
+
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -62,7 +60,7 @@ export const NavBar = props => {
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>Goblaq</Typography>
+          <Typography variant="h5" className={classes.title}>Goblaq</Typography>
           {auth && (
             <div>
               <IconButton

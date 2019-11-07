@@ -11,8 +11,8 @@ import SportsFootballIcon from "@material-ui/icons/SportsFootballOutlined";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import { PopularPlaces } from "../components/PopularPlaces/PopularPlaces";
-import { HomeHeader } from "../components/Headers/Home/HomeHeader";
+import { PopularPlaces } from "../src/components/PopularPlaces/PopularPlaces";
+import { HomeHeader } from "../src/components/Headers/Home/HomeHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,7 +86,7 @@ function CategorySearchLinks(props) {
 
 function CategorySearchLink({ icon, name, ...props }) {
   return (
-    <Box {...props} flexGrow="1" m={1}>
+    <Box flexGrow="1" m={1}>
       {icon}
       <Typography align="center" variant="body1">
         {name}

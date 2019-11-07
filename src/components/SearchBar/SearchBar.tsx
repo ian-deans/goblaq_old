@@ -9,6 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
+import Box from "@material-ui/core/Box";
 
 //! This will be replaced with data from Hasura
 const regions = [
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
     select: {
       paddingLeft: theme.spacing(1),
       marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      marginRight: theme.spacing(2),
       minWidth: "80px",
       maxWidth: "100px",
       flexGrow: 1,
@@ -114,6 +115,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         inputProps={inputProps}
         // fullWidth={true}
       />
+      <Box>
       <TextField
         select={true}
         placeholder="State"
@@ -142,6 +144,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
       >
         <SearchIcon />
       </Fab>
+      </Box>
     </form>
     // </Container>
   );

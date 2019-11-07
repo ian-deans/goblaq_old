@@ -1,5 +1,5 @@
 import React from "react";
-import {GoogleButton} from "../components/Auth/AuthButtons/GoogleButton";
+import {GoogleButton} from "../src/components/Auth/AuthButtons/GoogleButton";
 
 export default props => {
 

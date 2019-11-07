@@ -6,8 +6,8 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { ErrorBoundary } from "../components/common/ErrorBoundary/ErrorBoundary";
-import { Signup } from "../components/Auth/SignUp/Signup";
+import { ErrorBoundary } from "../src/components/common/ErrorBoundary/ErrorBoundary";
+import { Signup } from "../src/components/Auth/SignUp/Signup";
 import { Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>

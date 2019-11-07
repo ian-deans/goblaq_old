@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "grid",
-      alignItems: "center",
-      justifyItems: "center",
+      alignItems: "stretch",
+      justifyItems: "stretch",
       gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
       gridGap: "1em",
       // minWidth: "250px",

@@ -3,8 +3,8 @@ import Head from "next/head";
 import App from "next/app";
 import { withRouter } from "next/router";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { Layout } from "../components/Layout/Layout";
-import { AppTheme } from "../components/Theme/Theme";
+import { Layout } from "../src/components/Layout/Layout";
+import { AppTheme } from "../src/components/Theme/Theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import client from "../services/graphql/apollo";
 import firebase from "../services/firebase";
@@ -13,8 +13,6 @@ import firebase from "../services/firebase";
 import { UserProvider } from "../contexts/UserContext";
 
 import { inProduction } from "../config";
-
-const UserContext = createContext(null);
 
 export default withRouter(
   class GoblaqApp extends App {
@@ -42,6 +40,14 @@ export default withRouter(
       // firebase.doSignOut();
     }
 
+    static async getInitialProps({ Component, ctx }) {
+      let pageProps = {};
+      if (Component.getInitialProps) {
+        pageProps = await Component.getInitialProps(ctx);
+      }
+      return { pageProps };
+    }
+
     render() {
       const { Component, pageProps } = this.props;
       const { user } = this.state;
@@ -51,27 +57,6 @@ export default withRouter(
         <React.Fragment>
           <Head>
             <title>Goblaq</title>
-            <link rel="icon" href="/static/favicon.ico" />
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-            />
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            />
-            {/* <link
-              rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-            /> */}
-            {/* <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            /> */}
-            {/* <link
-            rel="stylesheet"
-            href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-          /> */}
           </Head>
           <ApolloProvider client={client}>
             <UserProvider value={user}>
