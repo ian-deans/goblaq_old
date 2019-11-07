@@ -14,6 +14,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import { PopularPlaces } from "../src/components/PopularPlaces/PopularPlaces";
 import { HomeHeader } from "../src/components/Headers/Home/HomeHeader";
 
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
@@ -21,12 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      alignContent: "stretch",
       justifyContent: "center",
-      // alignSelf: "stretch",
-      // minWidth: "80px",
-      // minHeight: "2em",
-      // width: "100%",
-      // padding: "1em",
+      justifyItems: "stretch",
+      minHeight: "100px",
+      width: "100%",
+
       border: "solid transparent 1px",
       "&:hover": {
         border: "solid #ff0000 1px",
@@ -45,17 +46,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+
 export default (props: any) => {
   return (
     <Container maxWidth="lg">
       <HomeHeader />
       <CategorySearchLinks {...props} />
       <hr />
-      <PopularPlaces top3={true} />
-      <PopularPlaces />
+      <PopularPlaces key="a1" top3={true} />
+      <PopularPlaces key="s2" />
+      <PopularPlaces key="d3" />
+      <PopularPlaces key="f4" />
     </Container>
   );
 };
+
 
 function CategorySearchLinks(props) {
   const classes = useStyles(props);
@@ -83,9 +88,10 @@ function CategorySearchLinks(props) {
   );
 }
 
+
 function CategorySearchLink({ icon, name, ...props }) {
   return (
-    <Box {...props} flexGrow="1" m={1}>
+    <Box {...props} flexGrow="1">
       {icon}
       <Typography align="center" variant="body1">
         {name}

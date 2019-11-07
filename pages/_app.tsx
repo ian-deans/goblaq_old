@@ -22,10 +22,11 @@ export default withRouter(
 
     componentDidMount() {
       const jssStyles = document.querySelector("#jss-server-side");
+      console.log('server styles ', jssStyles)
       if (jssStyles) {
         console.log("Removing jssStyles")
         console.log(jssStyles)
-        // jssStyles.parentElement.removeChild(jssStyles);
+        jssStyles.parentElement.removeChild(jssStyles);
       }
 
       const { router } = this.props;
