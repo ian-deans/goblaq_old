@@ -7,7 +7,10 @@ export const Layout = props => {
     <React.Fragment>
       <Head>
         <title>Goblaq</title>
-        <meta name="Description" content="An online business directory helping connect African American businesses" />
+        <meta
+          name="Description"
+          content="A community directory service and crowd-sourced review forum that connects individuals with African American businesses and business owners."
+        />
         <link rel="icon" href="/static/favicon_png.png" type="image/png" />
         <link
           rel="stylesheet"
