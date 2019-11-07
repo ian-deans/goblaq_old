@@ -45,7 +45,7 @@ export default props => {
       <Grid container={true} item={true} xs={12}>
         <Container className={classes.redSide}>
           {/* <div className="logo-container"> */}
-            <img width="350" src="/static/goblaq_logo_2.png" />
+            <img width="350" src="/public/goblaq_logo_2.png" />
           {/* </div> */}
           <Typography 
             className={classes.description}
