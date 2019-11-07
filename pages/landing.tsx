@@ -1,59 +1,98 @@
 import React from "react";
-import Head from "next/head";
-import { Icon, Image } from "semantic-ui-react";
+// import Head from "next/head";
+import Container from "@material-ui/core/Container";
+// import { Icon, Image } from "semantic-ui-react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Icon from "@material-ui/core/Icon";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { ErrorBoundary } from "../components/common/ErrorBoundary/ErrorBoundary";
 import { Signup } from "../components/Auth/SignUp/Signup";
+import { Typography, Box } from "@material-ui/core";
 
-export default () => (
-  <div>
-    <Head>
-      <title>Goblaq</title>
-      <link rel="icon" href="/static/favicon.ico" />
-      <link
-        rel="stylesheet"
-        href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-      />
-    </Head>
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      maxWidth: "100%",
+      height: "100vh",
+      display: "flex",
+      flexDirection: "row",
+    },
+    redSide: {
+      backgroundColor: "red",
+      // maxWidth: "50%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    whiteSide: {
+      // maxWidth: "50%",
+    },
+    description: {
+      // maxWidth: "50%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  })
+);
 
-    <div className="backdrop">
-      <div className="red-side">
-        <div className="logo-container">
-          <Image size="medium" src="/static/goblaq_logo.png" />
-        </div>
-        <div className="company-description">
-          {/* <span className="description-header">
-          Goblaq is an online business directory service and crowd-sourced review forum connecting subscribers with African American businesses and business owners.
-          </span> */}
-          <span className="description-header">
-            Goblaq is an online business directory service and crowd-sourced
-            review forum connecting subscribers with African American businesses
-            and business owners.
-          </span>
-          <span className="social-links-container">
+export default props => {
+  const classes = useStyles(props);
+  return (
+    <Grid>
+      <Grid container={true} item={true} xs={12}>
+        <Container className={classes.redSide}>
+          {/* <div className="logo-container"> */}
+            <img width="350" src="/static/goblaq_logo_2.png" />
+          {/* </div> */}
+          <Typography 
+            className={classes.description}
+            variant="body1"
+          >
+            <Box component="p" color="white" textAlign="center" alignSelf="center">
+              Goblaq is an online business directory service and crowd-sourced
+              review forum connecting subscribers with African American
+              businesses and business owners.
+            </Box>
+          </Typography>
+          <Box component="span" className="social-links-container">
             <a href="https://www.facebook.com/goblaqapp/">
-              <Icon inverted={true} name="facebook f" size="big" />
+              <Icon color="primary" className="fa fa-facebook-f" />
+              <Icon className="fa fa-plus-cirlce"/>
             </a>
             <a href="https://instagram.com/goblaqapp">
-              <Icon inverted={true} name="instagram" size="big" />
+              <Icon className="fa fa-instagram" />
             </a>
             <a href="https://twitter.com/goblaqapp">
-              <Icon inverted={true} name="twitter" size="big" />
+              <Icon className="fa twitter" />
             </a>
             <a href="linkedin.com/company/goblaq">
-              <Icon inverted={true} name="linkedin" size="big" />
+              <Icon className="fa linkedin" />
             </a>
-          </span>
-        </div>
-      </div>
-      <div className="white-side">
-        <div className="form-container">
-          <ErrorBoundary>
-            <Signup />
-          </ErrorBoundary>
-        </div>
-      </div>
-    </div>
-    <style jsx={true}>{`
+          </Box>
+        </Container>
+      </Grid>
+
+      <Grid container={true} item={true}>
+        <Container className={classes.whiteSide}>
+          <div className="form-container">
+            <ErrorBoundary>
+              <Signup />
+            </ErrorBoundary>
+          </div>
+        </Container>
+      </Grid>
+    </Grid>
+
+    // <script src="https://www.google.com/recaptcha/api.js" />
+    // </Box>
+  );
+};
+
+/*
+ <style jsx={true}>{`
       @import url("https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap");
       @import url("https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap");
 
@@ -177,6 +216,4 @@ export default () => (
         }
       }
     `}</style>
-    <script src="https://www.google.com/recaptcha/api.js" />
-  </div>
-);
+    */

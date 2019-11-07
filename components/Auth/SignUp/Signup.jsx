@@ -27,7 +27,7 @@ const isAuthorized = fileName => true;
 
 
 export const Signup = () => {
-  const [state, dispatch]:any = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [addEarlySignup, addEarlySignupData] = useMutation(ADD_EARLY_SIGNUP);
   const { loading, error, data } = useQuery(GET_BUSINESS_CATEGORIES);
   const [file, setFile] = useState(null);
@@ -144,7 +144,7 @@ export const Signup = () => {
 
   //* form validation function
   const formIsValid = () => {
-    const { form }:any = state;
+    const { form } = state;
     let error;
 
     if ( form.recaptchaString.length < 1 ) {
