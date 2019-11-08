@@ -12,6 +12,12 @@ export const typeDefs = gql`
     lat: String
   }
 
+  type appState {
+    user: Object
+    place: String
+    isDarkModeEnabled: Boolean
+  }
+
 
   extend type Mutation {
     setOrClearPlace: String
