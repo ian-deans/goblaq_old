@@ -13,9 +13,10 @@ import { UserProvider } from "../contexts/UserContext";
 
 import { inProduction } from "../config";
 
+const protectedPages = ["/profile", "/forum"];
+
 export default withRouter(
   class GoblaqApp extends App {
-
     props: any;
 
     state = {
@@ -23,8 +24,10 @@ export default withRouter(
     };
 
     componentDidMount() {
-      this.clearServerStyles();
+      // this.clearServerStyles();
       firebase.auth.onAuthStateChanged(this.handleUser);
+      const msg = msg => console.log("Router event stuff :: ", msg);
+      this.props.router.events.on("routeChangeComplete", msg);
     }
 
     componentWillUnmount() {
@@ -33,32 +36,27 @@ export default withRouter(
 
     clearServerStyles = () => {
       const jssStyles = document.querySelector("#jss-server-side");
-      console.log('server styles ', jssStyles)
+      console.log("server styles ", jssStyles);
       if (jssStyles) {
-        console.log("Removing jssStyles")
-        console.log(jssStyles)
-        // jssStyles.parentElement.removeChild(jssStyles);
+        console.log("Removing jssStyles");
+        console.log(jssStyles);
+        jssStyles.parentElement.removeChild(jssStyles);
       }
     }
 
     handleUser = user => {
       if (user) {
-        console.log("logged in user: ", user);
+        console.log("user attempting to login: ", user);
+        firebase.auth.currentUser
+          .getIdToken(true)
+          .then(token => sessionStorage.setItem("userToken", token));
         this.setState({ user });
       } else {
         console.log("--> no user found <--");
         this.setState({ user: undefined });
+        this.props.router.push("/");
       }
     }
-
-
-    // static async getInitialProps({ Component, ctx }) {
-    //   let pageProps = {};
-    //   if (Component.getInitialProps) {
-    //     pageProps = await Component.getInitialProps(ctx);
-    //   }
-    //   return { pageProps };
-    // }
 
     render() {
       const { Component, pageProps } = this.props;
@@ -66,7 +64,7 @@ export default withRouter(
       console.log("App Render -> ", user);
 
       return (
-        <React.Fragment>
+        <div>
           <Head>
             <title>Goblaq</title>
           </Head>
@@ -80,7 +78,7 @@ export default withRouter(
               </AppTheme>
             </UserProvider>
           </ApolloProvider>
-        </React.Fragment>
+        </div>
       );
     }
   }

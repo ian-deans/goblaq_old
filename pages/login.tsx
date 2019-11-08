@@ -5,6 +5,7 @@ export default props => {
 
   return (
     <div>
+      <span>logging in disabled</span>
       <GoogleButton />
     </div>
   );

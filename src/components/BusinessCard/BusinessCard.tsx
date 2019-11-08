@@ -12,7 +12,7 @@ interface BusinessCardProps {
   name: string;
   location: string;
   phoneNumber?: string;
-  key?: string;
+  key?: any;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -47,7 +47,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
       <CardHeader
         title={<Typography variant="subtitle2">{name}</Typography>}
       />
-      <CardMedia component="img" src="https://www.fillmurray.com/300/200" />
+      <CardMedia component="img" src="https://picsum.photos/300/200" />
       <CardContent className={classes.content}>
         <div className={classes.caption}>
           <RoomTwoToneIcon fontSize="small" />

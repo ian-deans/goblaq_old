@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          <link rel="icon" href="/public/favicon.ico" />
+          <link rel="icon" href="/images/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -37,7 +37,6 @@ export default class MyDocument extends Document {
     );
   }
 }
-
 
 MyDocument.getInitialProps = async ctx => {
   // Resolution order

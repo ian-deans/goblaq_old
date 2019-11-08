@@ -95,8 +95,12 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!region) {
+      console.error("No state selected")
+      return;
+    }
     console.log("Search Term Submitted: ", term, region);
-    router.push({ pathname: "/", query: { term, region } });
+    router.push({ pathname: "/explore", query: { term, region }}, `/exlpore/${region}/${term}`);
   };
 
   const inputProps = {
@@ -113,6 +117,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         variant="outlined"
         placeholder="What are you looking for?"
         inputProps={inputProps}
+        type="search"
         // fullWidth={true}
       />
       <Box>
@@ -122,6 +127,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         variant="outlined"
         className={classes.select}
         value={region}
+        required={true}
         onChange={handleChangeRegion}
         SelectProps={{
           MenuProps: {
