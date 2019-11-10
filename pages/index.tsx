@@ -6,22 +6,23 @@ import { PopularPlaces } from "../src/components/PopularPlaces/PopularPlaces";
 import { HomeHeader } from "../src/components/Headers/Home/HomeHeader";
 
 import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag";
+import {GET_BUSINESSES} from "../services/graphql/queries";
 
 
 
 export default (props: any) => {
-  const { loading, error, data } = useQuery(GET_USER);
+  const { loading, error, data } = useQuery(GET_BUSINESSES);
 
-  if(process.browser) { 
-    React.useEffect(() => {
-      console.log("loading ", loading)
-      console.log("error ", error)
-      console.log("data ", data)
-    }, [loading, error, data])
+
+  if (loading) {
+    console.log("loading ::", loading);
+    return "Loading..."
   }
 
-
+  if (error) {
+    console.error("error :: ", error)
+    return "ERROR"
+  }
 
   return (
     <Container maxWidth="lg">
@@ -34,12 +35,3 @@ export default (props: any) => {
     </Container>
   );
 };
-
-const GET_USER = gql`
-  {
-    users {
-      id
-      first_name
-    }
-  }
-`;

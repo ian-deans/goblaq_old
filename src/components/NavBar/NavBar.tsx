@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useQuery } from "@apollo/react-hooks";
 import Link from "next/link";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -41,6 +42,8 @@ export const NavBar = props => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  
+
   const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
     firebase.doSignOut();
     handleClose();
@@ -59,12 +62,13 @@ export const NavBar = props => {
       <AppBar position="static" color="secondary" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
           <Link href="/">
-            <img src="/images/navbar_logo_transparent.png" />
+            <img src="/images/navbar_logo_transparent.png" alt="goblaq logo" />
           </Link>
           {/* <div> */}
             <UserConsumer>
-              {user =>
+              {({user}) =>
                 user ? (
+                  // <Query query={GET_USER}>
                   <div>
                     <IconButton
                       aria-label="account of current user"
@@ -95,6 +99,7 @@ export const NavBar = props => {
                       <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                   </div>
+                  // </Query>
                 ) : (
                   <Link href="/login">
                     <Typography variant="subtitle1">

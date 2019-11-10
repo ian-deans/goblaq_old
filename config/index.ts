@@ -5,6 +5,7 @@ type SocialMediaURLs = {
   instagram: string;
   linkedin: string;
 };
+
 export const socialMediaURLs: SocialMediaURLs = {
   facebook: "https://www.facebook.com/goblaqapp/",
   twitter: "https://twitter.com/goblaqapp",
@@ -26,6 +27,7 @@ export const navbarLinks: NavbarLinks = {
 };
 
 const graphqlProductionURL = "https://goblaq.herokuapp.com/v1/graphql";
-const graphqlDevURL = "https://goblaq.herokuapp.com/v1/graphql";
+// const graphqlDevURL = "https://goblaq.herokuapp.com/v1/graphql";
 
-export const graphqlURL = inProduction ? graphqlProductionURL : graphqlDevURL
+// export const graphqlURL = inProduction ? graphqlProductionURL : graphqlDevURL
+export const graphqlURL = graphqlProductionURL 

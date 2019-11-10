@@ -2,7 +2,7 @@ import React from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { SearchBar } from "../../SearchBar/SearchBar";
+import { SearchBar } from "../../Search/SearchBar/SearchBar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

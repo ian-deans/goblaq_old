@@ -1,13 +1,14 @@
 import fetch from "isomorphic-unfetch";
 import { ApolloClient } from "apollo-client";
+import { ApolloLink, Observable } from "apollo-link";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import gql from "graphql-tag";
-// import { withClientState } from "apollo-link-state";
-import { ApolloLink, Observable } from "apollo-link";
-// import { resolvers, typeDefs } from "./resolvers";
+import { graphqlURL } from "../../config"
 
+// import { withClientState } from "apollo-link-state";
+// import { resolvers, typeDefs } from "./resolvers";
 // import firebase from "../firebase";
 
 const typeDefs = gql`
@@ -17,7 +18,7 @@ const typeDefs = gql`
   }
 
   type appState {
-    test: Boolean!
+    test: String!
   }
 
   extend type Mutation {
@@ -91,7 +92,7 @@ const client = new ApolloClient({
     }),
     requestLink,
     new HttpLink({
-      uri: "https://goblaq.herokuapp.com/v1/graphql",
+      uri: graphqlURL,
       fetch,
     }),
   ]),

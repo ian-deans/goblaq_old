@@ -1,3 +1,5 @@
+import React from "react";
+import Link from "next/link";
 import HotelIcon from "@material-ui/icons/HotelOutlined";
 import LocalBarIcon from "@material-ui/icons/LocalBarOutlined";
 import RestaurantIcon from "@material-ui/icons/RestaurantOutlined";
@@ -39,18 +41,39 @@ const useStyles = makeStyles(
   })
 );
 
-export const CategorySearchLinks: React.SFC = (props) => {
+export const CategorySearchLinks: React.SFC = props => {
   const classes = useStyles(props);
   const linkData = [
-    { icon: <SportsFootballIcon color="primary" />, name: "Sports" },
-    { icon: <HotelIcon color="primary" />, name: "Hotels" },
-    { icon: <RestaurantIcon color="primary" />, name: "Food" },
-    { icon: <ShoppingBasketIcon color="primary" />, name: "Shopping" },
+    {
+      icon: <SportsFootballIcon color="primary" />,
+      name: "Sports",
+      href: "/explore?search_cat=sports",
+    },
+    {
+      icon: <HotelIcon color="primary" />,
+      name: "Hotels",
+      href: "/explore?search_cat=hotelsandtravel",
+    },
+    {
+      icon: <RestaurantIcon color="primary" />,
+      name: "Food",
+      href: "/explore?search_cat=food",
+    },
+    {
+      icon: <ShoppingBasketIcon color="primary" />,
+      name: "Shopping",
+      href: "/explore?search_cat=shopping",
+    },
     {
       icon: <ConfirmationNumberIcon color="primary" />,
-      name: "Art & Culture",
+      name: "Art & Entertainment",
+      href: "/explore?search_cat=artsandentertainment",
     },
-    { icon: <LocalBarIcon color="primary" />, name: "Nightlife" },
+    {
+      icon: <LocalBarIcon color="primary" />,
+      name: "Nightlife",
+      href: "/explore?search_cat=nightlife",
+    },
   ];
   return (
     <div className={classes.categoryLinkBox}>
@@ -63,10 +86,11 @@ export const CategorySearchLinks: React.SFC = (props) => {
       ))}
     </div>
   );
-}
+};
 
-function CategorySearchLink({ icon, name, className }) {
+function CategorySearchLink({ href, icon, name, className }) {
   return (
+    <Link href={href}>
     <Box className={className} flexGrow="1">
       {icon}
       <Typography align="center" variant="body1">
@@ -76,5 +100,6 @@ function CategorySearchLink({ icon, name, className }) {
         12 Locations
       </Typography>
     </Box>
+    </Link>
   );
 }
