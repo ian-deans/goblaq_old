@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,25 +11,16 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 
+
+const USStates = [
+  "CA",
+  "NY",
+  "TX",
+  "PA"
+]
 //! This will be replaced with data from Hasura
-const regions = [
-  {
-    value: "CA",
-    label: "CA",
-  },
-  {
-    value: "TX",
-    label: "TX",
-  },
-  {
-    value: "PA",
-    label: "PA",
-  },
-  {
-    value: "NY",
-    label: "NY",
-  },
-];
+const regions = USStates.map(abbr => ({value: abbr, label: abbr}))
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,14 +67,26 @@ const useStyles = makeStyles((theme: Theme) =>
 type SearchBarProps = {};
 
 export const SearchBar: React.FunctionComponent = (props: any) => {
-  const router = useRouter();
-
-  const { term: qTerm, region: qRegion } = router.query; // Pull search options from the url
   const classes = useStyles(props);
+  const router = useRouter();
+  
+  
+  // set up some state for hold the search term and region
+  const [term, setTerm] = useState<string | string[]>("");
+  const [region, setRegion] = useState<string | string[]>("");
+  console.log("states => " , term, region )
+  
+  useEffect(() => {
+    const { term: queryTerm, region: queryRegion } = router.query; // Pull search options from the url
+    if ( queryTerm !== undefined && queryTerm !== "" ) {
+      console.log("TERM")
+    }
+    if ( queryRegion ) {
+    }
+    console.log("Term present >> ", queryRegion);
+    console.log("Term present >> ", queryTerm);
 
-  // if valid options were found in the query string, use them as initial state values
-  const [term, setTerm] = useState(qTerm || "");
-  const [region, setRegion] = React.useState(qRegion || "");
+  }, [])
 
   const handleChangeRegion = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRegion(event.target.value);
@@ -96,11 +99,11 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!region) {
-      console.error("No state selected")
+      console.error("No state selected");
       return;
     }
     console.log("Search Term Submitted: ", term, region);
-    router.push({ pathname: "/explore", query: { term, region }}, `/exlpore/${region}/${term}`);
+    router.push({ pathname: "/explore", query: { term, region }});
   };
 
   const inputProps = {
@@ -110,15 +113,14 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
   };
 
   return (
-    // <Container maxWidth="md">
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField
         className={classes.searchField}
         variant="outlined"
         placeholder="What are you looking for?"
         inputProps={inputProps}
-        type="search"
-        // fullWidth={true}
+        onChange={handleChangeTerm}
+        value={term}
       />
       <Box>
       <TextField
@@ -126,13 +128,21 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         placeholder="State"
         variant="outlined"
         className={classes.select}
-        value={region}
         required={true}
         onChange={handleChangeRegion}
+        value={region}
         SelectProps={{
-          MenuProps: {
-            className: classes.menu,
+          displayEmpty: true,
+          renderValue: (value: string) => {
+            if ( !value || !USStates.includes(value) ) {
+              return "--"
+            }
+            return value
           },
+          MenuProps: {
+            className: classes.menu
+          },
+
         }}
       >
         {regions.map(option => (
@@ -142,7 +152,6 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         ))}
       </TextField>
       <Fab
-        // variant="contained"
         type="submit"
         aria-label="search"
         color="primary"
@@ -152,6 +161,5 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
       </Fab>
       </Box>
     </form>
-    // </Container>
   );
 };

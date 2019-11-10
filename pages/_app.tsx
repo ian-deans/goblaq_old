@@ -1,17 +1,15 @@
 import React from "react";
-import Head from "next/head";
 import App from "next/app";
-import { withRouter } from "next/router";
-import { ApolloProvider } from "@apollo/react-hooks";
-import { Layout } from "../src/components/Layout/Layout";
-import { AppTheme } from "../src/components/Theme/Theme";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import client from "../services/graphql/apollo";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import firebase from "../services/firebase";
-
-import { UserProvider } from "../contexts/UserContext";
-
+import Head from "next/head";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { AppTheme } from "../src/components/Theme/Theme";
+import { Layout } from "../src/components/Layout/Layout";
 import { inProduction } from "../config";
+import { UserProvider } from "../contexts/UserContext";
+import { withRouter } from "next/router";
 
 const protectedPages = ["/profile", "/forum"];
 
@@ -26,8 +24,8 @@ export default withRouter(
     componentDidMount() {
       // this.clearServerStyles();
       firebase.auth.onAuthStateChanged(this.handleUser);
-      const msg = msg => console.log("Router event stuff :: ", msg);
-      this.props.router.events.on("routeChangeComplete", msg);
+      const msgFn = msg => console.log("Router event stuff :: ", msg);
+      this.props.router.events.on("routeChangeStart", msgFn);
     }
 
     componentWillUnmount() {
@@ -42,26 +40,28 @@ export default withRouter(
         console.log(jssStyles);
         jssStyles.parentElement.removeChild(jssStyles);
       }
-    }
+    };
 
     handleUser = user => {
       if (user) {
-        console.log("user attempting to login: ", user);
-        firebase.auth.currentUser
+        console.log("user attempting to login: ", user.toJSON());
+        user
           .getIdToken(true)
           .then(token => sessionStorage.setItem("userToken", token));
         this.setState({ user });
+        // client.writeData({data:{ user: user }});
       } else {
         console.log("--> no user found <--");
+        sessionStorage.removeItem("userToken")
         this.setState({ user: undefined });
         this.props.router.push("/");
       }
-    }
+    };
 
     render() {
       const { Component, pageProps } = this.props;
       const { user } = this.state;
-      console.log("App Render -> ", user);
+      console.log("App Render -> ", user && user.toJSON());
 
       return (
         <div>

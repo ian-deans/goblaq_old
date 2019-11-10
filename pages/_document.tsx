@@ -13,6 +13,8 @@ export default class MyDocument extends Document {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
+          <meta name="description" 
+            content="A community directory service and crowd-sourced review forum that connects individuals with African American businesses and business owners." />
           {/* PWA primary color */}
           {/* <meta name="theme-color" content={AppTheme.palette.primary.main} /> */}
           <link

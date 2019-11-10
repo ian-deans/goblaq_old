@@ -2,13 +2,13 @@ import React from "react";
 import { useRouter } from "next/router";
 import { SearchBar } from "../src/components/SearchBar/SearchBar";
 
+import Container from "@material-ui/core/Container";
+
 export default props => {
-  const router = useRouter();
-  console.log(router.query)
   return (
-    <div>
-      <SearchBar />
+    <Container maxWidth="lg">
       <h2>Explore</h2>
-    </div>
+      <SearchBar />
+    </Container>
   );
 };
