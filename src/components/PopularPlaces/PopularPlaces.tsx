@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
       justifyItems: "center",
-      gridGap: "1em",
+      gridGap: "2em",
     },
   })
 );

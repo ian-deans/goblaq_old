@@ -16,13 +16,16 @@ export default (props: any) => {
 
   if (loading) {
     console.log("loading ::", loading);
-    return "Loading..."
+    return "Loading...";
   }
 
   if (error) {
-    console.error("error :: ", error)
-    return "ERROR"
+    console.error("error :: ", error);
+    //TODO dont leave this like this
+    return "ERROR";
   }
+
+  console.log("business data from hasura --> ", data);
 
   return (
     <Container maxWidth="lg">

@@ -18,6 +18,7 @@ class Firebase {
     this.storage = firebase.storage();
 
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
+    this.facebookProvider = new firebase.auth.FacebookAuthProvider();
   }
 
   doCreateUserWithEmailAndPassword = ({email, password}) =>
@@ -27,6 +28,8 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
 
   doSignInWithGoogle = () => this.auth.signInWithPopup( this.googleProvider );
+
+  doSignInWithFacebook = () => this.auth.signInWithPopup( this.facebookProvider );
 
   doSignOut = () => this.auth.signOut();
 }

@@ -17,8 +17,9 @@ interface BusinessCardProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: { // Card
-      maxHeight: 340,
+    root: {
+      // Card
+      maxHeight: 320,
       maxWidth: 300,
     },
     header: {}, // Card Header
@@ -44,11 +45,12 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   const classes = useStyles({});
   return (
     <Card className={classes.root}>
-      <CardHeader
+      {/* <CardHeader
         title={<Typography variant="subtitle2">{name}</Typography>}
-      />
+      /> */}
       <CardMedia component="img" src="https://picsum.photos/300/200" />
       <CardContent className={classes.content}>
+        <Typography variant="subtitle2">{name}</Typography>
         <div className={classes.caption}>
           <RoomTwoToneIcon fontSize="small" />
           <Typography variant="body2" align="center">

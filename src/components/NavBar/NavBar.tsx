@@ -58,9 +58,9 @@ export const NavBar = props => {
   };
 
   return (
-    <div className={classes.root}>
+    <header className={classes.root}>
       <AppBar position="static" color="secondary" className={classes.appbar}>
-        <Toolbar className={classes.toolbar}>
+        <Toolbar component="nav" className={classes.toolbar}>
           <Link href="/">
             <img src="/images/navbar_logo_transparent.png" alt="goblaq logo" />
           </Link>
@@ -112,6 +112,6 @@ export const NavBar = props => {
           {/* </div> */}
         </Toolbar>
       </AppBar>
-    </div>
+    </header>
   );
 };
