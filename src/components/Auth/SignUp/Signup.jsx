@@ -5,11 +5,12 @@ import uuidv4 from "uuidv4";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_EARLY_SIGNUP } from "~/services/graphql/mutations";
 import { GET_BUSINESS_CATEGORIES } from "~/services/graphql/queries";
-import { Message } from "semantic-ui-react";
+// import { Message } from "semantic-ui-react";
 import { BusinessForm } from "./BusinessForm";
 import { SubscriberForm } from "./SubscriberForm";
 import { reducer, actions, initialState } from "./reducer";
 import errorLogger from "~/services/ErrorLogger";
+
 
 
 const CONFIG = {
@@ -333,22 +334,22 @@ export const Signup = () => {
         </span>
       </div>
       <div className="form-container">
-        <Form {...formProps} />
+        {/* <Form {...formProps} /> */}
         {state.formSubmitted && (
           <div className="success-message">
-            <Message positive compact size="large">
+            {/* <Message positive compact size="large">
               <p>
                 Thank you for signing up for Goblaq! Please check your email for
                 a message from us.
               </p>
-            </Message>
+            </Message> */}
           </div>
         )}
         {state.error.message && (
           <div className="errors">
-            <Message negative compact size="large">
+            {/* <Message negative compact size="large">
               <p>{state.error.message}</p>
-            </Message>
+            </Message> */}
           </div>
         )}
       </div>

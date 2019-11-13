@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "~/services/*": ["./services/*"],
+      "~/config/*": ["./config/*"],
+      "~/components/*": ["./components/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".next", "out"]
+}
