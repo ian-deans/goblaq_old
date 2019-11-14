@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Container from "@material-ui/core/Container";
-import IconButton from "@material-ui/core/IconButton";
+// import Container from "@material-ui/core/Container";
+// import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -11,7 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Box from "@material-ui/core/Box";
 
-import { useSearchParameters } from "../../../../contexts/SearchQueryContext";
+import { useSearchParameters } from "../../../contexts/SearchQueryContext";
 
 const USStates = ["CA", "NY", "TX", "PA"];
 //! This will be replaced with data from Hasura

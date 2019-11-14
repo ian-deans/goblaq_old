@@ -4,12 +4,12 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
+import MaskedInput from "react-text-mask";
 
 const downBreakpoint = "@media (max-width: 425px)";
 const upBreakpoint = "@media (min-width: 425px)";
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
     contentItem: {
       [upBreakpoint]: {
         ["&:first-child"]: {
-          marginRight: "1rem"
+          marginRight: "1em"
         }
       }
     },
@@ -79,26 +79,53 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "stretch",
-        alignContent: "stretch",
-      },
+        alignContent: "stretch"
+      }
     },
     tableCell: {
+      // verticalAlign: "middle",
       [upBreakpoint]: {
         ["&:nth-child(even)"]: {
-          marginRight: "1em",
+          marginRight: "1em"
         }
       },
       [downBreakpoint]: {
         width: "100%",
-        marginBottom: "1em",
+        marginBottom: "1em"
       }
-    },
-
+    }
   })
 );
 
+
+interface TextMaskCustomProps {
+  inputRef: (ref: HTMLInputElement | null) => void;
+}
+
+function TextMaskCustom(props: TextMaskCustomProps) {
+  const { inputRef, ...other } = props;
+  return (
+    <MaskedInput
+      {...other}
+      ref={(ref: any) => {
+        inputRef(ref ? ref.inputElement : null);
+      }}
+      mask={["(", /[1-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-",  /\d/, /\d/, /\d/, /\d/ ]}
+      placeholderChar={'\u2000'}
+      showMask={true}
+    />
+  )
+}
+
+interface State {
+  textmask: string;
+}
+
 export default (props: any) => {
   const classes = useStyles(props);
+  const [values, setValues] = React.useState<State>({
+    textmask: "(   )   -    ",
+  })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(event)
@@ -106,7 +133,7 @@ export default (props: any) => {
     console.log(event.target.value);
   };
   return (
-    <Container maxWidth="lg" className={classes.root}>
+    <div maxWidth="lg" className={classes.root}>
       <Typography style={{ marginBottom: "1em" }} variant="h2">
         Add Listing
       </Typography>
@@ -183,9 +210,8 @@ export default (props: any) => {
               />
             </div>
           </div>
-
           <div className={classes.section}>
-            <div className={classes.tableWrapper}>
+            {/* <div className={classes.tableWrapper}> */}
               <Table
                 size="small"
                 padding="none"
@@ -195,7 +221,7 @@ export default (props: any) => {
               >
                 <TableHead>
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Container className={classes.sectionHeader}>
                         <Typography>Business Hours</Typography>
                       </Container>
@@ -204,14 +230,14 @@ export default (props: any) => {
                 </TableHead>
                 <TableBody>
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Monday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="mondayOpen"
                         type="time"
@@ -222,9 +248,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="mondayClose"
                         type="time"
@@ -238,14 +264,14 @@ export default (props: any) => {
                   </TableRow>
 
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Tuesday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="tuesdayOpen"
                         type="time"
@@ -256,9 +282,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="tuesdayClose"
                         type="time"
@@ -272,14 +298,14 @@ export default (props: any) => {
                   </TableRow>
 
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Wednesday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="wednesdayOpen"
                         type="time"
@@ -290,9 +316,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="wednesdayClose"
                         type="time"
@@ -306,14 +332,14 @@ export default (props: any) => {
                   </TableRow>
 
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Thursday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="thursdayOpen"
                         type="time"
@@ -324,9 +350,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="thursdayClose"
                         type="time"
@@ -340,14 +366,14 @@ export default (props: any) => {
                   </TableRow>
 
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Friday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="fridayOpen"
                         type="time"
@@ -358,9 +384,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="fridayClose"
                         type="time"
@@ -374,14 +400,14 @@ export default (props: any) => {
                   </TableRow>
 
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Saturday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="saturdayOpen"
                         type="time"
@@ -392,9 +418,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="saturdayClose"
                         type="time"
@@ -408,14 +434,14 @@ export default (props: any) => {
                   </TableRow>
 
                   <TableRow className={classes.tableRow}>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <Typography variant="subtitle2" component="span">
                         Sunday
                       </Typography>
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Open"
                         name="sundayOpen"
                         type="time"
@@ -426,9 +452,9 @@ export default (props: any) => {
                         onChange={handleChange}
                       />
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                       <TextField
-                      className={classes.textField}
+                        className={classes.textField}
                         label="Close"
                         name="sundayClose"
                         type="time"
@@ -442,7 +468,7 @@ export default (props: any) => {
                   </TableRow>
                 </TableBody>
               </Table>
-            </div>
+            {/* </div> */}
           </div>
         </Paper>
 
@@ -474,6 +500,7 @@ export default (props: any) => {
                   name="facebookURL"
                   className={classes.textField}
                   variant="outlined"
+                  type="url"
                 />
                 <TextField
                   label="Twitter"
@@ -481,6 +508,7 @@ export default (props: any) => {
                   name="twitterURL"
                   className={classes.textField}
                   variant="outlined"
+                  type="url"
                 />
                 <TextField
                   label="Instagram"
@@ -488,25 +516,13 @@ export default (props: any) => {
                   name="instagramURL"
                   className={classes.textField}
                   variant="outlined"
+                  type="url"
                 />
               </div>
             </div>
           </div>
         </Paper>
       </form>
-    </Container>
+    </div>
   );
 };
-
-{
-  /* <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="component-helper">Name</InputLabel>
-        <Input
-          id="component-helper"
-          value={name}
-          onChange={handleChange}
-          aria-describedby="component-helper-text"
-        />
-        <FormHelperText id="component-helper-text">Some important helper text</FormHelperText>
-      </FormControl> */
-}

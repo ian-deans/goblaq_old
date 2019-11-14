@@ -1,5 +1,5 @@
 import React from "react";
-import {SearchQueryConsumer} from "../../../../contexts/SearchQueryContext";
+import {SearchQueryConsumer} from "../../../contexts/SearchQueryContext";
 
 export const SearchResults = () => {
   return (

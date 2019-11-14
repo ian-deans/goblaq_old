@@ -1,6 +1,6 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { useQuery } from "@apollo/react-hooks";
+// import { useRouter } from "next/router";
+// import { useQuery } from "@apollo/react-hooks";
 import Link from "next/link";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import firebase from "../../../services/firebase";
-import { UserConsumer } from "../../../contexts/UserContext";
+import { UserConsumer } from "../../contexts/UserContext";
 import { Typography } from "@material-ui/core";
 // import navbarLinks from "../../config";
 

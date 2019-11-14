@@ -28,13 +28,13 @@ export default (props: any) => {
   console.log("business data from hasura --> ", data);
 
   return (
-    <Container maxWidth="lg">
+    <div>
       <HomeHeader />
       <CategorySearchLinks {...props} />
       <hr />
       <PopularPlaces key="a1" top3={true} />
       <hr />
       <PopularPlaces key="a2" top3={false} />
-    </Container>
+    </div>
   );
 };

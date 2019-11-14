@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import firebase from "../services/firebase";
+import firebase from "../../services/firebase";
 
 const userContext = createContext({user: undefined});
 
@@ -9,7 +9,7 @@ export const useSession = () => {
   return user;
 };
 
-
+// hook for... well, using auth
 export const useAuth = () => {
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
@@ -25,7 +25,7 @@ export const useAuth = () => {
       user
         .getIdToken(true)
         .then(token => {
-          sessionStorage.setItem("userToken", token);
+          sessionStorage.setItem("userToken", token); // JWT token
           setState({initializing: false, user});
         });
     } else {
