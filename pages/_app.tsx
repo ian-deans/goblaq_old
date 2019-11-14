@@ -13,14 +13,15 @@ import { inProduction } from "../config";
 
 // const protectedPages = ["/profile", "/forum"];
 
-export default withRouter(
+export default 
+// withRouter(
   class GoblaqApp extends App {
     props: any;
 
     componentDidMount() {
       // this.clearServerStyles();
       const msgFn = msg => console.log("Router event stuff :: ", msg);
-      this.props.router.events.on("routeChangeStart", msgFn);
+      // this.props.router.events.on("routeChangeStart", msgFn);
     }
 
     componentWillUnmount() {
@@ -63,4 +64,4 @@ export default withRouter(
       );
     }
   }
-);
+// );

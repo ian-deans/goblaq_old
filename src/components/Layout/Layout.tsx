@@ -10,7 +10,13 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     layout: {
       backgroundColor: "#fff",
-      
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignContent: "stretch",
+      // alignItems: "center",
+
     },
 
     navbarBox: {
@@ -18,11 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
     },
+    pageBox: {
+      minHeight: "70vh",
+      // backgroundColor: "green",
+    },
     footerBox: {
       width: "100%",
       display: "flex",
       backgroundColor: "#4d4d4d",
-      minHeight: "300px",
+      minHeight: "20vh",
       justifyContent: "stretch",
       alignContent: "stretch",
     },
@@ -46,7 +56,10 @@ export const Layout = props => {
 
         </Container>
       </Box>
-      <Container maxWidth={containerWidth}>{props.children}</Container>
+      <Box className={classes.pageBox}>
+        <Container maxWidth={containerWidth}>{props.children}</Container>
+
+      </Box>
       <Box className={classes.footerBox}>
         <Container maxWidth={containerWidth}>
           <Footer />
