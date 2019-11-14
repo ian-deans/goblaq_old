@@ -133,7 +133,7 @@ export default (props: any) => {
     console.log(event.target.value);
   };
   return (
-    <div maxWidth="lg" className={classes.root}>
+    <div className={classes.root}>
       <Typography style={{ marginBottom: "1em" }} variant="h2">
         Add Listing
       </Typography>

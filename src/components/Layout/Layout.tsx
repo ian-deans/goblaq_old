@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     layout: {
       backgroundColor: "#fff",
+      
     },
 
     navbarBox: {
