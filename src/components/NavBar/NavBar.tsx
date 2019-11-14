@@ -64,6 +64,12 @@ export const NavBar = props => {
           <Link href="/">
             <img src="/images/navbar_logo_transparent.png" alt="goblaq logo" />
           </Link>
+                    <Link href="/add-listing">
+                      <Typography variant="subtitle1">
+                      Add Listing
+
+                      </Typography>
+                      </Link>
           {/* <div> */}
             <UserConsumer>
               {({user}) =>
