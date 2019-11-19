@@ -69,47 +69,58 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
       <AppBar position="static" color="secondary" className={classes.appbar}>
         <Toolbar component="nav" className={classes.toolbar}>
           <Link href="/">
-            <img className={classes.link} src="/images/navbar_logo_transparent.png" alt="goblaq logo" />
+            <img
+              className={classes.link}
+              src="/images/navbar_logo_transparent.png"
+              alt="goblaq logo"
+            />
           </Link>
-          <Link href="/add-listing">
-            <Typography className={classes.link} variant="subtitle1">Add Listing</Typography>
-          </Link>
+
           <UserConsumer>
             {({ user }) =>
               user ? (
-                <div>
-                  <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted={true}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                  </Menu>
-                </div>
+                <React.Fragment>
+                  <Link href="/add-listing">
+                    <Typography className={classes.link} variant="subtitle1">
+                      Add Listing
+                    </Typography>
+                  </Link>
+                  <div>
+                    <IconButton
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={handleMenu}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted={true}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={open}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={handleClose}>My account</MenuItem>
+                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Menu>
+                  </div>
+                </React.Fragment>
               ) : (
                 <Link href="/login">
-                  <Typography className={classes.link} variant="subtitle1">SignIn</Typography>
+                  <Typography className={classes.link} variant="subtitle1">
+                    SignIn
+                  </Typography>
                 </Link>
               )
             }

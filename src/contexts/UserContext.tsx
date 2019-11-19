@@ -13,6 +13,15 @@ export const useSession = () => {
 export const useAuth = () => {
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
+
+    // if (user) {
+    //   return user.getIdToken(true)
+    //     .then(token => {
+    //       sessionStorage.setItem("userToken", token);
+    //       return { initializing: !user, user };
+    //     });
+    // }
+
     return {
       initializing: !user,
       user,
@@ -52,6 +61,8 @@ export const UserConsumer = userContext.Consumer;
 
 export const UserContext = ({children}) => {
   const { initializing, user } = useAuth();
+
+  console.log("User Init : ", initializing)
 
   // in the scenario where we want to refrain from rendering
   // children unless the user is loaded we could do something
