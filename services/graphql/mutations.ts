@@ -9,3 +9,13 @@ export const ADD_EARLY_SIGNUP = gql`
     }
   }
 `;
+
+export const INSERT_BUSINESS = gql`
+  mutation MyMutation($objects: [businesses_insert_input!]!) {
+    insert_businesses(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;

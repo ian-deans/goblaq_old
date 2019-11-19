@@ -34,15 +34,22 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    link: {
+      "&:hover": {
+        cursor: "pointer",
+      },
+    },
   })
 );
 
-export const NavBar = props => {
+interface NavBarProps {
+  Theme?: any;
+}
+
+export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   const classes = useStyles(props);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  
 
   const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
     firebase.doSignOut();
@@ -62,60 +69,51 @@ export const NavBar = props => {
       <AppBar position="static" color="secondary" className={classes.appbar}>
         <Toolbar component="nav" className={classes.toolbar}>
           <Link href="/">
-            <img src="/images/navbar_logo_transparent.png" alt="goblaq logo" />
+            <img className={classes.link} src="/images/navbar_logo_transparent.png" alt="goblaq logo" />
           </Link>
-                    <Link href="/add-listing">
-                      <Typography variant="subtitle1">
-                      Add Listing
-
-                      </Typography>
-                      </Link>
-          {/* <div> */}
-            <UserConsumer>
-              {({user}) =>
-                user ? (
-                  // <Query query={GET_USER}>
-                  <div>
-                    <IconButton
-                      aria-label="account of current user"
-                      aria-controls="menu-appbar"
-                      aria-haspopup="true"
-                      onClick={handleMenu}
-                      color="inherit"
-                    >
-                      <AccountCircle />
-                    </IconButton>
-                    <Menu
-                      id="menu-appbar"
-                      anchorEl={anchorEl}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted={true}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={open}
-                      onClose={handleClose}
-                    >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Menu>
-                  </div>
-                  // </Query>
-                ) : (
-                  <Link href="/login">
-                    <Typography variant="subtitle1">
-                      SignIn
-                    </Typography>
-                  </Link>
-                )
-              }
-            </UserConsumer>
-          {/* </div> */}
+          <Link href="/add-listing">
+            <Typography className={classes.link} variant="subtitle1">Add Listing</Typography>
+          </Link>
+          <UserConsumer>
+            {({ user }) =>
+              user ? (
+                <div>
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted={true}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </div>
+              ) : (
+                <Link href="/login">
+                  <Typography className={classes.link} variant="subtitle1">SignIn</Typography>
+                </Link>
+              )
+            }
+          </UserConsumer>
         </Toolbar>
       </AppBar>
     </header>
