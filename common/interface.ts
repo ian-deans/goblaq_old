@@ -6,3 +6,11 @@ export interface ChangeFn {
 export interface SubmitFn {
   (event: React.FormEvent<HTMLFormElement>): void;
 }
+
+export interface MutationPayload {
+  variables: MutationVariables;
+}
+
+export interface MutationVariables {
+  objects: any[];
+}

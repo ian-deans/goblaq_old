@@ -8,17 +8,19 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { ChangeFn } from "../../../common/interface";
 
 interface SelectProps {
-  handleChange: ChangeFn;
+  onChange: ChangeFn;
   value: string;
   className?: string;
   required?: boolean;
+  name?: string;
 }
 
 export const CategorySelect: React.SFC<SelectProps> = ({
-  handleChange,
+  onChange,
   value,
   className,
-  required
+  required,
+  name
 }) => {
   const { loading, error, data } = useQuery(GET_BUSINESS_CATEGORIES);
 
@@ -40,15 +42,15 @@ export const CategorySelect: React.SFC<SelectProps> = ({
     <TextField
       required={required}
       select={true}
-      onChange={handleChange}
+      onChange={onChange}
       className={className}
-      name="categoryID"
+      name={name || "categoryID"}
       value={value}
       label="Category"
       variant="outlined"
     >
       {business_categories.map(category => (
-        <MenuItem key={category.text} value={category.name}>
+        <MenuItem key={category.text} value={category.id}>
           {category.text}
         </MenuItem>
       ))}

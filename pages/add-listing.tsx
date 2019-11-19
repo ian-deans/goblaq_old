@@ -6,7 +6,7 @@ import { AddListingForm } from "../src/components/Forms/AddListingForm";
 const AddListing: React.SFC = () => {
   return (
     <div>
-      <Typography style={{ marginBottom: "1em" }} variant="h2">
+      <Typography style={{ marginBottom: "1em" }} variant="h4">
         Add Listing
       </Typography>
       <AddListingForm />
