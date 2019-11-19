@@ -9,8 +9,8 @@ export default props => {
 
   return (
     <div>
-      <GoogleButton disabled={!inProduction} />
-      <FacebookButton disabled={!inProduction} />
+      <GoogleButton disabled={true} />
+      <FacebookButton disabled={true} />
     </div>
   );
 };
