@@ -11,7 +11,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 interface BusinessCardProps {
   name: string;
   location: string;
-  phoneNumber?: string;
+  averageRating?: number;
+  category?: string;
+  contact?: string;
   key?: any;
 }
 
@@ -39,8 +41,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const BusinessCard: React.SFC<BusinessCardProps> = ({
   name = "No Name",
-  location = "No Info",
-  phoneNumber = "+1-505-555-5555",
+  location = "Information Unavailable",
+  contact = "Information Unavailable",
 }) => {
   const classes = useStyles({});
   return (
@@ -61,7 +63,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
         <div className={classes.caption}>
           <PhoneTwoToneIcon fontSize="small" />
           <Typography variant="body2" align="center">
-            {phoneNumber}
+            {contact}
           </Typography>
         </div>
       </CardContent>

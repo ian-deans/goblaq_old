@@ -5,25 +5,21 @@ import Typography from "@material-ui/core/Typography";
 import { BusinessCard } from "../BusinessCard/BusinessCard";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
-const businessesData = [
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-  {name: "El Bizo", location: "124 Main St, Pleasntville, CA", phoneNumber: "555 515 1928"},
-];
+import { useQuery } from "@apollo/react-hooks";
+import { GET_BUSINESSES } from "~/services/graphql/queries";
+
 
 interface BusinessData {
   name: string;
   location: string;
-  phoneNumber: string;
-};
+  contact: string;
+  category: string;
+  averageRating: number | null;
+}
 
 interface PopularPlacesProps {
   top3?: boolean;
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,15 +43,39 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
   const classes = useStyles(props);
-  const businessCards = businessesData.map((biz: BusinessData, i: number) => <BusinessCard key={i} {...biz} />)
+
+  const { loading, error, data } = useQuery(GET_BUSINESSES);
+
+  if (loading) {
+    console.log("loading ::", loading);
+    return <span>"Loading..."</span>;
+  }
+
+  if (error) {
+    console.error("error :: ", error);
+    //TODO dont leave this like this
+    return <span>"ERROR"</span>;
+  }
+
+  const businesses = data.businesses.map((biz, i):BusinessData => {
+    const businessData: BusinessData = {
+      name: biz.name,
+      category: biz.category ? biz.category.name : "",
+      averageRating: biz.average_rating,
+      location: `${biz.location.address_1}, ${biz.location.city}, ${biz.location.state}`,
+      contact: biz.contacts[0] ? biz.contacts[0].contact_value : undefined
+    };
+    return businessData;
+  });
+
+  const businessCards = businesses.map((biz, i) => <BusinessCard key={i} {...biz} />)
+
   return (
     <div className={classes.root}>
       <Box className={classes.header}>
         <Typography variant="h5">Popular Places in Your Area</Typography>
       </Box>
-      <div className={classes.content}>
-        {businessCards}
-      </div>
+      <div className={classes.content}>{businessCards}</div>
     </div>
   );
 };

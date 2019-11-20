@@ -28,6 +28,9 @@
       "~/components/*": [
         "./src/components/*"
       ],
+      "~/contexts/*": [
+        "./src/contexts/*"
+      ],
       "~/common/*": [
         "./common/*"
       ]
