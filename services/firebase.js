@@ -41,5 +41,4 @@ class Firebase {
 const app = new Firebase();
 
 export const analytics = app.analytics;
-
 export default app;

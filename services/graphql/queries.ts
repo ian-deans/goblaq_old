@@ -12,8 +12,8 @@ export const GET_BUSINESS_CATEGORIES = gql`
 
 export const GET_BUSINESSES = gql`
   {
-    # businesses(where: { approved: { _eq: true } }) {
-    businesses {
+    # businesses(where: { verified: { _eq: true } }) {
+    businesses(limit: 10) {
       id
       name
       average_rating
@@ -53,7 +53,7 @@ export const GET_BUSINESSES_BY_CATEGORY = gql`
   query getBusinessesByCategory($categoryFilter: String!) {
     businesses(
       where: {
-        approved: { _eq: true }
+        # approved: { _eq: true }
         category: { name: { _eq: $categoryFilter } }
       }
     ) {
