@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import firebase from "../services/firebase";
+import firebase from "../../services/firebase";
 
 const userContext = createContext({user: undefined});
 
@@ -9,10 +9,11 @@ export const useSession = () => {
   return user;
 };
 
-
+// hook for... well, using auth
 export const useAuth = () => {
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
+
     return {
       initializing: !user,
       user,
@@ -25,7 +26,7 @@ export const useAuth = () => {
       user
         .getIdToken(true)
         .then(token => {
-          sessionStorage.setItem("userToken", token);
+          sessionStorage.setItem("userToken", token); // JWT token
           setState({initializing: false, user});
         });
     } else {
@@ -52,6 +53,8 @@ export const UserConsumer = userContext.Consumer;
 
 export const UserContext = ({children}) => {
   const { initializing, user } = useAuth();
+
+  console.log("User Init : ", initializing)
 
   // in the scenario where we want to refrain from rendering
   // children unless the user is loaded we could do something

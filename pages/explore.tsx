@@ -2,18 +2,19 @@ import React from "react";
 import { useRouter } from "next/router";
 import { SearchBar } from "../src/components/Search/SearchBar/SearchBar";
 import {SearchResults } from "../src/components/Search/SearchResults/SearchResults";
-import { SearchQueryContext } from "../contexts/SearchQueryContext";
+import { SearchQueryContext, useSearchQuery } from "../src/contexts/SearchQueryContext";
 
-import Container from "@material-ui/core/Container";
 
 export default props => {
+  const {search_cat, search_desc, search_loc} = useRouter().query;
+  console.log("explore -- ", search_cat, search_desc, search_loc)
   return (
-    <Container maxWidth="lg">
+    <div>
       <SearchQueryContext>
         <h2>Explore</h2>
         <SearchBar />
         <SearchResults />
       </SearchQueryContext>
-    </Container>
+    </div>
   );
 };

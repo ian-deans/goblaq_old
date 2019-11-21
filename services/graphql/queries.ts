@@ -12,18 +12,27 @@ export const GET_BUSINESS_CATEGORIES = gql`
 
 export const GET_BUSINESSES = gql`
   {
+    # businesses(where: { approved: { _eq: true } }) {
     businesses {
       id
+      name
       average_rating
-      description
-      location {
-        address_1
-        city
+      verified
+      category {
         id
+        name
+      }
+      location {
+        id
+        address_1
+        address_2
+        city
         state
         zip
       }
-      name
+      contacts(where: { contact_type: { _eq: office } }) {
+        contact_value
+      }
     }
   }
 `;
@@ -40,13 +49,32 @@ export const GET_USER = gql`
   }
 `;
 
-export const SEARCH_BY_CATEGORY = gql`
-  query searchByCategory($categoryFilter: String!) {
-    businesses(where: { category: { name: { _eq: $categoryFilter } } }) {
-      description
+export const GET_BUSINESSES_BY_CATEGORY = gql`
+  query getBusinessesByCategory($categoryFilter: String!) {
+    businesses(
+      where: {
+        approved: { _eq: true }
+        category: { name: { _eq: $categoryFilter } }
+      }
+    ) {
+      category {
+        id
+        name
+      }
       id
-      average_rating
       name
+      location {
+        id
+        address_1
+        address_2
+        city
+        state
+        zip
+      }
+      contacts(where: { contact_type: { _eq: office } }) {
+        contact_value
+      }
+      average_rating
     }
   }
 `;

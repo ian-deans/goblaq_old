@@ -17,5 +17,5 @@ export const FacebookButton = ({disabled}) => {
 function signIn() {
   firebase
     .doSignInWithFacebook()
-    .then(console.log)
+    .then(() => firebase.analytics.logEvent("login", firebase.auth.currentUser));
 }

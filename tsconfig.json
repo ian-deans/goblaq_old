@@ -26,22 +26,31 @@
         "./config/*"
       ],
       "~/components/*": [
-        "./components/*"
+        "./src/components/*"
+      ],
+      "~/contexts/*": [
+        "./src/contexts/*"
+      ],
+      "~/common/*": [
+        "./common/*"
       ]
     }
   },
-  "baseUrl": ".",
-  "paths": {
-    "~/services/*": [
-      "./services/*"
-    ],
-    "~/config/*": [
-      "./config/*"
-    ],
-    "~/components/*": [
-      "./components/*"
-    ]
-  },
+  // "baseUrl": ".",
+  // "paths": {
+  //   "~/services/*": [
+  //     "./services/*"
+  //   ],
+  //   "~/config/*": [
+  //     "./config/*"
+  //   ],
+  //   "~/components/*": [
+  //     "./src/components/*"
+  //   ],
+  //   "~/common/*": [
+  //     "./common/*"
+  //   ]
+  // },
   "exclude": [
     "node_modules"
   ],
