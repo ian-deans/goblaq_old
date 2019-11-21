@@ -12,13 +12,16 @@ export const GET_BUSINESS_CATEGORIES = gql`
 
 export const GET_BUSINESSES = gql`
   {
-    businesses(where: { approved: { _eq: true } }) {
+    # businesses(where: { approved: { _eq: true } }) {
+    businesses {
+      id
+      name
+      average_rating
+      verified
       category {
         id
         name
       }
-      id
-      name
       location {
         id
         address_1
@@ -30,7 +33,6 @@ export const GET_BUSINESSES = gql`
       contacts(where: { contact_type: { _eq: office } }) {
         contact_value
       }
-      average_rating
     }
   }
 `;

@@ -96,6 +96,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         variant="outlined"
         placeholder={search_desc || "What are you looking for?"}
         inputProps={inputProps}
+        onChange={handleChange}
       />
       <Box>
         <TextField

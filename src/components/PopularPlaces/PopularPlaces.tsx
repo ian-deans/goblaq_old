@@ -68,7 +68,7 @@ export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
     return businessData;
   });
 
-  const businessCards = businesses.map((biz, i) => <BusinessCard key={i} {...biz} />)
+  const businessCards = businesses.map((biz: BusinessData, i: number) => <BusinessCard key={i} {...biz} />);
 
   return (
     <div className={classes.root}>

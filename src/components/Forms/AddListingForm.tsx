@@ -7,12 +7,14 @@ import { CategorySelect } from "../CategorySelect/CategorySelect";
 import { ChangeFn, SubmitFn, MutationPayload } from "~/common/interface";
 import { useMutation } from "@apollo/react-hooks";
 import { INSERT_BUSINESS } from "~/services/graphql/mutations";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginBottom: "2em",
     },
+    container: {},
     paper: {
       display: "flex",
       flexDirection: "column",
@@ -103,6 +105,7 @@ export const AddListingForm = props => {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
+        <Container maxWidth="sm"className={classes.container}>
       <Paper className={classes.paper}>
         <TextField
           onChange={handleChange}
@@ -166,8 +169,10 @@ export const AddListingForm = props => {
           label="Web Address"
           name="webURL"
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" variant="contained" color="primary">Submit</Button>
+
       </Paper>
+        </Container>
     </form>
   );
 };

@@ -14,14 +14,6 @@ export const useAuth = () => {
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
 
-    // if (user) {
-    //   return user.getIdToken(true)
-    //     .then(token => {
-    //       sessionStorage.setItem("userToken", token);
-    //       return { initializing: !user, user };
-    //     });
-    // }
-
     return {
       initializing: !user,
       user,
