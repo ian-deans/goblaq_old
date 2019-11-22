@@ -83,6 +83,8 @@ export const SearchResults = (props) => {
 
   const options = { locationType: "city" };
   const default_loc = "Houston"; //TODO: set this to the location determined by geolocation or ip lookup
+
+
   const SEARCH_COUNT_QUERY = buildSearchQueryCount(options);
   const SEARCH_QUERY = buildSearchQuery(options);
   const variables = {
@@ -121,6 +123,10 @@ export const SearchResults = (props) => {
     const offset = (state.currentPage - 1) * 9;
     dispatch({ type: "set_offset", payload: offset });
   }, [state.currentPage]);
+
+  React.useEffect(() => {
+    dispatch({type: "set_current_page", payload: 1});
+  }, [search_desc]);
 
 
   return (

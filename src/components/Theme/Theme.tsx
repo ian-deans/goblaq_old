@@ -1,6 +1,8 @@
 import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
+const downBreakpoint = "@media (max-width: 425px)";
+
 const theme = createMuiTheme({
   /*
   palette: {
@@ -32,8 +34,13 @@ const theme = createMuiTheme({
     },
   },
   */
+  breakpoints: {
+    // keys: ["xs", "mobile", "mobileL", "tablet", "desktop", "desktopL"],
+    values: {xs: 0, sm: 425, md: 600, lg: 760, xl: 1000},
+  },
   palette: {
     common: { black: "#000", white: "#fff" },
+    type: "light",
     background: { paper: "#fff", default: "#fafafa" },
     primary: {
       light: "#7986cb",
@@ -61,19 +68,43 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    htmlFontSize: 14,
+    // htmlFontSize: 22,
+    htmlFontSize: 18,
+    fontSize: 11,
     fontFamily: "Roboto",
-    caption: {
-      fontSize: ".5rem",
-      letterSpacing: ".02em",
-      fontStyle: "italic",
-    },
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+    subtitle1: {},
+    subtitle2: {},
+    body1: {},
     body2: {
-      fontSize: ".75rem",
+      // fontSize: ".75rem",
       color: "secondary", //? Not sure if this is doing anything
       fontWeight: 700,
     },
+    button: {},
+    caption: {
+      // fontSize: ".5rem",
+      letterSpacing: ".02em",
+      fontStyle: "italic",
+    },
+    overline: {},
   },
+  shape: {
+    borderRadius: 4,
+  },
+  zIndex: {
+    appBar: 1100,
+    drawer: 1200,
+    mobileStepper: 1000,
+    modal: 1300,
+    snackbar: 1400,
+    speedDial: 1050,
+    tooltip: 1500,
+  },
+  
 });
 
 export const AppTheme = props => (

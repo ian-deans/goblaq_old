@@ -23,16 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // Card
-      minHeight: 300,
-      maxHeight: 300,
-      minWidth: 300,
-      maxWidth: 300,
+      width: "100%",
       position: "relative",
     },
     header: {}, // Card Header
     media: {},
     content: {
-      // position: "relative",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
@@ -50,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "absolute",
       bottom: ".5em",
       right: "1em",
-      // zIndex: "1000",
     },
   })
 );
@@ -64,9 +59,9 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   const classes = useStyles({});
   return (
     <Card className={classes.root}>
-      <CardMedia component="img" src="https://place-hold.it/300x200/000/fff" />
+      <CardMedia component="img" src="https://fakeimg.pl/300x200/" />
       <CardContent className={classes.content}>
-        <Typography variant="subtitle2">{name}</Typography>
+        <Typography variant="subtitle1">{name}</Typography>
         <div>
           <div className={classes.caption}>
             <RoomTwoToneIcon fontSize="small" />

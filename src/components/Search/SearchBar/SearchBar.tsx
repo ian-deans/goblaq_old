@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-// import Container from "@material-ui/core/Container";
-// import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
-// import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
-
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Box from "@material-ui/core/Box";
-
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useSearchParameters } from "../../../contexts/SearchQueryContext";
-
-const USStates = ["CA", "NY", "TX", "PA"];
-//! This will be replaced with data from Hasura
-const regions = USStates.map(abbr => ({ value: abbr, label: abbr }));
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-
 export const SearchBar: React.FunctionComponent = (props: any) => {
   // Collect data through hooks
   const classes = useStyles(props);
@@ -67,7 +55,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
   // give a shit about the search category
   const { search_desc, search_loc } = useSearchParameters();
 
-  // update search 
+  // update search
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
@@ -89,7 +77,6 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
     onChange: handleChange,
   };
 
-
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField
@@ -99,32 +86,10 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         inputProps={inputProps}
         onChange={handleChange}
       />
-      {/* <Box> */}
-        {/* <TextField
-          select={true}
-          placeholder={search_loc || "Area"}
-          variant="outlined"
-          className={classes.select}
-          required={true}
-          onChange={handleChange}
-          value={state.search_loc}
-          name="search_loc"
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-        >
-          {regions.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField> */}
-        <Fab type="submit" aria-label="search" color="primary" size="large">
-          <SearchIcon />
-        </Fab>
-      {/* </Box> */}
+
+      <Fab type="submit" aria-label="search" color="primary" size="large">
+        <SearchIcon />
+      </Fab>
     </form>
   );
 };

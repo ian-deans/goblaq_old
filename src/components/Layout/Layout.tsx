@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
     layout: {
       backgroundColor: "#fff",
       minHeight: "100vh",
+      minWidth: "320px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
