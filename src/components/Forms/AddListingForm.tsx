@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       display: "flex",
       flexDirection: "column",
-      padding: "1em",
+      padding: "2em",
     },
     textField: {
       marginBottom: "1em",

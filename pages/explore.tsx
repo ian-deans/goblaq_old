@@ -6,15 +6,13 @@ import { SearchQueryContext, useSearchQuery } from "../src/contexts/SearchQueryC
 
 
 export default props => {
-  const {search_cat, search_desc, search_loc} = useRouter().query;
-  console.log("explore -- ", search_cat, search_desc, search_loc)
   return (
-    <div>
+    <React.Fragment>
       <SearchQueryContext>
         <h2>Explore</h2>
         <SearchBar />
         <SearchResults />
       </SearchQueryContext>
-    </div>
+    </React.Fragment>
   );
 };

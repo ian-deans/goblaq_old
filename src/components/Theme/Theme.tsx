@@ -71,6 +71,7 @@ const theme = createMuiTheme({
     body2: {
       fontSize: ".75rem",
       color: "secondary", //? Not sure if this is doing anything
+      fontWeight: 700,
     },
   },
 });

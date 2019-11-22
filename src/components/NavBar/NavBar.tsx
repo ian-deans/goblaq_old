@@ -80,7 +80,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
             {({ user }) =>
               user ? (
                 <React.Fragment>
-                  <Link href="/add-listing">
+                  <Link href="/listings/add">
                     <Typography className={classes.link} variant="subtitle1">
                       Add Listing
                     </Typography>

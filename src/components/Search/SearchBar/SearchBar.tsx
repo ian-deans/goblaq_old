@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     searchField: {
       flexGrow: 2,
+      marginRight: "1em",
     },
     input: {
       paddingLeft: theme.spacing(1),
@@ -74,10 +75,10 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //? to force location selection, or not to force location selection...
-    if (!state.search_loc) {
-      console.error("No state selected");
-      return;
-    }
+    // if (!state.search_loc) {
+    //   console.error("No state selected");
+    //   return;
+    // }
     router.push({ pathname: "/explore", query: { ...state } });
   };
 
@@ -98,8 +99,8 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         inputProps={inputProps}
         onChange={handleChange}
       />
-      <Box>
-        <TextField
+      {/* <Box> */}
+        {/* <TextField
           select={true}
           placeholder={search_loc || "Area"}
           variant="outlined"
@@ -119,11 +120,11 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
               {option.label}
             </MenuItem>
           ))}
-        </TextField>
+        </TextField> */}
         <Fab type="submit" aria-label="search" color="primary" size="large">
           <SearchIcon />
         </Fab>
-      </Box>
+      {/* </Box> */}
     </form>
   );
 };

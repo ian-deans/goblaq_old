@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 interface BusinessCardProps {
+  id: number;
   name: string;
   location: string;
   averageRating?: number;
@@ -22,16 +23,20 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // Card
-      maxHeight: 320,
+      minHeight: 300,
+      maxHeight: 300,
+      minWidth: 300,
       maxWidth: 300,
+      position: "relative",
     },
     header: {}, // Card Header
     media: {},
     content: {
-      position: "relative",
+      // position: "relative",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center",
+      justifyContent: "space-between",
+      padding: "0em 0em 0em 1em",
     },
     caption: {
       display: "flex",
@@ -54,15 +59,12 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   name = "No Name",
   location = "Information Unavailable",
   contact = "Information Unavailable",
-  averageRating = ""
+  averageRating = "",
 }) => {
   const classes = useStyles({});
   return (
     <Card className={classes.root}>
-      {/* <CardHeader
-        title={<Typography variant="subtitle2">{name}</Typography>}
-      /> */}
-      <CardMedia component="img" src="https://picsum.photos/300/200" />
+      <CardMedia component="img" src="https://place-hold.it/300x200/000/fff" />
       <CardContent className={classes.content}>
         <Typography variant="subtitle2">{name}</Typography>
         <div>
@@ -71,6 +73,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
             <Typography
               variant="body2"
               align="left"
+              color="textSecondary"
               className={classes.captionContent}
             >
               {location}
@@ -80,6 +83,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
           <div className={classes.caption}>
             <PhoneTwoToneIcon fontSize="small" />
             <Typography
+              color="textSecondary"
               variant="body2"
               align="left"
               className={classes.captionContent}

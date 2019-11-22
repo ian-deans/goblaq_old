@@ -26,7 +26,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     pageBox: {
       minHeight: "70vh",
+      display: "flex",
+      justifyItems: "stretch",
+      justifyContent: "stretch",
+
       // backgroundColor: "green",
+    },
+    pageContainer: {
+      display: "flex",
+      flexDirection: "column",
+
     },
     footerBox: {
       width: "100%",
@@ -57,7 +66,7 @@ export const Layout = props => {
         </Container>
       </Box>
       <Box className={classes.pageBox}>
-        <Container maxWidth={containerWidth}>{props.children}</Container>
+        <Container maxWidth={containerWidth} className={classes.pageContainer}>{props.children}</Container>
 
       </Box>
       <Box className={classes.footerBox}>

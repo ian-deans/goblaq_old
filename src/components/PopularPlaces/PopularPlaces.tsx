@@ -10,6 +10,7 @@ import { GET_BUSINESSES } from "~/services/graphql/queries";
 
 
 interface BusinessData {
+  id: number;
   name: string;
   location: string;
   contact: string;
@@ -59,6 +60,7 @@ export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
 
   const businesses = data.businesses.map((biz, i):BusinessData => {
     const businessData: BusinessData = {
+      id: biz.id,
       name: biz.name,
       category: biz.category ? biz.category.name : "",
       averageRating: biz.average_rating,
