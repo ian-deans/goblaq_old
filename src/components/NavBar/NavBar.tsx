@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: {
       display: "flex",
       justifyContent: "space-between",
+      padding: "0 .5em",
     },
     menuButton: {
       marginRight: theme.spacing(2),

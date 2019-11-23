@@ -8,6 +8,14 @@ import { Footer } from "../Footer/Footer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    // "@glboal": {
+    //   html: {
+    //     [theme.breakpoints.up("md")]: {
+    //       fontSize: 18,
+    //       htmlFontSize: 12,
+    //     },
+    //   },
+    // },
     layout: {
       backgroundColor: "#fff",
       minHeight: "100vh",
@@ -16,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       justifyContent: "space-between",
       alignContent: "stretch",
-      // alignItems: "center",
 
     },
 
@@ -31,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyItems: "stretch",
       justifyContent: "stretch",
 
-      // backgroundColor: "green",
     },
     pageContainer: {
       display: "flex",
@@ -45,6 +51,15 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "20vh",
       justifyContent: "stretch",
       alignContent: "stretch",
+    },
+    overrides: {
+      MuiTypography: {
+        subtitle1: {
+          [theme.breakpoints.up("md")]: {
+            fontSize: "5rem",
+          }
+        }
+      }
     },
   })
 );

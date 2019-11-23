@@ -24,9 +24,22 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       // Card
       width: "100%",
+      maxWidth: "190px",
+      minWidth: "140px",
       position: "relative",
+      [theme.breakpoints.up("md")]: {
+        maxWidth: "230px",
+        minWidth: "190px",
+      },
     },
     header: {}, // Card Header
+    title: {
+      lineHeight: "1.25em",
+      minHeight: "25%",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "12px",
+      },
+    },
     media: {},
     content: {
       display: "flex",
@@ -41,11 +54,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     captionContent: {
       marginLeft: "1em",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "10px",
+      }
     },
     avgRating: {
       position: "absolute",
       bottom: ".5em",
       right: "1em",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "10px",
+      },
     },
   })
 );
@@ -61,7 +80,11 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
     <Card className={classes.root}>
       <CardMedia component="img" src="https://fakeimg.pl/300x200/" />
       <CardContent className={classes.content}>
-        <Typography variant="subtitle1">{name}</Typography>
+        <div>
+          <Typography className={classes.title} variant="subtitle1">
+            {name}
+          </Typography>
+        </div>
         <div>
           <div className={classes.caption}>
             <RoomTwoToneIcon fontSize="small" />

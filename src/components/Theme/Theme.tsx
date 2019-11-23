@@ -35,7 +35,10 @@ const theme = createMuiTheme({
   },
   */
   breakpoints: {
-    // keys: ["xs", "mobile", "mobileL", "tablet", "desktop", "desktopL"],
+    //? Customizing breakpoint keys isn't yet supported
+    //? But it is a feature that is under discussion
+    //? https://stackoverflow.com/questions/49739635/adding-breakpoint-to-custom-theme-in-material-ui-next-reactjs
+    // keys: ["xs", "mobile", "mobileL", "tablet", "desktop", "desktopL"], 
     values: {xs: 0, sm: 425, md: 600, lg: 760, xl: 1000},
   },
   palette: {
@@ -68,9 +71,8 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    // htmlFontSize: 22,
-    htmlFontSize: 18,
-    fontSize: 11,
+    htmlFontSize: 16,
+    fontSize: 13,
     fontFamily: "Roboto",
     fontWeightLight: 300,
     fontWeightRegular: 400,

@@ -15,21 +15,21 @@ interface BusinessData {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    "@global": {
-      html: {
-        [theme.breakpoints.up("md")]: {
-          fontSize: 16,
-        },
-      },
-    },
+    // "@global": {
+    //   html: {
+    //     [theme.breakpoints.up("md")]: {
+    //       fontSize: 16,
+    //     },
+    //   },
+    // },
     root: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(48%, 1fr))",
+      gridTemplateColumns: "repeat(auto-fit, minmax(140px,1fr))",
       justifyItems: "center",
       gridGap: "1em .5em",
       margin: "2em 0em",
       [theme.breakpoints.up("md")]: {
-        gridTemplateColumns: "repeat(auto-fit, minMax(32%, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minMax(190px, 1fr))",
         gridGap: "1em",
       },
     },
