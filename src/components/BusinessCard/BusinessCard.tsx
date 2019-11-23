@@ -17,6 +17,7 @@ interface BusinessCardProps {
   category?: string;
   contact?: string;
   key?: any;
+  theme?: Theme;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -112,8 +113,9 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   location = "Information Unavailable",
   contact = "Information Unavailable",
   averageRating = "",
+  theme
 }) => {
-  const classes = useStyles({});
+  const classes = useStyles(theme)
   return (
     <Card className={classes.root}>
       <CardMedia component="img" src="https://fakeimg.pl/300x200/" />

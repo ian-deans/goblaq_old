@@ -1,6 +1,10 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { BusinessCard, BusinessCardSkeleton, BusinessCardGrid } from "~/components/BusinessCard";
+import {
+  BusinessCard,
+  BusinessCardSkeleton,
+  BusinessCardGrid,
+} from "~/components/BusinessCard";
 
 interface BusinessData {
   id: number;
@@ -22,7 +26,9 @@ export const Results: React.SFC<any> = ({
     variables: { ...variables, limit, offset },
   });
   if (loading) {
-    const skeletons = Array.from(new Array(limit)).map((item, i) => <BusinessCardSkeleton key={i} />);
+    const skeletons = Array.from(new Array(limit)).map((item, i) => (
+      <BusinessCardSkeleton key={i} />
+    ));
     return <BusinessCardGrid>{skeletons}</BusinessCardGrid>;
   }
 
@@ -48,5 +54,5 @@ export const Results: React.SFC<any> = ({
     <BusinessCard key={i} {...biz} />
   ));
 
-  return <BusinessCardGrid>{businessCards}</BusinessCardGrid>; 
+  return <BusinessCardGrid>{businessCards}</BusinessCardGrid>;
 };
