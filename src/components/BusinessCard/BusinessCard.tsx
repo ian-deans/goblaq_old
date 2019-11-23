@@ -1,13 +1,12 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import RoomTwoToneIcon from "@material-ui/icons/RoomTwoTone";
 import PhoneTwoToneIcon from "@material-ui/icons/PhoneTwoTone";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 
 interface BusinessCardProps {
@@ -20,36 +19,34 @@ interface BusinessCardProps {
   key?: any;
 }
 
-const flexColumn = {
-  display: "flex",
-  flexDirection: "column",
-}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // Card
-      // width: "100%",
       maxWidth: "180px",
       minWidth: "150px",
       height: "220px",
       position: "relative",
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("lg")]: {
         maxWidth: "250px",
         minWidth: "220px",
         height: "280px",
+      },
+      [theme.breakpoints.up("xl")]: {
+        maxWidth: "300px",
+        minwidth: "250px",
+        height: "330px",
       },
     },
     header: {}, // Card Header
     title: {
       lineHeight: "1.25em",
       minHeight: "25%",
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down("md")]: {
         fontSize: "12px",
       },
     },
     titleContainer: {
-      // ...flexColumn,
       minHeight: "40px",
       display: "flex",
       flexDirection: "column",
@@ -68,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     captionContent: {
       marginLeft: "1em",
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down("md")]: {
         fontSize: "10px",
       }
     },
@@ -76,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "absolute",
       bottom: ".5em",
       right: "1em",
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down("md")]: {
         fontSize: "10px",
       },
     },
@@ -90,10 +87,15 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "relative",
       margin: 0,
       padding: 0,
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("lg")]: {
         maxWidth: "250px",
         minWidth: "220px",
         height: "280px",
+      },
+      [theme.breakpoints.up("xl")]: {
+        maxWidth: "300px",
+        minwidth: "260px",
+        height: "330px",
       },
     },
     skeletonContent: {

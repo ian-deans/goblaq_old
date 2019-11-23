@@ -41,17 +41,18 @@ const request = async operation => {
     const token = await sessionStorage.getItem("userToken");
     console.log("Checking for user token...");
     if ( token !== null ) {
-      console.log( "User token found. Setting graphql authorization headers...")
+      console.log( "User token found. Setting graphql authorization headers...");
       operation.setContext({
         headers: {
           authorization: `Bearer ${token}`
         },
       });
-      console.log("...done.")
+      console.log("...done.");
+      console.groupEnd();
     } else {
-      console.log("No user logged in.")
+      console.log("No user logged in.");
+      console.groupEnd();
     }
-    console.groupEnd();
 };
 
 const requestLink = new ApolloLink(

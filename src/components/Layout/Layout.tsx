@@ -75,7 +75,7 @@ export const Layout = props => {
     return <Box className={classes.layout}>{props.children}</Box>;
   }
 
-  const containerWidth = "lg";
+  const containerWidth = "xl";
 
   return (
     <Box className={classes.layout}>

@@ -38,7 +38,7 @@ class Firebase {
   doSignOut = () => this.auth.signOut();
 }
 
-const app = new Firebase();
-
+export const app = new Firebase();
 export const analytics = app.analytics;
-export default app;
+
+// export default app;

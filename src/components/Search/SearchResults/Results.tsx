@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { BusinessCard, BusinessCardSkeleton } from "~/components/BusinessCard/BusinessCard";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { BusinessCard, BusinessCardSkeleton, BusinessCardGrid } from "~/components/BusinessCard";
 
 interface BusinessData {
   id: number;
@@ -12,27 +11,6 @@ interface BusinessData {
   averageRating: number | null;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(150px,1fr))",
-      gridTemplateRows: "repeat(auto-fill, max-content)",
-      justifyItems: "center",
-      gridGap: "1em .25em",
-      margin: "2em 0em",
-      [theme.breakpoints.up("md")]: {
-        gridTemplateColumns: "repeat(auto-fit, minMax(220px, 1fr))",
-        gridGap: "1em",
-      },
-    },
-    skeleton: {
-      minWidth: "150px",
-      maxWidth: ""
-    },
-  })
-);
-
 export const Results: React.SFC<any> = ({
   theme,
   variables,
@@ -40,15 +18,12 @@ export const Results: React.SFC<any> = ({
   offset,
   query,
 }) => {
-  const classes = useStyles(theme);
   const { loading, error, data } = useQuery(query, {
     variables: { ...variables, limit, offset },
   });
-
-  
   if (loading) {
     const skeletons = Array.from(new Array(limit)).map((item, i) => <BusinessCardSkeleton key={i} />);
-    return <div className={classes.root}>{skeletons}</div>;
+    return <BusinessCardGrid>{skeletons}</BusinessCardGrid>;
   }
 
   if (error) {
@@ -73,5 +48,5 @@ export const Results: React.SFC<any> = ({
     <BusinessCard key={i} {...biz} />
   ));
 
-  return <div className={classes.root}>{businessCards}</div>;
+  return <BusinessCardGrid>{businessCards}</BusinessCardGrid>; 
 };
