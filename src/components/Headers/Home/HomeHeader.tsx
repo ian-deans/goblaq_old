@@ -7,7 +7,7 @@ import { SearchBar } from "../../Search/SearchBar/SearchBar";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: "5rem 2em",
+      margin: "1rem 0rem",
     },
   })
 );

@@ -5,15 +5,17 @@ import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useSearchParameters } from "../../../contexts/SearchQueryContext";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: "2px 4px",
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "stretch",
       justifyItems: "stretch",
-      alignItems: "center",
+      alignContent: "stretch",
+      alignItems: "stretch",
       width: "100%",
       marginTop: "2rem",
       flexWrap: "wrap",
@@ -87,9 +89,9 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         onChange={handleChange}
       />
 
-      <Fab type="submit" aria-label="search" color="primary" size="large">
+      <Button type="submit" variant="contained" aria-label="search" color="primary" size="large">
         <SearchIcon />
-      </Fab>
+      </Button>
     </form>
   );
 };

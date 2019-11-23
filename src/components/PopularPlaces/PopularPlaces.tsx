@@ -35,9 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
       justifyItems: "center",
-      gridGap: "2em",
+      gridGap: "1em .25em",
+      [theme.breakpoints.up("md")]: {
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+        gridGap: "1em",
+      }
     },
   })
 );
@@ -49,7 +53,7 @@ export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
 
   if (loading) {
     console.log("loading ::", loading);
-    return <span>"Loading..."</span>;
+    return <span>"Loading..."</span>; //TODO or this, this is not good
   }
 
   if (error) {

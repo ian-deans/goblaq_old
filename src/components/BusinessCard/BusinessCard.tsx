@@ -6,8 +6,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import RoomTwoToneIcon from "@material-ui/icons/RoomTwoTone";
 import PhoneTwoToneIcon from "@material-ui/icons/PhoneTwoTone";
-import Container from "@material-ui/core/Container";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
+
 
 interface BusinessCardProps {
   id: number;
@@ -19,17 +20,24 @@ interface BusinessCardProps {
   key?: any;
 }
 
+const flexColumn = {
+  display: "flex",
+  flexDirection: "column",
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // Card
-      width: "100%",
-      maxWidth: "190px",
-      minWidth: "140px",
+      // width: "100%",
+      maxWidth: "180px",
+      minWidth: "150px",
+      height: "220px",
       position: "relative",
       [theme.breakpoints.up("md")]: {
-        maxWidth: "230px",
-        minWidth: "190px",
+        maxWidth: "250px",
+        minWidth: "220px",
+        height: "280px",
       },
     },
     header: {}, // Card Header
@@ -40,10 +48,16 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: "12px",
       },
     },
-    media: {},
-    content: {
+    titleContainer: {
+      // ...flexColumn,
+      minHeight: "40px",
       display: "flex",
       flexDirection: "column",
+      justifyContent: "center",
+
+    },
+    media: {},
+    content: {
       justifyContent: "space-between",
       padding: "0em 0em 0em 1em",
     },
@@ -66,6 +80,28 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: "10px",
       },
     },
+    skeleton: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      maxWidth: "180px",
+      minWidth: "150px",
+      height: "220px",
+      position: "relative",
+      margin: 0,
+      padding: 0,
+      [theme.breakpoints.up("md")]: {
+        maxWidth: "250px",
+        minWidth: "220px",
+        height: "280px",
+      },
+    },
+    skeletonContent: {
+      height: "40%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-around",
+    }
   })
 );
 
@@ -80,7 +116,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
     <Card className={classes.root}>
       <CardMedia component="img" src="https://fakeimg.pl/300x200/" />
       <CardContent className={classes.content}>
-        <div>
+        <div className={classes.titleContainer}>
           <Typography className={classes.title} variant="subtitle1">
             {name}
           </Typography>
@@ -117,3 +153,19 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
     </Card>
   );
 };
+
+
+export const BusinessCardSkeleton = props => {
+  const classes = useStyles(props);
+  return (
+    <div className={classes.skeleton} >
+      <Skeleton height="60%" />
+      <div className={classes.skeletonContent}>
+        <Skeleton height="20%" />
+        <Skeleton height="20%" />
+
+      </div>
+
+    </div>
+  )
+}

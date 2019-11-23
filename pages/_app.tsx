@@ -26,8 +26,12 @@ export default
 
     componentWillUnmount() {
       // firebase.doSignOut();
+      this.resolveLocation();
     }
 
+    resolveLocation = () => {
+      
+    }
     // clearServerStyles = () => {
     //   const jssStyles = document.querySelector("#jss-server-side");
     //   if (jssStyles) {

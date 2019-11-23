@@ -1,8 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { BusinessCard } from "~/components/BusinessCard/BusinessCard";
+import { BusinessCard, BusinessCardSkeleton } from "~/components/BusinessCard/BusinessCard";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-// import { Skeleton } from "@material-ui/lab/Skeleton";
 
 interface BusinessData {
   id: number;
@@ -15,23 +14,21 @@ interface BusinessData {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // "@global": {
-    //   html: {
-    //     [theme.breakpoints.up("md")]: {
-    //       fontSize: 16,
-    //     },
-    //   },
-    // },
     root: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(140px,1fr))",
+      gridTemplateColumns: "repeat(auto-fit, minmax(150px,1fr))",
+      gridTemplateRows: "repeat(auto-fill, max-content)",
       justifyItems: "center",
-      gridGap: "1em .5em",
+      gridGap: "1em .25em",
       margin: "2em 0em",
       [theme.breakpoints.up("md")]: {
-        gridTemplateColumns: "repeat(auto-fit, minMax(190px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minMax(220px, 1fr))",
         gridGap: "1em",
       },
+    },
+    skeleton: {
+      minWidth: "150px",
+      maxWidth: ""
     },
   })
 );
@@ -48,28 +45,18 @@ export const Results: React.SFC<any> = ({
     variables: { ...variables, limit, offset },
   });
 
-  console.log("OFFSET ", offset);
-
-  // const skeletons = Array.from(new Array(8)).map((item, i) => (
-  //   <div>
-  //     <Skeleton variant="rect" width="300" height="200" />
-  //     <Skeleton />
-  //     <Skeleton />
-  //   </div>
-  // ))
-
+  
   if (loading) {
-    return <span>Loading...</span>;
+    const skeletons = Array.from(new Array(limit)).map((item, i) => <BusinessCardSkeleton key={i} />);
+    return <div className={classes.root}>{skeletons}</div>;
   }
 
   if (error) {
     return <span>An Error Occured</span>;
   }
 
-  console.log(data);
-
   const businesses = data.businesses.map(
-    (biz, i): BusinessData => {
+    (biz: any, i: number): BusinessData => {
       const businessData: BusinessData = {
         id: biz.id,
         name: biz.name,

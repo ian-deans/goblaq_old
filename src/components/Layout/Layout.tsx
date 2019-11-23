@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
     pageContainer: {
       display: "flex",
       flexDirection: "column",
+      [theme.breakpoints.down("sm")]: {
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
 
     },
     footerBox: {
@@ -83,7 +87,6 @@ export const Layout = props => {
       </Box>
       <Box className={classes.pageBox}>
         <Container maxWidth={containerWidth} className={classes.pageContainer}>{props.children}</Container>
-
       </Box>
       <Box className={classes.footerBox}>
         <Container maxWidth={containerWidth}>
