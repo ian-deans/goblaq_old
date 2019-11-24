@@ -8,11 +8,10 @@ import { SearchQueryContext, useSearchQuery } from "../src/contexts/SearchQueryC
 export default props => {
   return (
     <React.Fragment>
-      {/* <SearchQueryContext> */}
-        {/* <h2>Explore</h2> */}
+      <SearchQueryContext>
         <SearchBar />
         <SearchResults />
-      {/* </SearchQueryContext> */}
+      </SearchQueryContext>
     </React.Fragment>
   );
 };

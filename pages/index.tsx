@@ -1,6 +1,5 @@
 /* Home */
-import React, { useState } from "react";
-import Container from "@material-ui/core/Container";
+import React from "react";
 import { CategorySearchLinks } from "../src/components/CategorySearchLinks/CategorySearchLinks";
 import { PopularPlaces } from "../src/components/PopularPlaces/PopularPlaces";
 import { HomeHeader } from "../src/components/Headers/Home/HomeHeader";

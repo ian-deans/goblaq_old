@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -7,7 +8,6 @@ import RoomTwoToneIcon from "@material-ui/icons/RoomTwoTone";
 import PhoneTwoToneIcon from "@material-ui/icons/PhoneTwoTone";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-
 
 interface BusinessCardProps {
   id: number;
@@ -52,9 +52,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-
     },
-    media: {},
+    media: {
+      ["&:hover"]: {
+        cursor: "pointer",
+      },
+    },
     content: {
       justifyContent: "space-between",
       padding: "0em 0em 0em 1em",
@@ -68,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "1em",
       [theme.breakpoints.down("md")]: {
         fontSize: "10px",
-      }
+      },
     },
     avgRating: {
       position: "absolute",
@@ -104,28 +107,32 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-around",
-    }
+    },
   })
 );
 
 export const BusinessCard: React.SFC<BusinessCardProps> = ({
+  id,
   name = "No Name",
   location = "Information Unavailable",
   contact = "Information Unavailable",
   averageRating = "",
-  theme
+  theme,
 }) => {
-  const classes = useStyles(theme)
+  const classes = useStyles(theme);
   return (
-    <Card className={classes.root}>
-      <CardMedia component="img" src="https://fakeimg.pl/300x200/" />
+    <Card component="article" className={classes.root}>
+      <Link href={`/listings/view?businessID=${id}`}>
+        <CardMedia alt="Gallery Image" className={classes.media} component="img" src="https://fakeimg.pl/300x200/" />
+      </Link>
+
       <CardContent className={classes.content}>
-        <div className={classes.titleContainer}>
+        <header className={classes.titleContainer}>
           <Typography className={classes.title} variant="subtitle1">
             {name}
           </Typography>
-        </div>
-        <div>
+        </header>
+        <section>
           <div className={classes.caption}>
             <RoomTwoToneIcon fontSize="small" />
             <Typography
@@ -149,7 +156,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
               {contact}
             </Typography>
           </div>
-        </div>
+        </section>
         <Typography variant="body2" className={classes.avgRating}>
           Rating: {averageRating}/10
         </Typography>
@@ -158,18 +165,15 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   );
 };
 
-
 export const BusinessCardSkeleton = props => {
   const classes = useStyles(props);
   return (
-    <div className={classes.skeleton} >
+    <div className={classes.skeleton}>
       <Skeleton height="60%" />
       <div className={classes.skeletonContent}>
         <Skeleton height="20%" />
         <Skeleton height="20%" />
-
       </div>
-
     </div>
-  )
-}
+  );
+};

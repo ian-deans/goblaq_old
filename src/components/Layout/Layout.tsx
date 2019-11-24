@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       justifyContent: "space-between",
       alignContent: "stretch",
-
+      [theme.breakpoints.down("md")]: {
+        fontSize: "11px",
+      },
     },
 
     navbarBox: {
@@ -37,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyItems: "stretch",
       justifyContent: "stretch",
-
     },
     pageContainer: {
       display: "flex",
@@ -46,7 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingLeft: 0,
         paddingRight: 0,
       },
-
     },
     footerBox: {
       width: "100%",
@@ -61,9 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
         subtitle1: {
           [theme.breakpoints.up("md")]: {
             fontSize: "5rem",
-          }
-        }
-      }
+          },
+        },
+      },
     },
   })
 );
@@ -79,20 +79,21 @@ export const Layout = props => {
 
   return (
     <Box className={classes.layout}>
-      <Box className={classes.navbarBox}>
+      <header className={classes.navbarBox}>
         <Container maxWidth={containerWidth}>
-        <NavBar />
-
+          <NavBar />
         </Container>
-      </Box>
-      <Box className={classes.pageBox}>
-        <Container maxWidth={containerWidth} className={classes.pageContainer}>{props.children}</Container>
-      </Box>
-      <Box className={classes.footerBox}>
+      </header>
+      <main className={classes.pageBox}>
+        <Container maxWidth={containerWidth} className={classes.pageContainer}>
+          {props.children}
+        </Container>
+      </main>
+      <footer className={classes.footerBox}>
         <Container maxWidth={containerWidth}>
           <Footer />
         </Container>
-      </Box>
+      </footer>
     </Box>
   );
 };

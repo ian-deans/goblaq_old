@@ -49,6 +49,40 @@ export const GET_USER = gql`
   }
 `;
 
+export const GET_BUSINESS_BY_ID = gql`
+query getBusinessByID($businessID: Int!) {
+  businesses(where: {id: {_eq: $businessID}}) {
+    average_rating
+    category {
+      text
+    }
+    claimed
+    contacts {
+      contact_value
+      contact_type
+    }
+    description
+    hours {
+      day
+      closes
+      opens
+    }
+    id
+    name
+    owner_id
+    location {
+      address_1
+      address_2
+      city
+      state
+      zip
+    }
+    tags
+    verified
+  }
+}
+`;
+
 export const GET_BUSINESSES_BY_CATEGORY = gql`
   query getBusinessesByCategory($categoryFilter: String!) {
     businesses(where: { category: { name: { _eq: $categoryFilter } } }) {

@@ -18,10 +18,10 @@ import { Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
-      minHeight: "80px",
     },
     appbar: {
+      flexGrow: 1,
+      minHeight: "80px",
       boxShadow: "none",
     },
     toolbar: {
@@ -66,7 +66,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   };
 
   return (
-    <header className={classes.root}>
+    // <header className={classes.root}>
       <AppBar position="static" color="secondary" className={classes.appbar}>
         <Toolbar component="nav" className={classes.toolbar}>
           <Link href="/">
@@ -74,7 +74,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
               className={classes.link}
               src="/images/navbar_logo_transparent.png"
               alt="goblaq logo"
-            />
+              />
           </Link>
 
           <UserConsumer>
@@ -128,6 +128,6 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
           </UserConsumer>
         </Toolbar>
       </AppBar>
-    </header>
+    // </header>
   );
 };

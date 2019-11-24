@@ -4,20 +4,16 @@ import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-const downBreakpoint = "@media (max-width: 425px)";
+// const downBreakpoint = "@media (max-width: 425px)";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // width: "100%",
       display: "flex",
       justifyContent: "space-between",
-
-      // alignContent: "stretch",
-
       minHeight: "65%",
       color: theme.palette.common.white,
-      [downBreakpoint]: {
+      [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
         minHeight: "100%",
       }
@@ -25,8 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     flex: {
       display: "flex",
     },
-    section: {
-      // backgroundColor: "blue",
+    article: {
       paddingTop: "2em",
       display: "flex",
       flexDirection: "column",
@@ -59,32 +54,48 @@ export const Footer: React.SFC = props => {
   const classes = useStyles(props);
   return (
     <div className={classes.root}>
-      <div className={classes.section}>
-        <div className={classes.content}>
+      <article className={classes.article}>
+        <section className={classes.content}>
           <img width="100" src="/images/goblaq_logo_2.png" alt="Goblaq Logo" />
           <Typography variant="body2">Goblaq... and beyond </Typography>
           <Typography variant="body2">
             Discover unique experiences within the black community.{" "}
           </Typography>
-        </div>
+        </section>
         <div className={classes.subfooter}>
           <Typography variant="body2">Made in Texas. </Typography>
         </div>
-      </div>
-      <div className={classes.section}>
-        <div className={classes.content}>
-          <div className={classes.linkbox}>
+      </article>
+      <article className={classes.article}>
+        <section style={{display: "flex", width: "100%", justifyContent: "space-around"}}>
+
+        <section className={classes.content}>
+          <nav className={classes.linkbox}>
             <div className={classes.linkcolumn}>
-              <div className={classes.link}></div>
+              <div className={classes.link}>LINK</div>
+              <div className={classes.link}>LINK</div>
+              <div className={classes.link}>LINK</div>
+              <div className={classes.link}>LINK</div>
             </div>
-          </div>
-        </div>
+          </nav>
+          </section>
+        <section className={classes.content}>
+          <nav className={classes.linkbox}>
+            <div className={classes.linkcolumn}>
+              <div className={classes.link}>LINK</div>
+              <div className={classes.link}>LINK</div>
+              <div className={classes.link}>LINK</div>
+              <div className={classes.link}>LINK</div>
+            </div>
+          </nav>
+        </section>
+        </section>
         <div className={classes.subfooter}>
           <Typography variant="body2">
             Terms of Service | Privacy Policy | 2019 Goblaq
           </Typography>
         </div>
-      </div>
+      </article>
     </div>
   );
 };
