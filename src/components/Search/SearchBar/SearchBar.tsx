@@ -12,21 +12,35 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: "2px 4px",
       display: "flex",
-      justifyContent: "stretch",
-      justifyItems: "stretch",
-      alignContent: "stretch",
-      alignItems: "stretch",
+      justifyContent: "center",
+      // justifyItems: "stretch",
+      // alignContent: "stretch",
+      alignItems: "center",
       width: "100%",
       marginTop: "2rem",
       flexWrap: "wrap",
       backgroundColor: theme.palette.common.white,
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        // alignItems: "stretch",
+      }
     },
     searchField: {
       flexGrow: 2,
       marginRight: "1em",
+      width: "40%",
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        marginBottom: "1em",
+      }
     },
     input: {
-      paddingLeft: theme.spacing(1),
+      padding: "1em",
+      lineHeight: "2em",
+      width: "40%",
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+      }
     },
 
     iconButton: {
@@ -84,7 +98,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField
         className={classes.searchField}
-        variant="outlined"
+        variant="filled"
         placeholder={search_desc || "What are you looking for?"}
         inputProps={{
           className: classes.input,
@@ -95,7 +109,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
       />
       <TextField
         className={classes.searchField}
-        variant="outlined"
+        variant="filled"
         placeholder={search_loc || "Where are you looking?"}
         inputProps={{
           className: classes.input,
