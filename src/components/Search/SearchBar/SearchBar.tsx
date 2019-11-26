@@ -13,16 +13,14 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "2px 4px",
       display: "flex",
       justifyContent: "center",
-      // justifyItems: "stretch",
-      // alignContent: "stretch",
-      alignItems: "center",
+      alignItems: "stretch",
       width: "100%",
       marginTop: "2rem",
       flexWrap: "wrap",
       backgroundColor: theme.palette.common.white,
       [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
-        // alignItems: "stretch",
+        alignItems: "center",
       }
     },
     searchField: {
@@ -35,12 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     input: {
-      padding: "1em",
+      paddingLeft: "1em",
       lineHeight: "2em",
-      width: "40%",
-      [theme.breakpoints.down("sm")]: {
-        width: "90%",
-      }
+      // width: "40%",
+      // [theme.breakpoints.down("sm")]: {
+      //   width: "90%",
+      // }
     },
 
     iconButton: {

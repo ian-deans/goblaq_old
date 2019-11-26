@@ -74,7 +74,7 @@ export const ListingHeader = ({
           <Typography variant="body2">
             <span style={{ marginRight: "1em" }}>{locString}</span>
           </Typography>
-        <Typography variant="body2">{contacts[0].contact_value}</Typography>
+        <Typography variant="body2">{ contacts[0] ? contacts[0].contact_value : null}</Typography>
         </div>
         <Typography variant="h5">{average_rating}</Typography>
         <div>

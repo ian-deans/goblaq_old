@@ -296,7 +296,8 @@ export const SEARCH_BUSINESSES = gql`
         state
         zip
       }
-      contacts(where: { contact_type: { _eq: office } }) {
+      contacts {
+        contact_type
         contact_value
       }
     }
