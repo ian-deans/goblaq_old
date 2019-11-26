@@ -53,6 +53,7 @@ export const ListingHeader = ({
           style={{
             display: "flex",
             justifyContent: "space-between",
+            flexDirection: "column",
           }}
         >
           <Typography align="right" variant="body2">
