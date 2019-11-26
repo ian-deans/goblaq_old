@@ -10,20 +10,58 @@ export const GET_BUSINESS_CATEGORIES = gql`
   }
 `;
 
+export const GET_BUSINESS = gql`
+  query selectBasicDetails($id: Int!) {
+    businesses(where: { id: { _eq: $id } }) {
+      name
+      average_rating
+      claimed
+      created_at
+      description
+      tags
+      verified
+      contacts(where: { contact_type: { _eq: office } }) {
+        contact_value
+      }
+      location {
+        address_1
+        address_2
+        city
+        state
+        zip
+      }
+    }
+  }
+`;
+
+export const GET_RECENT_BUSINESSES_BY_CITY = gql`
+query selectRecentlyAddedByCity($city: String!, $limit: Int!) {
+  businesses(where: {location: {city: {_like: $city}}}, limit: $limit, order_by: {created_at: asc} ) {
+    average_rating
+    id
+    name
+    tags
+    contacts(where: {contact_type: {_eq: office}}) {
+      contact_value
+    }
+    location {
+      address_1
+      address_2
+      city
+      state
+      zip
+    }
+  }
+}
+`;
+
 export const GET_BUSINESSES = gql`
-  {
-    # businesses(where: { verified: { _eq: true } }) {
-    businesses(limit: 10) {
+  query {
+    businesses {
       id
       name
       average_rating
-      verified
-      category {
-        id
-        name
-      }
       location {
-        id
         address_1
         address_2
         city
@@ -38,7 +76,7 @@ export const GET_BUSINESSES = gql`
 `;
 
 export const GET_USER = gql`
-  {
+  query {
     users {
       id
       first_name
@@ -50,37 +88,50 @@ export const GET_USER = gql`
 `;
 
 export const GET_BUSINESS_BY_ID = gql`
-query getBusinessByID($businessID: Int!) {
-  businesses(where: {id: {_eq: $businessID}}) {
-    average_rating
-    category {
-      text
+  query getBusinessByID($businessID: Int!) {
+    businesses(where: { id: { _eq: $businessID } }) {
+      id
+      name
+      owner_id
+      average_rating
+      description
+      tags
+      claimed
+      verified
+      location {
+        address_1
+        address_2
+        city
+        state
+        zip
+      }
+      category {
+        text
+      }
+      contacts {
+        contact_value
+        contact_type
+      }
+      hours {
+        day
+        closes
+        opens
+      }
+      # reviews(order_by: {created_at: desc}) {
+      #   description
+      #   id
+      #   rating
+      #   title
+      #   updated_at
+      #   user_id
+      # }
+      # reviews_aggregate {
+      #   aggregate {
+      #     count
+      #   }
+      # }
     }
-    claimed
-    contacts {
-      contact_value
-      contact_type
-    }
-    description
-    hours {
-      day
-      closes
-      opens
-    }
-    id
-    name
-    owner_id
-    location {
-      address_1
-      address_2
-      city
-      state
-      zip
-    }
-    tags
-    verified
   }
-}
 `;
 
 export const GET_BUSINESSES_BY_CATEGORY = gql`

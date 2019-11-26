@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: "1.25em",
       minHeight: "25%",
       [theme.breakpoints.down("md")]: {
-        fontSize: "12px",
+        // fontSize: "12px",
       },
     },
     titleContainer: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
     captionContent: {
       marginLeft: "1em",
       [theme.breakpoints.down("md")]: {
-        fontSize: "10px",
+        // fontSize: "10px",
       },
     },
     avgRating: {
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: ".5em",
       right: "1em",
       [theme.breakpoints.down("md")]: {
-        fontSize: "10px",
+        // fontSize: "10px",
       },
     },
     skeleton: {

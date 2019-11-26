@@ -39,7 +39,7 @@ class GoblaqApp extends App {
   handleRouteChangeStart = event => {
     console.log("[Router Event] Route Change Started");
     console.log(event);
-  }
+  };
 
   render() {
     const { Component, pageProps } = this.props;
@@ -48,16 +48,16 @@ class GoblaqApp extends App {
         <Head>
           <title>Goblaq</title>
         </Head>
-        <ApolloProvider client={client}>
-          <UserContext>
-            <AppTheme>
-              <Layout>
+        <UserContext>
+          <AppTheme>
+            <Layout>
+              <ApolloProvider client={client}>
                 <CssBaseline />
                 <Component {...pageProps} />
-              </Layout>
-            </AppTheme>
-          </UserContext>
-        </ApolloProvider>
+              </ApolloProvider>
+            </Layout>
+          </AppTheme>
+        </UserContext>
       </div>
     );
   }

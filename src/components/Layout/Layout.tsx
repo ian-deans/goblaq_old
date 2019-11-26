@@ -8,14 +8,20 @@ import { Footer } from "../Footer/Footer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    // "@glboal": {
-    //   html: {
-    //     [theme.breakpoints.up("md")]: {
-    //       fontSize: 18,
-    //       htmlFontSize: 12,
-    //     },
-    //   },
-    // },
+    "@global": {
+      html: {
+        fontSize: 10,
+        // [theme.breakpoints.up("sm")]:{
+        //   fontSize: 12,
+        // },
+        [theme.breakpoints.up("md")]: {
+          fontSize: 12,
+        },
+        [theme.breakpoints.up("lg")]: {
+          fontSize: 14,
+        },
+      },
+    },
     layout: {
       backgroundColor: "#fff",
       minHeight: "100vh",
@@ -55,15 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "20vh",
       justifyContent: "stretch",
       alignContent: "stretch",
-    },
-    overrides: {
-      MuiTypography: {
-        subtitle1: {
-          [theme.breakpoints.up("md")]: {
-            fontSize: "5rem",
-          },
-        },
-      },
     },
   })
 );

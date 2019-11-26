@@ -37,21 +37,21 @@ const cache = new InMemoryCache({
 // .restore(window.__APOLLO_STATE__);
 
 const request = async operation => {
-  console.group("[Apollo Request]")
+  // console.group("[Apollo Request]")
     const token = await sessionStorage.getItem("userToken");
-    console.log("Checking for user token...");
+    console.log("[Apollo Request] Checking for user token...");
     if ( token !== null ) {
-      console.log( "User token found. Setting graphql authorization headers...");
+      console.log( "[Apollo Request] User token found. Setting graphql authorization headers...");
       operation.setContext({
         headers: {
           authorization: `Bearer ${token}`
         },
       });
-      console.log("...done.");
-      console.groupEnd();
+      console.log("[Apollo Request] ...done.");
+      // console.groupEnd();
     } else {
-      console.log("No user logged in.");
-      console.groupEnd();
+      console.log("[Apollo Request] No user logged in.");
+      // console.groupEnd();
     }
 };
 
@@ -82,7 +82,7 @@ const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
-        console.error("Send errors to logging service here");
+        console.error("[Apollo Request] Send errors to logging service here");
         console.error(graphQLErrors);
         // sendToLoggingService(graphQLErrors);
       }

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       marginTop: "2rem",
       flexWrap: "wrap",
+      backgroundColor: theme.palette.common.white,
     },
     searchField: {
       flexGrow: 2,
@@ -89,7 +90,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         onChange={handleChange}
       />
 
-      <Button type="submit" variant="contained" aria-label="search" color="primary" size="large">
+      <Button type="submit" variant="contained" aria-label="search" color="secondary" size="large">
         <SearchIcon />
       </Button>
     </form>

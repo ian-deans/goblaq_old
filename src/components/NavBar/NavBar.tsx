@@ -67,7 +67,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
 
   return (
     // <header className={classes.root}>
-      <AppBar position="static" color="secondary" className={classes.appbar}>
+      <AppBar position="static" className={classes.appbar}>
         <Toolbar component="nav" className={classes.toolbar}>
           <Link href="/">
             <img
@@ -119,7 +119,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
                 </React.Fragment>
               ) : (
                 <Link href="/login">
-                  <Typography className={classes.link} variant="subtitle1">
+                  <Typography className={classes.link} variant="subtitle2">
                     SignIn
                   </Typography>
                 </Link>

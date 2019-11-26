@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import firebase from "../../services/firebase";
 
-const userContext = createContext({user: undefined});
-
+const userContext = createContext({ user: undefined });
 
 export const useSession = () => {
-  const {user} = useContext(userContext);
+  const { user } = useContext(userContext);
   return user;
 };
 
@@ -23,12 +22,10 @@ export const useAuth = () => {
   function onChange(user) {
     if (user) {
       console.log("user attempting to login: ", user.toJSON());
-      user
-        .getIdToken(true)
-        .then(token => {
-          sessionStorage.setItem("userToken", token); // JWT token
-          setState({initializing: false, user});
-        });
+      user.getIdToken(true).then(token => {
+        sessionStorage.setItem("userToken", token); // JWT token
+        setState({ initializing: false, user });
+      });
     } else {
       console.log("--> no user found <--");
       sessionStorage.removeItem("userToken");
@@ -51,10 +48,10 @@ export const UserProvider = userContext.Provider;
 export const UserConsumer = userContext.Consumer;
 // export const UserContext = createContext({});
 
-export const UserContext = ({children}) => {
+export const UserContext = ({ children }) => {
   const { initializing, user } = useAuth();
 
-  console.log("User Init : ", initializing)
+  console.log("User Init : ", initializing);
 
   // in the scenario where we want to refrain from rendering
   // children unless the user is loaded we could do something
@@ -63,9 +60,5 @@ export const UserContext = ({children}) => {
   //   return <CircularProgress />
   // }
 
-  return (
-    <UserProvider value={{user}}>
-    {children}
-  </UserProvider>
-)
-}
+  return <UserProvider value={{ user }}>{children}</UserProvider>;
+};

@@ -33,28 +33,40 @@ const theme = createMuiTheme({
       default: "#fff",
     },
   },
+
+
+    "primary1Color": "#f44336",
+        "primary2Color": "#b71c1c",
+        "accent1Color": "#d50000",
+        "pickerHeaderColor": "#f44336"
   */
   breakpoints: {
     //? Customizing breakpoint keys isn't yet supported, but it is a feature that is under discussion.
     //? https://stackoverflow.com/questions/49739635/adding-breakpoint-to-custom-theme-in-material-ui-next-reactjs
-    // keys: ["xs", "mobile", "mobileL", "tablet", "desktop", "desktopL"], 
-    values: {xs: 0, sm: 425, md: 600, lg: 760, xl: 1000},
+    // keys: ["xs", "mobile", "mobileL", "tablet", "desktop", "desktopL"],
+    values: { xs: 0, sm: 425, md: 600, lg: 760, xl: 1000 },
   },
   palette: {
+    // "primary1Color": "#f44336",
+    // "primary2Color": "#b71c1c",
+    // "accent1Color": "#d50000",
+    // "pickerHeaderColor": "#f44336",
+    // "accent3Color": "#ef5350",
+    // "accent2Color": "#e53935"
     common: { black: "#000", white: "#fff" },
     type: "light",
     background: { paper: "#fff", default: "#fafafa" },
     primary: {
-      light: "#7986cb",
-      main: "rgba(217, 0, 27, 1)",
-      dark: "rgba(116, 0, 0, 1)",
-      contrastText: "rgba(255, 255, 255, 1)",
+      main: "#FFF",
+      light: "rgb(251, 251, 251)",
+      dark: "rgb(175, 175, 175)",
+      contrastText: "#B71C1C",
     },
     secondary: {
-      light: "#ff4081",
-      main: "rgba(255, 255, 255, 1)",
-      dark: "rgba(153, 1, 1, 1)",
-      contrastText: "rgba(217, 0, 27, 1)",
+      main: "#B71C1C",
+      light: "rgb(197, 73, 73)",
+      dark: "rgb(128, 19, 19)",
+      contrastText: "#fff",
     },
     error: {
       light: "#e57373",
@@ -63,37 +75,71 @@ const theme = createMuiTheme({
       contrastText: "#fff",
     },
     text: {
-      primary: "rgba(217, 0, 27, 1)",
+      primary: "rgba(0, 0, 0, 0.87)",
       secondary: "rgba(0, 0, 0, 0.54)",
       disabled: "rgba(0, 0, 0, 0.38)",
       hint: "rgba(0, 0, 0, 0.38)",
     },
   },
   typography: {
-    htmlFontSize: 16,
-    fontSize: 13,
+    // htmlFontSize: 16,
+    // fontSize: 13,
     fontFamily: "Roboto",
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
-    h1: {},
-    h2: {},
-    h3: {},
-    h4: {},
-    h5: {},
-    h6: {},
-    subtitle1: {},
-    subtitle2: {},
-    body1: {},
-    body2: {
-      color: "secondary", //? Not sure if this is doing anything
+    h1: {
+      fontSize: "2.9em",
+      fontWeight: 900,
+    },
+    h2: {
+      fontSize: "2.6em",
+      fontWeight: 900,
+    },
+    h3: {
+      fontSize: "2.3em",
+      fontWeight: 900,
+    },
+    h4: {
+      fontSize: "2.1em",
       fontWeight: 700,
     },
-    button: {},
+    h5: {
+      fontSize: "1.8em",
+      fontWeight: 700,
+    },
+    h6: {
+      fontSize: "1.6em",
+      fontWeight: 700,
+    },
+    subtitle1: {
+      fontSize: "1.3em",
+      fontWeight: 500,
+    },
+    subtitle2: {
+      fontSize: "1.1em",
+      fontWeight: 500,
+    },
+    body1: {
+      fontSize: "1rem",
+      fontWeight: 400,
+    },
+    body2: {
+      fontSize: ".8rem",
+      color: "secondary", //? Not sure if this is doing anything
+      fontWeight: 400,
+    },
+    button: {
+      fontSize: ".6rem",
+      fontWeight: 400,
+      lineHeight: 1.5,
+    },
     caption: {
+      fontSize: ".6rem",
       letterSpacing: ".02em",
       fontStyle: "italic",
+      fontWeight: 300,
     },
     overline: {},
   },
@@ -109,7 +155,6 @@ const theme = createMuiTheme({
     speedDial: 1050,
     tooltip: 1500,
   },
-  
 });
 
 export const AppTheme = props => (

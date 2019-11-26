@@ -144,7 +144,7 @@ export const SearchResults = (props) => {
       </div>
 
       <Container className={classes.container}>
-          <div>{loading ? "Loading " : state.count} total results</div>
+          <Typography variant="body2">{loading ? "Loading " : state.count} total results</Typography>
         <Typography variant="body2">
           Current Page: {state.currentPage} / {state.maxPages}
         </Typography>

@@ -2,10 +2,10 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { BusinessCard, BusinessCardGrid } from "../BusinessCard";
+import { BusinessCard, BusinessCardSkeleton, BusinessCardGrid } from "../BusinessCard";
 
 import { useQuery } from "@apollo/react-hooks";
-import { GET_BUSINESSES } from "~/services/graphql/queries";
+import { GET_RECENT_BUSINESSES_BY_CITY } from "~/services/graphql/queries";
 
 
 interface BusinessData {
@@ -22,12 +22,21 @@ interface PopularPlacesProps {
 }
 
 export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
+  const variables = { city: "%Houston%", limit: 6};
 
-  const { loading, error, data } = useQuery(GET_BUSINESSES);
+  const { loading, error, data } = useQuery(GET_RECENT_BUSINESSES_BY_CITY, {variables});
 
   if (loading) {
+    const skeletons = Array.from(new Array(6)).map((c, i)=> (<BusinessCardSkeleton key={i} />))
     console.log("loading ::", loading);
-    return <span>"Loading..."</span>; //TODO or this, this is not good
+    return (
+      <div>
+        <Box style={{margin: "1em 0"}}>
+          <Typography variant="h5">Popular Places in Your Area</Typography>
+        </Box>
+        <BusinessCardGrid>{skeletons}</BusinessCardGrid>
+      </div>
+    );
   }
 
   if (error) {
