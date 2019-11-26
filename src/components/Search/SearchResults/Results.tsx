@@ -52,7 +52,7 @@ export const Results: React.SFC<Props> = ({
         name: biz.name,
         category: biz.category ? biz.category.name : "",
         averageRating: biz.average_rating,
-        location: `${biz.location.address_1}, ${biz.location.city}, ${biz.location.state}`,
+        location: biz.location,
         contact: biz.contacts[0] ? biz.contacts[0].contact_value : undefined,
       };
       return businessData;

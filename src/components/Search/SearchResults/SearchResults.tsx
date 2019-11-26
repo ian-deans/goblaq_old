@@ -147,7 +147,7 @@ export const SearchResults = props => {
   return (
     <React.Fragment>
       <div>
-        {search_desc && (
+        {(
           <Results
             query={SEARCH_BUSINESSES}
             variables={variables}

@@ -11,29 +11,13 @@ export const ListingHeader = ({
   tags,
   claimed,
   verified,
-  location: { address1, address2, city, state, zip },
-  description,
+  location,
   created_at,
   contacts,
 }) => {
-  const locTokens = [];
-  if (address1) {
-    locTokens.push(address1);
-  }
-  if (address2) {
-    locTokens.push(address2);
-  }
-  if (city) {
-    locTokens.push(city);
-  }
-  if (state) {
-    locTokens.push(state);
-  }
 
-  const locString = locTokens.join(", ");
   const {back} = useRouter();
-
-
+  const locationString = buildLocationString(location);
 
   return (
     <header
@@ -71,16 +55,17 @@ export const ListingHeader = ({
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="body2">
-            <span style={{ marginRight: "1em" }}>{locString}</span>
+          <Typography align="right" variant="body2">
+            {locationString}
           </Typography>
-        <Typography variant="body2">{ contacts[0] ? contacts[0].contact_value : null}</Typography>
+        <Typography align="right" variant="body2">{ contacts[0] ? contacts[0].contact_value : null}</Typography>
         </div>
         <Typography variant="h5">{average_rating}</Typography>
         <div>
           <Button size="small" variant="outlined">
             Write Review
           </Button>
+          {/* Buttons disabled until supported features are added */}
           {/* <Button size="small" variant="outlined">
             Save
           </Button>
@@ -93,3 +78,24 @@ export const ListingHeader = ({
   );
 };
 
+function buildLocationString({ address_1, address_2, city, state, zip }) {
+  const tokens = [];
+
+  if (address_1) {
+    tokens.push(address_1);
+  }
+  if (address_2) {
+    tokens.push(address_2);
+  }
+  if (city) {
+    tokens.push(city);
+  }
+  if (state) {
+    tokens.push(state);
+  }
+  if (zip) {
+    tokens.push(zip);
+  }
+
+  return tokens.join(", ");
+}

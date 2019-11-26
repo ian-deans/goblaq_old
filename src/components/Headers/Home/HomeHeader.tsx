@@ -8,19 +8,16 @@ import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // position: "relative",
-      // margin: "1rem 0rem",top: "5vh",
-      // left: 0,
-      // height: "20vh",
       width: "100%",
       overflowX: "visible",
-      minHeight: "300px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       zIndex: 50,
-      
+      // height: "20vh",
+      // minHeight: "300px",
     },
+    //* style for banner image; giving me grief so fuck it for now;
     // background: {
     //   position: "absolute",
     //   height: "20vh",
@@ -38,9 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const HomeHeader: React.SFC = props => {
   const classes = useStyles(props);
-
   return (
-
     <Box className={classes.root}>
       {/* <BannerImage className={classes.background}/> */}
       <Typography color="secondary" variant="h3">Goblaq and Beyond</Typography>
@@ -51,6 +46,7 @@ export const HomeHeader: React.SFC = props => {
     </Box>
   );
 };
-function BannerImage({ className }) {
-  return <div className={className}/>;
-}
+
+// function BannerImage({ className }) {
+//   return <div className={className}/>;
+// }

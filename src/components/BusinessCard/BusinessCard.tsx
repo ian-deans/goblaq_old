@@ -12,7 +12,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 interface BusinessCardProps {
   id: number;
   name: string;
-  location: string;
+  location: any;
   averageRating?: number;
   category?: string;
   contact?: string;
@@ -114,12 +114,13 @@ const useStyles = makeStyles((theme: Theme) =>
 export const BusinessCard: React.SFC<BusinessCardProps> = ({
   id,
   name = "No Name",
-  location = "Information Unavailable",
+  location,
   contact = "Information Unavailable",
   averageRating = "",
   theme,
 }) => {
   const classes = useStyles(theme);
+  const locationString = buildLocationString(location);
   return (
     <Card component="article" className={classes.root}>
       <Link href={`/listings/view?businessID=${id}`}>
@@ -141,7 +142,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
               color="textSecondary"
               className={classes.captionContent}
             >
-              {location}
+              {locationString}
             </Typography>
           </div>
 
@@ -177,3 +178,25 @@ export const BusinessCardSkeleton = props => {
     </div>
   );
 };
+
+function buildLocationString({ address_1, address_2, city, state, zip }) {
+  const tokens = [];
+
+  if (address_1) {
+    tokens.push(address_1);
+  }
+  if (address_2) {
+    tokens.push(address_2);
+  }
+  if (city) {
+    tokens.push(city);
+  }
+  if (state) {
+    tokens.push(state);
+  }
+  if (zip) {
+    tokens.push(zip);
+  }
+
+  return tokens.join(", ");
+}
