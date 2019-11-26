@@ -15,7 +15,16 @@ interface BusinessData {
   averageRating: number | null;
 }
 
-export const Results: React.SFC<any> = ({
+interface Props {
+  query: any;
+  variables: any;
+  theme?: any;
+  limit?: number;
+  offset?: number;
+}
+
+
+export const Results: React.SFC<Props> = ({
   theme,
   variables,
   limit,

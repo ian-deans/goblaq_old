@@ -86,11 +86,32 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
         className={classes.searchField}
         variant="outlined"
         placeholder={search_desc || "What are you looking for?"}
-        inputProps={inputProps}
-        onChange={handleChange}
+        inputProps={{
+          className: classes.input,
+          value: state.search_desc,
+          name: "search_desc",
+          onChange: handleChange,
+        }}
+      />
+      <TextField
+        className={classes.searchField}
+        variant="outlined"
+        placeholder={search_loc || "Where are you looking?"}
+        inputProps={{
+          className: classes.input,
+          value: state.search_loc,
+          name: "search_loc",
+          onChange: handleChange,
+        }}
       />
 
-      <Button type="submit" variant="contained" aria-label="search" color="secondary" size="large">
+      <Button
+        type="submit"
+        variant="contained"
+        aria-label="search"
+        color="secondary"
+        size="large"
+      >
         <SearchIcon />
       </Button>
     </form>

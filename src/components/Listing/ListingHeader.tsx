@@ -14,6 +14,7 @@ export const ListingHeader = ({
   location: { address1, address2, city, state, zip },
   description,
   created_at,
+  contacts,
 }) => {
   const locTokens = [];
   if (address1) {
@@ -52,7 +53,7 @@ export const ListingHeader = ({
           width: "66%",
         }}
       >
-        <Typography onClick={() => back()} variant="caption"> &lt; Back</Typography>
+        <Typography onClick={() => back()} variant="body2"> &lt; Back</Typography>
         <Typography variant="h5">{name}</Typography>
         <Typography variant="body2">{tags}</Typography>
       </div>
@@ -73,7 +74,7 @@ export const ListingHeader = ({
           <Typography variant="body2">
             <span style={{ marginRight: "1em" }}>{locString}</span>
           </Typography>
-          <Typography variant="body2">(909) 507-1498</Typography>
+        <Typography variant="body2">{contacts[0].contact_value}</Typography>
         </div>
         <Typography variant="h5">{average_rating}</Typography>
         <div>

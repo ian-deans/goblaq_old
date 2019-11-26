@@ -1,17 +1,16 @@
 import React from "react";
 import { SearchQueryConsumer } from "../../../contexts/SearchQueryContext";
 import { useRouter } from "next/router";
-import {
-  buildSearchQuery,
-  buildSearchQueryCount,
-} from "~/services/graphql/queries";
+import { SEARCH_BUSINESSES, SEARCH_BUSINESSES_COUNT } from "~/services/graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
-
 import { Results } from "./Results";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+
+const RETURN_LIMIT = 9;
 
 interface State {
   count: number | undefined;
@@ -32,18 +31,24 @@ const initialState: State = {
   offset: 0,
 };
 
-
-const useStyles = makeStyles((theme:Theme)=> createStyles({
-  container: {
-    flexGrow: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-  },
-}));
-
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      flexGrow: 1,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end",
+      alignItems: "flex-start",
+      width: "100%",
+    },
+  })
+);
 
 const reducer = (state: State, action: Action): State => {
+  console.group("[REDUCER]");
+  console.log(state);
+  console.log(action);
+  console.groupEnd();
   switch (action.type) {
     case "set_count": {
       return {
@@ -75,26 +80,26 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export const SearchResults = (props) => {
-  const { search_cat, search_desc, search_loc } = useRouter().query;
-  console.log("explore -- ", search_cat, search_desc, search_loc);
+export const SearchResults = props => {
+  const {
+    search_cat,
+    search_desc,
+    search_loc,
+    page_number,
+  } = useRouter().query;
 
   const classes = useStyles(props);
 
-  const options = { locationType: "city" };
-  const default_loc = "Houston"; //TODO: set this to the location determined by geolocation or ip lookup
+  //TODO: set this to the location determined by geolocation or ip lookup
+  const default_loc = "Houston";
 
-
-  const SEARCH_COUNT_QUERY = buildSearchQueryCount(options);
-  const SEARCH_QUERY = buildSearchQuery(options);
   const variables = {
-    location: search_loc ? search_loc : default_loc,
-    tag: `%${search_desc}%`,
+    area: `%${search_loc ? search_loc : default_loc}%`,
+    term: `%${search_desc}%`,
   };
 
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const { loading, error, data } = useQuery(SEARCH_COUNT_QUERY, { variables });
-
+  const { loading, error, data: countData } = useQuery(SEARCH_BUSINESSES_COUNT, { variables });
 
   const next = (): void => {
     if (state.currentPage < state.maxPages) {
@@ -108,45 +113,59 @@ export const SearchResults = (props) => {
     }
   };
 
-
+  //* attempting to update the page number if page_number parameter is present in url;
   React.useEffect(() => {
-    if (data) {
-      const { count } = data.businesses_aggregate.aggregate;
+    console.log("page ", page_number);
+    if (page_number) {
+      dispatch({ type: "set_current_page", payload: page_number });
+    }
+  }, [page_number]);
+
+
+  //* update the indicators at the bottom of the component;
+  React.useEffect(() => {
+    if (countData) {
+      const { count } = countData.businesses_aggregate.aggregate;
       dispatch({ type: "set_count", payload: count });
 
-      const maxPages = Math.ceil(count / 9);
+      const maxPages = Math.ceil(count / RETURN_LIMIT);
       dispatch({ type: "set_max_pages", payload: maxPages });
     }
-  }, [data]);
+  }, [countData]);
 
+  //* update the offset when the page number is changed;
   React.useEffect(() => {
-    const offset = (state.currentPage - 1) * 9;
+    const offset = (state.currentPage - 1) * RETURN_LIMIT;
     dispatch({ type: "set_offset", payload: offset });
   }, [state.currentPage]);
 
+  //* reset to page one when the search_desc query parameter changes;
   React.useEffect(() => {
-    dispatch({type: "set_current_page", payload: 1});
+    dispatch({ type: "set_current_page", payload: 1 });
   }, [search_desc]);
-
 
   return (
     <React.Fragment>
-
       <div>
-        { search_desc && (
+        {search_desc && (
           <Results
-            query={SEARCH_QUERY}
+            query={SEARCH_BUSINESSES}
             variables={variables}
-            limit={9}
+            limit={RETURN_LIMIT}
             offset={state.offset}
-            />
+          />
         )}
       </div>
 
       <Container className={classes.container}>
-          <Typography variant="body2">{loading ? "Loading " : state.count} total results</Typography>
         <Typography variant="body2">
-          Current Page: {state.currentPage} / {state.maxPages}
+          <div>{loading ? <CircularProgress color="secondary" /> : state.count}</div>
+          total results
+        </Typography>
+        <Typography variant="body2">
+          Current Page:
+          {state.currentPage <= state.maxPages ? state.currentPage : 0} /{" "}
+          {state.maxPages}
         </Typography>
         <div>
           <Button onClick={prev}>Previous Page</Button>

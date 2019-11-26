@@ -3,7 +3,8 @@ import Container from "@material-ui/core/Container";
 import { ListingHeader } from "./ListingHeader";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useQuery } from "@apollo/react-hooks";
-import {GET_BUSINESS} from "~/services/graphql/queries";
+import { GET_BUSINESS } from "~/services/graphql/queries";
+import { UserConsumer } from "~/contexts/UserContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,13 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   businessID: string | string[];
   theme?: Theme;
-};
+}
 
-export const ListingDetails: React.FunctionComponent<Props> = ({theme, businessID}) => {
+export const ListingDetails: React.FunctionComponent<Props> = ({
+  theme,
+  businessID,
+}) => {
   const classes = useStyles(theme);
-  const variables = {id: businessID};
+  const variables = { id: businessID };
 
-  const {loading, error, data} = useQuery(GET_BUSINESS, {variables});
+  const { loading, error, data } = useQuery(GET_BUSINESS, { variables });
 
   if (loading) {
     return <div>LOADING</div>;
@@ -50,17 +54,29 @@ export const ListingDetails: React.FunctionComponent<Props> = ({theme, businessI
     <article className={classes.root}>
       <Container className={classes.container}>
         <ListingHeader {...listing} />
-        
+
         <div className={classes.contentFrame}>
-          
           <section className={classes.mainSection}>
-            <section>Description</section>
-            if user:
+            <section>
+              <p>
+                {listing.description || "No description provided."}
+              </p>
+            </section>
             <div style={{ marginLeft: "2em" }}>
-              <section>features</section>
-              <section>gallery</section>
-              <section>reservation maker (phase4+)</section>
-              <section>Reviews</section>
+              <UserConsumer>
+                {({ user }) =>
+                  user ? (
+                    <React.Fragment>
+                      <section>features</section>
+                      <section>gallery</section>
+                      <section>reservation maker (phase4+)</section>
+                      <section>Reviews</section>
+                    </React.Fragment>
+                  ) : (
+                    <div>Sign up for free to see more information!</div>
+                  )
+                }
+              </UserConsumer>
             </div>
           </section>
 
@@ -74,7 +90,6 @@ export const ListingDetails: React.FunctionComponent<Props> = ({theme, businessI
               <section>suggestions</section>
             </div>
           </aside>
-
         </div>
       </Container>
     </article>

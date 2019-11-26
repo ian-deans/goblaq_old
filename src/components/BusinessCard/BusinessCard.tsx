@@ -169,7 +169,7 @@ export const BusinessCardSkeleton = props => {
   const classes = useStyles(props);
   return (
     <div className={classes.skeleton}>
-      <Skeleton height="60%" />
+      <Skeleton variant="rect" width="100%" height="60%" />
       <div className={classes.skeletonContent}>
         <Skeleton height="20%" />
         <Skeleton height="20%" />
