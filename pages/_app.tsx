@@ -19,6 +19,12 @@ class GoblaqApp extends App {
     // this.clearServerStyles();
     const msgFn = msg => console.log("Router event stuff :: ", msg);
     // this.props.router.events.on("routeChangeStart", msgFn);
+    if (navigator.geolocation) {
+      console.log("position");
+      navigator.geolocation.getCurrentPosition(pos => {
+        console.log(pos);
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -48,16 +54,16 @@ class GoblaqApp extends App {
         <Head>
           <title>Goblaq</title>
         </Head>
-        <UserContext>
-          <AppTheme>
-            <Layout>
-              <ApolloProvider client={client}>
+        <ApolloProvider client={client}>
+          <UserContext>
+            <AppTheme>
+              <Layout>
                 <CssBaseline />
                 <Component {...pageProps} />
-              </ApolloProvider>
-            </Layout>
-          </AppTheme>
-        </UserContext>
+              </Layout>
+            </AppTheme>
+          </UserContext>
+        </ApolloProvider>
       </div>
     );
   }

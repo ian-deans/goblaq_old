@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import {ListingDetails} from "~/components/Listing/ListingDetails";
+import { ListingDetails } from "~/components/Listing/ListingDetails";
 
 const ViewListing = () => {
   const { businessID } = useRouter().query;
@@ -9,8 +9,10 @@ const ViewListing = () => {
     return <LinearProgress />;
   }
 
+  console.log("BUSINESS ID\n", businessID)
+
   return (
-    <div>
+    <React.Fragment>
       <div
         className="heading-carousel"
         style={{
@@ -24,8 +26,10 @@ const ViewListing = () => {
       >
         gallery carousel or banner image
       </div>
-      <ListingDetails businessID={businessID} />
-    </div>
+      <div className="details-container" style={{ marginTop: "15vh", padding: "0 1em" }}>
+        <ListingDetails businessID={businessID} />
+      </div>
+    </React.Fragment>
   );
 };
 

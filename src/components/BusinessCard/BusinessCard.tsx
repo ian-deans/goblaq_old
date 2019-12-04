@@ -24,19 +24,19 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // Card
-      maxWidth: "180px",
+      maxWidth: "150px",
       minWidth: "150px",
-      height: "220px",
+      height: "200px",
       position: "relative",
       [theme.breakpoints.up("lg")]: {
-        maxWidth: "250px",
-        minWidth: "220px",
-        height: "280px",
+        maxWidth: "200px",
+        minWidth: "200px",
+        height: "250px",
       },
       [theme.breakpoints.up("xl")]: {
-        maxWidth: "300px",
+        maxWidth: "250px",
         minwidth: "250px",
-        height: "330px",
+        height: "300px",
       },
     },
     header: {}, // Card Header
@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: "1.25em",
       minHeight: "25%",
       [theme.breakpoints.down("md")]: {
-        // fontSize: "12px",
       },
     },
     titleContainer: {
@@ -69,17 +68,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     captionContent: {
       marginLeft: "1em",
-      [theme.breakpoints.down("md")]: {
-        // fontSize: "10px",
-      },
     },
     avgRating: {
       position: "absolute",
       bottom: ".5em",
       right: "1em",
-      [theme.breakpoints.down("md")]: {
-        // fontSize: "10px",
-      },
     },
     skeleton: {
       display: "flex",
@@ -129,7 +122,7 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
 
       <CardContent className={classes.content}>
         <header className={classes.titleContainer}>
-          <Typography className={classes.title} variant="subtitle1">
+          <Typography className={classes.title} variant="subtitle2">
             {name}
           </Typography>
         </header>

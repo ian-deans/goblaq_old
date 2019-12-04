@@ -97,7 +97,9 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
       <TextField
         className={classes.searchField}
         variant="filled"
-        placeholder={search_desc || "What are you looking for?"}
+        // placeholder={search_desc || "What are you looking for?"}
+        label="What are you looking for?"
+        color="secondary"
         inputProps={{
           className: classes.input,
           value: state.search_desc,
@@ -108,7 +110,9 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
       <TextField
         className={classes.searchField}
         variant="filled"
-        placeholder={search_loc || "Where are you looking?"}
+        // placeholder={search_loc || "Where are you looking?"}
+        label="Where are you looking?"
+        color="secondary"
         inputProps={{
           className: classes.input,
           value: state.search_loc,

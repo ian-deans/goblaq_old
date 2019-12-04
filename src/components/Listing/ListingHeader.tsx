@@ -23,7 +23,6 @@ export const ListingHeader = ({
     <header
       className="listing-header"
       style={{
-        marginTop: "15vh",
         width: "100%",
         display: "flex",
         justifyContent: "space-between",

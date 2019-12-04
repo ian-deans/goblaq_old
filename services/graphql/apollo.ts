@@ -5,7 +5,8 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import gql from "graphql-tag";
-import { graphqlURL } from "../../config"
+import firebase from "~/services/firebase";
+import { graphqlURL } from "../../config";
 
 // import { withClientState } from "apollo-link-state";
 // import { resolvers, typeDefs } from "./resolvers";
@@ -14,16 +15,12 @@ import { graphqlURL } from "../../config"
 const typeDefs = gql`
   extend type Query {
     isLoggedIn: Boolean!
-    cartItems: [Launch]!
   }
 
   type appState {
     test: String!
   }
 
-  extend type Mutation {
-    addOrRemoveFromCart(id: ID!): [Launch]
-  }
 `;
 
 const cache = new InMemoryCache({
@@ -37,7 +34,7 @@ const cache = new InMemoryCache({
 // .restore(window.__APOLLO_STATE__);
 
 const request = async operation => {
-  // console.group("[Apollo Request]")
+
     const token = await sessionStorage.getItem("userToken");
     console.log("[Apollo Request] Checking for user token...");
     if ( token !== null ) {
@@ -87,8 +84,8 @@ const client = new ApolloClient({
         // sendToLoggingService(graphQLErrors);
       }
       if (networkError) {
-        console.log("[Network Error]: log out user here");
-        // logoutUser();
+        console.log("[Network Error]: signing user out");
+        firebase.doSignOut();
       }
     }),
     requestLink,
@@ -101,8 +98,6 @@ const client = new ApolloClient({
   typeDefs,
   ssrMode: true,
 });
-
-cache.writeData({data: { things: "TEST"}})
 
 export default client;
 

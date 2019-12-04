@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import firebase from "../../services/firebase";
+// import apollo from "~/services/graphql/apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { GET_USER } from "~/services/graphql/queries";
+import { useApolloClient } from "@apollo/react-hooks";
 
 const userContext = createContext({ user: undefined });
 
@@ -10,21 +14,28 @@ export const useSession = () => {
 
 // hook for... well, using auth
 export const useAuth = () => {
+  const client = useApolloClient();
+  const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER);
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
-
+    if (user) {
+      loadUser({variables: { uid: user.uid}});
+    }
     return {
       initializing: !user,
-      user,
+      user: user ? user.toJSON() : user,
     };
   });
 
   function onChange(user) {
     if (user) {
-      console.log("user attempting to login: ", user.toJSON());
+      // console.log("user attempting to login: ", user.toJSON());
       user.getIdToken(true).then(token => {
         sessionStorage.setItem("userToken", token); // JWT token
-        setState({ initializing: false, user });
+        //! Get user from hasura
+        loadUser({variables: { uid: user.uid}});
+        setState({ initializing: false, user: user.toJSON() });
+        client.writeData({ data: { firebaseUser: user.toJSON() } });
       });
     } else {
       console.log("--> no user found <--");

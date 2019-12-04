@@ -1,8 +1,6 @@
 import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
-const downBreakpoint = "@media (max-width: 425px)";
-
 const theme = createMuiTheme({
   /*
   palette: {
@@ -55,7 +53,7 @@ const theme = createMuiTheme({
     // "accent2Color": "#e53935"
     common: { black: "#000", white: "#fff" },
     type: "light",
-    background: { paper: "#fff", default: "#fafafa" },
+    background: { paper: "#fff", default: "#B71C1C" },
     primary: {
       main: "#fff",
       light: "#ff5131",
@@ -114,11 +112,11 @@ const theme = createMuiTheme({
       fontWeight: 700,
     },
     subtitle1: {
-      fontSize: "1.3em",
+      fontSize: "1.3rem",
       fontWeight: 500,
     },
     subtitle2: {
-      fontSize: "1.1em",
+      fontSize: "1.1rem",
       fontWeight: 500,
     },
     body1: {
