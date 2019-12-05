@@ -35,7 +35,7 @@ export const useAuth = () => {
         //! Get user from hasura
         loadUser({variables: { uid: user.uid}});
         setState({ initializing: false, user: user.toJSON() });
-        client.writeData({ data: { firebaseUser: user.toJSON() } });
+        // client.writeData({ data: { firebaseUser: user.toJSON() } });
       });
     } else {
       console.log("--> no user found <--");
@@ -57,7 +57,6 @@ export const useAuth = () => {
 
 export const UserProvider = userContext.Provider;
 export const UserConsumer = userContext.Consumer;
-// export const UserContext = createContext({});
 
 export const UserContext = ({ children }) => {
   const { initializing, user } = useAuth();

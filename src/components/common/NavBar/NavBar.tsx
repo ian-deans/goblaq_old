@@ -10,8 +10,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
-import firebase from "../../../services/firebase";
-import { UserConsumer } from "../../contexts/UserContext";
+import firebase from "../../../../services/firebase";
+import { UserConsumer, useSession } from "~/contexts/UserContext";
 import { Typography } from "@material-ui/core";
 // import navbarLinks from "../../config";
 
@@ -51,6 +51,8 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   const classes = useStyles(props);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const blarg = useSession();
 
   const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
     firebase.doSignOut();

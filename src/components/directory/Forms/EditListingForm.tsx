@@ -12,9 +12,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import MaskedInput from "react-text-mask";
-import { ChangeFn, SubmitFn } from "../../../common/interface";
+import { ChangeFn, SubmitFn } from "../../../../common/interface";//TODO: add path alias, fuck this relative shit
 
-import { CategorySelect } from "../CategorySelect/CategorySelect";
+import { CategorySelect } from "~/components/directory/CategorySelect";
 import { INSERT_BUSINESS } from "~/services/graphql/mutations";
 import { useMutation } from "@apollo/react-hooks";
 

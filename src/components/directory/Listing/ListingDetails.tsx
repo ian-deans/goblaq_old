@@ -1,12 +1,11 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
 import { ListingHeader } from "./ListingHeader";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_BUSINESS_DETAILS } from "~/services/graphql/queries";
 import { UserConsumer } from "~/contexts/UserContext";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Reviews } from "~/components/Listing/Reviews/Reviews";
+import { Reviews } from "~/components/directory/Listing/Reviews";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,13 +75,11 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
 
   return (
     <article className={classes.root}>
-      {/* <Container className={classes.container}> */}
       <ListingHeader {...listing} />
 
       <div className={classes.contentFrame}>
         <section className={classes.mainSection}>
           <Description className={classes.description} {...listing} />
-          {/* <div style={{ marginLeft: "2em" }}> */}
           <UserConsumer>
             {({ user }) =>
               user ? (
@@ -101,21 +98,18 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
               )
             }
           </UserConsumer>
-          {/* </div> */}
         </section>
 
         <aside className={classes.sideSection}>
-          side content
           <section>Business Hours</section>
           <div className="user-consumer">
             <section>location</section>
-            <section>video - phase3+</section>
-            <section>social media links</section>
-            <section>suggestions</section>
+            {/* <section>video - phase3+</section> */}
+            {/* <section>social media links</section> //TODO: once claimed these will be visible */} 
+            {/* <section>suggestions</section> //TODO: suggestions based on location and search */}
           </div>
         </aside>
       </div>
-      {/* </Container> */}
     </article>
   );
 };

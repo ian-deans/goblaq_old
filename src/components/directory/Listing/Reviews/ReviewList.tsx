@@ -13,13 +13,13 @@ interface Props {
 
 export const ReviewList: React.FC<Props> = ({ theme, reviews }) => {
   if (!reviews) {
-    return <div>No Reviews</div>;
+    return <div>No Reviews</div>;//TODO: do something prettier
   }
 
   return (
     <div style={{}}>
       <header>
-        <Typography variant="subtitle1">Review</Typography>
+        <Typography variant="subtitle1" >Reviews</Typography>
       </header>
       {reviews.map((r, i) => (
         <Review {...r} key={i} max={10} />

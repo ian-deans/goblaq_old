@@ -8,8 +8,14 @@ import SportsFootballIcon from "@material-ui/icons/SportsFootballOutlined";
 import Typography from "@material-ui/core/Typography/Typography";
 import Box from "@material-ui/core/Box";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumberOutlined";
-
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+
+
+//^ VARIABLES
+const exploreURL = "/listings/explore";
+const searchLocation = "houston";
+
+//^ STYLE
 const useStyles = makeStyles(
   createStyles({
     root: {},
@@ -47,32 +53,32 @@ export const CategorySearchLinks: React.SFC = props => {
     {
       icon: <SportsFootballIcon color="primary" />,
       name: "Sports",
-      href: "/explore?search_cat=sports",
+      href: `${exploreURL}?search_desc=sports&search_loc=${searchLocation}`,
     },
     {
       icon: <HotelIcon color="primary" />,
       name: "Hotels",
-      href: "/explore?search_cat=hotelsandtravel",
+      href: `${exploreURL}?search_desc=hotelsandtravel&search_loc=${searchLocation}`,
     },
     {
       icon: <RestaurantIcon color="primary" />,
       name: "Food",
-      href: "/explore?search_cat=food",
+      href: `${exploreURL}?search_desc=food&search_loc=${searchLocation}`,
     },
     {
       icon: <ShoppingBasketIcon color="primary" />,
       name: "Shopping",
-      href: "/explore?search_cat=shopping",
+      href: `${exploreURL}?search_desc=shopping&search_loc=${searchLocation}`,
     },
     {
       icon: <ConfirmationNumberIcon color="primary" />,
       name: "Art & Entertainment",
-      href: "/explore?search_cat=artsandentertainment",
+      href: `${exploreURL}?search_desc=artsandentertainment&search_loc=${searchLocation}`,
     },
     {
       icon: <LocalBarIcon color="primary" />,
       name: "Nightlife",
-      href: "/explore?search_cat=nightlife",
+      href: `${exploreURL}?search_desc=bars&search_loc=${searchLocation}`,
     },
   ];
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { ListingDetails } from "~/components/Listing/ListingDetails";
+import { ListingDetails } from "~/components/directory/Listing/ListingDetails";
 
 const ViewListing = () => {
   const { businessID } = useRouter().query;

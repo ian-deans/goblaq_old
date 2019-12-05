@@ -4,9 +4,15 @@ import Fab from "@material-ui/core/Fab";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useSearchParameters } from "../../../contexts/SearchQueryContext";
+import { useSearchParameters } from "~/contexts/SearchQueryContext";
 import Button from "@material-ui/core/Button";
+import { useLocation } from "~/contexts/LocationContext";
 
+//^ VARIABLES
+const exploreURL = "/listings/explore";
+
+
+//^ STYLE
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -64,11 +70,22 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
   // Collect data through hooks
   const classes = useStyles(props);
   const router = useRouter();
+  const { location } = useLocation();
+  
   const [state, setState] = useState<any>({ search_desc: "", search_loc: "" });
+  const [city, setCity] = useState<any>(undefined);
+
+  React.useEffect(() => {
+    if (location) {
+      const city = location.features[0].text;
+      console.log("Setting location to ", city);
+      setCity(city);
+    }
+  }, [location]);
 
   // come to the conclusion that SearchBar doesn't
   // give a shit about the search category
-  const { search_desc, search_loc } = useSearchParameters();
+  // const { search_desc, search_loc } = useSearchParameters();
 
   // update search
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +99,11 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
     //   console.error("No state selected");
     //   return;
     // }
-    router.push({ pathname: "/explore", query: { ...state } });
+    if ( !state.search_loc ) {
+      return router.push({ pathname: exploreURL, query: { ...state, search_loc: city } });
+    }
+
+    return router.push({ pathname: exploreURL, query: { ...state } });
   };
 
   const inputProps = {

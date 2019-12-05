@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { AddListingForm } from "../../src/components/Forms/AddListingForm";
+import { AddListingForm } from "../../src/components/directory/Forms/AddListingForm";
 
 
 const AddListing: React.SFC = () => {

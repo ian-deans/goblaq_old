@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchQueryConsumer } from "../../../contexts/SearchQueryContext";
+import { SearchQueryConsumer } from "~/contexts/SearchQueryContext";
 import { useRouter } from "next/router";
 import { SEARCH_BUSINESSES, SEARCH_BUSINESSES_COUNT } from "~/services/graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
@@ -9,8 +9,14 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { useLocation } from "~/contexts/LocationContext";
 
+//^ VARIABLES
 const RETURN_LIMIT = 9;
+
+//TODO: set this to the location determined by geolocation or ip lookup
+const default_loc = "Houston";
+
 
 interface State {
   count: number | undefined;
@@ -31,6 +37,7 @@ const initialState: State = {
   offset: 0,
 };
 
+//^ STYLE
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -45,10 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const reducer = (state: State, action: Action): State => {
-  console.group("[REDUCER]");
-  console.log(state);
-  console.log(action);
-  console.groupEnd();
   switch (action.type) {
     case "set_count": {
       return {
@@ -89,12 +92,20 @@ export const SearchResults = props => {
   } = useRouter().query;
 
   const classes = useStyles(props);
+  const {location} = useLocation();
 
-  //TODO: set this to the location determined by geolocation or ip lookup
-  const default_loc = "Houston";
+  let locationVar: string | string[];
+
+  if ( search_loc ) {
+    locationVar = search_loc;
+  } else if ( location ) {
+    locationVar = location.features[0].text;
+  } else {
+    locationVar = default_loc;
+  }
 
   const variables = {
-    area: `%${search_loc ? search_loc : default_loc}%`,
+    area: `%${locationVar}%`,
     term: `%${search_desc}%`,
   };
 
@@ -113,7 +124,7 @@ export const SearchResults = props => {
     }
   };
 
-  //* attempting to update the page number if page_number parameter is present in url;
+  //^ attempting to update the page number if page_number parameter is present in url;
   React.useEffect(() => {
     console.log("page ", page_number);
     if (page_number) {
@@ -122,7 +133,7 @@ export const SearchResults = props => {
   }, [page_number]);
 
 
-  //* update the indicators at the bottom of the component;
+  //^ update the indicators at the bottom of the component;
   React.useEffect(() => {
     if (countData) {
       const { count } = countData.businesses_aggregate.aggregate;
@@ -133,13 +144,13 @@ export const SearchResults = props => {
     }
   }, [countData]);
 
-  //* update the offset when the page number is changed;
+  //^ update the offset when the page number is changed;
   React.useEffect(() => {
     const offset = (state.currentPage - 1) * RETURN_LIMIT;
     dispatch({ type: "set_offset", payload: offset });
   }, [state.currentPage]);
 
-  //* reset to page one when the search_desc query parameter changes;
+  //^ reset to page one when the search_desc query parameter changes;
   React.useEffect(() => {
     dispatch({ type: "set_current_page", payload: 1 });
   }, [search_desc]);

@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_BUSINESS_CATEGORIES } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-import { ChangeFn } from "../../../common/interface";
+import { ChangeFn } from "~/common/interface";
 
 interface SelectProps {
   onChange: ChangeFn;
