@@ -14,7 +14,7 @@ export const useSearchParameters = () => {
   return { search_desc, search_loc, search_cat };
 };
 
-export const useSearchQuery = () => {
+const useSearchQuery = () => {
   const { search_desc, search_loc, search_cat } = useRouter().query;
 
   const [state, setState] = useState<any>(() => {
@@ -26,13 +26,11 @@ export const useSearchQuery = () => {
   });
 
   useEffect(() => {
-    // if (term) {
     setState({
       search_desc: search_desc ? search_desc : "",
       search_cat: search_cat ? search_cat : "",
       search_loc: search_loc ? search_loc : "",
     });
-    // }
   }, [search_desc, search_loc, search_cat]);
 
   return state;
@@ -43,7 +41,6 @@ export const SearchQueryProvider = searchQueryContext.Provider;
 
 export const SearchQueryContext = ({ children }) => {
   const searchQuery = useSearchQuery();
-  // console.log("search context  ", searchQuery)
   return (
     <SearchQueryProvider value={searchQuery}>{children}</SearchQueryProvider>
   );

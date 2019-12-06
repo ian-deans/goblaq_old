@@ -1,6 +1,6 @@
 import React from "react";
-import { GoogleButton } from "../src/components/Auth/AuthButtons/GoogleButton";
-import { FacebookButton } from "../src/components/Auth/AuthButtons/FacebookButton";
+import { GoogleButton } from "../src/components/common/Auth/AuthButtons/GoogleButton";
+import { FacebookButton } from "../src/components/common/Auth/AuthButtons/FacebookButton";
 import { UserConsumer } from "../src/contexts/UserContext";
 
 export default props => {
