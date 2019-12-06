@@ -16,7 +16,7 @@ const exploreURL = "/listings/explore";
 const searchLocation = "houston";
 
 //^ STYLE
-const useStyles = makeStyles(
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     categoryLink: {
@@ -38,7 +38,12 @@ const useStyles = makeStyles(
       display: "grid",
       alignItems: "center",
       justifyItems: "center",
-      gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", //* straight up magic
+      gridTemplateColumns: "repeat(6, 1fr)", //* straight up magic
+      gridTemplateRows: "repeat(auto-fit, minmax(60px, 1fr))", //* straight up magic
+      [theme.breakpoints.down("sm")]: {
+        gridTemplateColumns: "repeat(3, 1fr)", //* straight up magic
+
+      }
     },
     linkWrapper: {
       display: "flex",

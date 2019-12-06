@@ -52,9 +52,8 @@ export const LocationContext = ({ children }) => {
     console.info("Location Determined.");
   }
 
-  return <LocationProvider value={{location}}>{children}</LocationProvider>;
+  return <LocationProvider value={{ location }}>{children}</LocationProvider>;
 };
-
 
 //^ Hook for grabbing location without consumer component
 export const useLocation = () => {

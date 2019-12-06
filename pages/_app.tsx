@@ -8,8 +8,7 @@ import { AppTheme } from "../src/components/common/Theme/Theme";
 import { Layout } from "../src/components/common/Layout/Layout";
 import { UserContext } from "../src/contexts/UserContext";
 import { LocationContext } from "../src/contexts/LocationContext";
-
-// import { geocodingClient } from "../services/mapbox/mapbox";
+import { SearchQueryContext } from "../src/contexts/SearchQueryContext";
 
 export default // withRouter(
 class GoblaqApp extends App {
@@ -36,19 +35,34 @@ class GoblaqApp extends App {
           <title>Goblaq</title>
         </Head>
         <ApolloProvider client={client}>
-          <UserContext>
-            <LocationContext>
-              <AppTheme>
-                <Layout>
-                  <CssBaseline />
-                  <Component {...pageProps} />
-                </Layout>
-              </AppTheme>
-            </LocationContext>
-          </UserContext>
+          <Contexts>
+            <Styles>
+              <Component {...pageProps} />
+            </Styles>
+          </Contexts>
         </ApolloProvider>
       </div>
     );
-    
   }
+}
+
+function Contexts({ children }) {
+  return (
+    <UserContext>
+      <LocationContext>
+        <SearchQueryContext>{children}</SearchQueryContext>
+      </LocationContext>
+    </UserContext>
+  );
+}
+
+function Styles({ children }) {
+  return (
+    <AppTheme>
+      <Layout>
+        <CssBaseline />
+        {children}
+      </Layout>
+    </AppTheme>
+  );
 }

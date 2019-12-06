@@ -19,7 +19,7 @@ export const useAuth = () => {
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
     if (user) {
-      loadUser({variables: { uid: user.uid}});
+      loadUser({ variables: { uid: user.uid } });
     }
     return {
       initializing: !user,
@@ -29,16 +29,15 @@ export const useAuth = () => {
 
   function onChange(user) {
     if (user) {
-      // console.log("user attempting to login: ", user.toJSON());
       user.getIdToken(true).then(token => {
         sessionStorage.setItem("userToken", token); // JWT token
-        //! Get user from hasura
-        loadUser({variables: { uid: user.uid}});
+
+        //^ Get user from hasura
+        loadUser({ variables: { uid: user.uid } });
         setState({ initializing: false, user: user.toJSON() });
-        // client.writeData({ data: { firebaseUser: user.toJSON() } });
       });
     } else {
-      console.log("--> no user found <--");
+      console.info("--> no user found <--");
       sessionStorage.removeItem("userToken");
       setState({ initializing: false, user: undefined });
     }
@@ -61,14 +60,12 @@ export const UserConsumer = userContext.Consumer;
 export const UserContext = ({ children }) => {
   const { initializing, user } = useAuth();
 
-  console.log("User Init : ", initializing);
-
   // in the scenario where we want to refrain from rendering
   // children unless the user is loaded we could do something
   // like this:
-  // if ( initializing ) {
-  //   return <CircularProgress />
-  // }
+  if (initializing) {
+    console.info("[User] intializing...");
+  }
 
   return <UserProvider value={{ user }}>{children}</UserProvider>;
 };
