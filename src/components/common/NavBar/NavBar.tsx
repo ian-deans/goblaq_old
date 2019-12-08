@@ -9,16 +9,17 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Avatar from "@material-ui/core/Avatar";
 
 import firebase from "../../../../services/firebase";
 import { UserConsumer, useSession } from "~/contexts/UserContext";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 // import navbarLinks from "../../config";
+import { FacebookButton, GoogleButton } from "~/components/common/Auth/AuthButtons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-    },
+    root: {},
     appbar: {
       flexGrow: 1,
       minHeight: "80px",
@@ -39,6 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:hover": {
         cursor: "pointer",
       },
+    },
+    avatar: {
+      width: "30px",
+      height: "30px",
     },
   })
 );
@@ -69,67 +74,106 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
 
   return (
     // <header className={classes.root}>
-      <AppBar position="static" className={classes.appbar}>
-        <Toolbar component="nav" className={classes.toolbar}>
-          <Link href="/">
-            <img
-              className={classes.link}
-              src="/images/navbar_logo_transparent.png"
-              alt="goblaq logo"
-              />
-          </Link>
+    <AppBar position="static" className={classes.appbar}>
+      <Toolbar component="nav" className={classes.toolbar}>
+        <Link href="/">
+          <img
+            className={classes.link}
+            src="/images/navbar_logo_transparent.png"
+            alt="goblaq logo"
+          />
+        </Link>
 
-          <UserConsumer>
-            {({ user }) =>
-              user ? (
-                <React.Fragment>
-                  <Link href="/listings/add">
-                    <Typography className={classes.link} variant="subtitle1">
-                      Add Listing
-                    </Typography>
-                  </Link>
-                  <div>
-                    <IconButton
-                      aria-label="account of current user"
-                      aria-controls="menu-appbar"
-                      aria-haspopup="true"
-                      onClick={handleMenu}
-                      color="inherit"
-                    >
-                      <AccountCircle />
-                    </IconButton>
-                    <Menu
-                      id="menu-appbar"
-                      anchorEl={anchorEl}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted={true}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={open}
-                      onClose={handleClose}
-                    >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Menu>
-                  </div>
-                </React.Fragment>
-              ) : (
-                <Link href="/login">
-                  <Typography className={classes.link} variant="subtitle2">
-                    SignIn
+        <UserConsumer>
+          {({ user }) =>
+            user ? (
+              <React.Fragment>
+                <Link href="/listings/add">
+                  <Typography className={classes.link} variant="subtitle1">
+                    Add Listing
                   </Typography>
                 </Link>
-              )
-            }
-          </UserConsumer>
-        </Toolbar>
-      </AppBar>
+                <div>
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <Avatar
+                      variant="rounded"
+                      className={classes.avatar}
+                      src={user.photoURL}
+                    />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted={true}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                  >
+                    {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+                    <MenuItem onClick={handleClose}>
+                      {user.displayName}
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </div>
+              </React.Fragment>
+            ) : (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted={true}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    <Typography>Login</Typography>
+                  </MenuItem>
+                  {/* //TODO These items also need to close the menu when clicked */}
+                  <MenuItem onClick={handleLogout}>
+                    {/* <Link href="/login">Login</Link> */}
+                    <FacebookButton />
+                  </MenuItem>
+                  <MenuItem>
+                    <GoogleButton />
+                  </MenuItem>
+                </Menu>
+              </div>
+            )
+          }
+        </UserConsumer>
+      </Toolbar>
+    </AppBar>
     // </header>
   );
 };

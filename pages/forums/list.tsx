@@ -1,6 +1,7 @@
 import React from "react";
+import {ForumList} from "../../src/components/forums/ForumList/ForumList";
 
-const ForumList: React.FC = () => {
+const ForumListPage: React.FC = () => {
 
   return (
     <div>
@@ -8,13 +9,10 @@ const ForumList: React.FC = () => {
         <h1>Forum List</h1>
       </header>
       <section>
-        <ul>
-          <li>Forum Link</li>
-          <li>Forum Link</li>
-        </ul>
+        <ForumList />
       </section>
     </div>
   );
 };
 
-export default ForumList;
+export default ForumListPage;

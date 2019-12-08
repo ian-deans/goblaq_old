@@ -27,6 +27,7 @@ export const useAuth = () => {
     };
   });
 
+
   function onChange(user) {
     if (user) {
       user.getIdToken(true).then(token => {
@@ -50,6 +51,19 @@ export const useAuth = () => {
     // unsubscribe to the listener when unmounting
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    // once we get the user data from hasura, append it to the user context.
+    if (data) {
+      const {id} = data.users[0];
+      const cpy = {...state};
+      cpy.user = {
+        ...cpy.user,
+        id,
+      };
+      setState(cpy);
+    }
+  }, [data]);
 
   return state;
 };

@@ -46,27 +46,6 @@ export const GET_BUSINESS_DETAILS = gql`
   }
 `;
 
-//? where is this used?
-// export const GET_BUSINESSES = gql`
-//   query {
-//     businesses {
-//       id
-//       name
-//       average_rating
-//       location {
-//         address_1
-//         address_2
-//         city
-//         state
-//         zip
-//       }
-//       contacts(where: { contact_type: { _eq: office } }) {
-//         contact_value
-//       }
-//     }
-//   }
-// `;
-
 export const GET_RECENT_BUSINESSES_BY_CITY = gql`
   query selectRecentlyAddedByCity($city: String!, $limit: Int!) {
     businesses(
@@ -92,56 +71,28 @@ export const GET_RECENT_BUSINESSES_BY_CITY = gql`
   }
 `;
 
-export const GET_BUSINESSES_BY_CATEGORY = gql`
-  query getBusinessesByCategory($categoryFilter: String!) {
-    businesses(where: { category: { name: { _eq: $categoryFilter } } }) {
-      category {
-        id
-        name
-      }
-      id
-      name
-      location {
-        id
-        address_1
-        address_2
-        city
-        state
-        zip
-      }
-      contacts(where: { contact_type: { _eq: office } }) {
-        contact_value
-      }
-      average_rating
-    }
-  }
-`;
-
-// export const SearchBusinessesByTag = gql`
-//   query SearchBusinesses($city: String!, $tag: String!) {
-//     businesses(where: { tags: { _like: $tag } }) {
+//# possible deprecated query
+// export const GET_BUSINESSES_BY_CATEGORY = gql`
+//   query getBusinessesByCategory($categoryFilter: String!) {
+//     businesses(where: { category: { name: { _eq: $categoryFilter } } }) {
+//       category {
+//         id
+//         name
+//       }
 //       id
 //       name
-//       average_rating
-//       tags
-//       category {
-//         text
-//       }
 //       location {
+//         id
 //         address_1
 //         address_2
 //         city
 //         state
 //         zip
 //       }
-//       contacts {
+//       contacts(where: { contact_type: { _eq: office } }) {
 //         contact_value
-//         contact_type
 //       }
-//       claimed
-//       created_at
-//       description
-//       verified
+//       average_rating
 //     }
 //   }
 // `;
@@ -210,12 +161,10 @@ export const SEARCH_BUSINESSES = gql`
   }
 `;
 
-export const GET_REVIEWS_AND_USER = gql`
-  query GetReviewsAndUser($businessID: Int!) {
+export const GET_REVIEWS = gql`
+  query GetReviews($businessID: Int!) {
     reviews(
-      where: {
-        business_id: { _eq: $businessID }
-      },
+      where: { business_id: { _eq: $businessID } }
       order_by: { created_at: asc }
     ) {
       id
@@ -229,10 +178,63 @@ export const GET_REVIEWS_AND_USER = gql`
         avatar_url
       }
     }
-    users {
-      avatar_url
+  }
+`;
+
+export const GET_USER_REVIEWS = gql`
+  query GetUserReviews($businessID: Int!) {
+    reviews(
+      where: { business_id: { _eq: $businessID } }
+    ) {
       id
-      username
+      rating
+      title
+      description
+      user_id
+    }
+  }
+`;
+
+//! FORUMS
+
+export const GET_FORUMS_WITH_POST_COUNT = gql`
+  query SelectForumsWithPostCount {
+    forums(order_by: { name: asc }) {
+      posts_aggregate {
+        aggregate {
+          count
+        }
+      }
+      created_at
+      description
+      id
+      name
+    }
+  }
+`;
+
+export const GET_FORUM_BY_ID = gql`
+  query SelectForumById($id: Int!) {
+    forums(where: { id: { _eq: $id } }) {
+      description
+      id
+      name
+      posts {
+        created_at
+        id
+        title
+        updated_at
+        responses_aggregate {
+          aggregate {
+            count
+          }
+        }
+        post_likes_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
     }
   }
 `;

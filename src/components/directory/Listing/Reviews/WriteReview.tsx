@@ -3,11 +3,14 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Paper from "@material-ui/core/Paper";
-import Rating from "@material-ui/lab/Rating";
+import {Rating} from "~/components/common/Rating";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { POST_REVIEW, UPDATE_REVIEW } from "~/services/graphql/mutations";
+import { useSession } from "~/contexts/UserContext";
+import { GET_USER_REVIEWS } from "~/services/graphql/queries";
+import {ErrorBoundary} from "~/components/common/ErrorBoundary/ErrorBoundary";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     textField: {
       width: "100%",
+      color: theme.palette.text.secondary,
     },
   })
 );
@@ -34,10 +38,7 @@ interface State {
 
 interface Props {
   businessID: string | string[];
-  userID: string | string[];
-  displayName?: string | string[];
   theme?: Theme;
-  initialState: State | undefined;
 }
 
 const defaultState: State = {
@@ -50,38 +51,65 @@ const defaultState: State = {
 
 export const WriteReview: React.FunctionComponent<Props> = ({
   businessID,
-  userID,
   theme,
-  initialState,
 }) => {
   // get css classes
   const classes = useStyles(theme);
+
+  // get user if from UserContext
+  const user = useSession();
+
+  // initialize state
+  const [title, setTitle] = React.useState<string>("");
+  const [rating, setRating] = React.useState<number>(0);
+  const [description, setDescription] = React.useState<string>("");
+  const [reviewID, setReviewID] = React.useState<number | undefined>(undefined);
 
   // initialize mutations
   const [postReview, postData] = useMutation(POST_REVIEW);
   const [updateReview, updateData] = useMutation(UPDATE_REVIEW);
 
-  // set state
-  const [rating, setRating] = React.useState(
-    (initialState && initialState.rating) || 0
-  );
-  const [description, setDescription] = React.useState(
-    (initialState && initialState.description) || ""
-  );
-  const [title, setTitle] = React.useState(
-    (initialState && initialState.title) || ""
-  );
+  // submit query
+  const { loading, error, data } = useQuery(GET_USER_REVIEWS, {
+    variables: { businessID },
+  });
+
+  React.useEffect(() => {
+    if (data) {
+      console.log(' REVIEW DATA  ', data);
+      // did it this way for when admins are logged in; swap with better admin interface
+      const review = data.reviews.find(review => review.user_id === user.id);
+      if (review) {
+        setTitle(review.title);
+        setRating(review.rating);
+        setDescription(review.description);
+        setReviewID(review.id);
+      }
+    }
+  }, [data]);
+
+  if (!user) {
+    //TODO handle user error
+    return <p>No User Found</p>;
+  }
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+
+
 
   const handleSubmit = () => {
     const data = { rating, title, description };
 
-    if (initialState && initialState.id) {
+    if (reviewID) {
       // update review
       const variables = {
         objects: data,
-        id: initialState.id,
+        id: reviewID,
       };
-      console.log(variables);
       updateReview({ variables });
     } else {
       // post review
@@ -89,7 +117,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
         objects: [
           {
             ...data,
-            user_id: userID,
+            user_id: user.id,
             business_id: businessID,
           },
         ],
@@ -101,13 +129,14 @@ export const WriteReview: React.FunctionComponent<Props> = ({
 
   return (
     <Paper component="article" className={classes.root}>
+      <ErrorBoundary>
       <header
         style={{
           marginBottom: "2em",
         }}
       >
         <Typography variant="subtitle2">
-          {initialState && initialState.id
+          {reviewID
             ? "Edit Your Review"
             : "Write A Review"}
         </Typography>
@@ -127,7 +156,6 @@ export const WriteReview: React.FunctionComponent<Props> = ({
           name="rating"
           value={rating}
           onChange={(event, newValue) => setRating(newValue)}
-          max={10}
         />
       </div>
       <Paper>
@@ -147,10 +175,11 @@ export const WriteReview: React.FunctionComponent<Props> = ({
           margin: "1em 0em",
         }}
       >
-        <Button onClick={handleSubmit} color="secondary" variant="contained">
+        <Button  onClick={handleSubmit} color="secondary" variant="contained">
           Submit
         </Button>
       </div>
+      </ErrorBoundary>
     </Paper>
   );
 };

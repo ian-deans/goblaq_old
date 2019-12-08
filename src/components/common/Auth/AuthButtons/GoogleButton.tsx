@@ -1,10 +1,14 @@
 import React from "react";
 import firebase from "~/services/firebase";
 import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
 // import { Button, Form } from "semantic-ui-react";
 
-export const GoogleButton = ({disabled}) => {
+interface Props {
+  disabled?: boolean;
+}
+
+export const GoogleButton: React.SFC<Props> = ({disabled}) => {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     signIn();

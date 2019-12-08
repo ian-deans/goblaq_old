@@ -8,10 +8,6 @@ import gql from "graphql-tag";
 import firebase from "~/services/firebase";
 import { graphqlURL } from "../../config";
 
-// import { withClientState } from "apollo-link-state";
-// import { resolvers, typeDefs } from "./resolvers";
-// import firebase from "../firebase";
-
 const typeDefs = gql`
   extend type Query {
     isLoggedIn: Boolean!
@@ -23,32 +19,24 @@ const typeDefs = gql`
 
 `;
 
-const cache = new InMemoryCache({
-  // cacheRedirects: {
-  //   Query: {
-  //     movie: (_, { id }, { getCacheKey }) =>
-  //       getCacheKey({ __typename: "Movie", id }),
-  //   },
-  // },
-})
-// .restore(window.__APOLLO_STATE__);
+const cache = new InMemoryCache();
 
 const request = async operation => {
 
+  const headers = operation.getContext().headers;
     const token = await sessionStorage.getItem("userToken");
-    console.log("[Apollo Request] Checking for user token...");
+    console.info("[Apollo Request] Checking for user token...");
     if ( token !== null ) {
-      console.log( "[Apollo Request] User token found. Setting graphql authorization headers...");
+      console.info( "[Apollo Request] User token found. Setting graphql authorization headers...");
       operation.setContext({
         headers: {
-          authorization: `Bearer ${token}`
+          authorization: `Bearer ${token}`,
+          ...headers
         },
       });
-      console.log("[Apollo Request] ...done.");
-      // console.groupEnd();
+      console.info("[Apollo Request] ...done.");
     } else {
-      console.log("[Apollo Request] No user logged in.");
-      // console.groupEnd();
+      console.info("[Apollo Request] No user logged in.");
     }
 };
 
@@ -84,7 +72,7 @@ const client = new ApolloClient({
         // sendToLoggingService(graphQLErrors);
       }
       if (networkError) {
-        console.log("[Network Error]: signing user out");
+        console.info("[Network Error]: signing user out");
         firebase.doSignOut();
       }
     }),
@@ -100,73 +88,3 @@ const client = new ApolloClient({
 });
 
 export default client;
-
-// const headers = () => {
-//   const headers = {};
-//   if (process.browser) {
-//     headers["Authorization"] = "Bearer " + sessionStorage.getItem("userToken");
-//   }
-
-//   return headers;
-// };
-
-// interface IState {
-//   user: any;
-//   place: string;
-//   isDarkModeEnabled: boolean;
-// }
-
-// interface IRoot {
-//   state: any;
-// }
-
-// Helper function to get data from the cache
-// const getState = (query: any): IState => {
-//   return cache.readQuery<IRoot>({ query }).state;
-// };
-
-// Helper function to write data back to the cache
-// const writeState = (state: IState) => {
-//   return cache.writeData({ data: { state } });
-// };
-
-// initial apollo local state
-// const initState = () => {
-//   const state = {
-//     appState: defaultAppState,
-//     __typename: "State",
-//   };
-
-//   writeState(state);
-// };
-
-// const client = new ApolloClient({
-//   link: ApolloLink.from([
-//     onError(({ graphQLErrors, networkError }) => {
-//       if (graphQLErrors) {
-//         graphQLErrors.forEach(({ message, locations, path }) =>
-//           console.log(
-//             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-//           )
-//         );
-//       }
-//       if (networkError) {
-//         console.log(`[Network error]: ${networkError}`);
-//       }
-//     }),
-//     new HttpLink({
-//       uri: "https://goblaq.herokuapp.com/v1/graphql",
-//       credentials: "same-origin",
-//     }),
-//   ]),
-//   cache,
-//   fetch,
-//   headers: headers(),
-//   clientState: {
-//     defaults: {},
-//     resolvers: resolvers(getState, writeState),
-//     typeDefs,
-//   },
-// });
-
-// export default client;
