@@ -160,11 +160,11 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
                     <Typography>Login</Typography>
                   </MenuItem>
                   {/* //TODO These items also need to close the menu when clicked */}
-                  <MenuItem onClick={handleLogout}>
+                  <MenuItem onClick={handleClose}>
                     {/* <Link href="/login">Login</Link> */}
                     <FacebookButton />
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={handleClose}>
                     <GoogleButton />
                   </MenuItem>
                 </Menu>

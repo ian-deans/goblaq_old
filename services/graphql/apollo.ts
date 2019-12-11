@@ -69,6 +69,8 @@ const client = new ApolloClient({
       if (graphQLErrors) {
         console.error("[Apollo Request] Send errors to logging service here");
         console.error(graphQLErrors);
+        //TODO: refresh jwt here
+        console.info("[Apollo Request] Refresh Token Here");
         // sendToLoggingService(graphQLErrors);
       }
       if (networkError) {

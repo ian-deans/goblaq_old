@@ -183,9 +183,7 @@ export const GET_REVIEWS = gql`
 
 export const GET_USER_REVIEWS = gql`
   query GetUserReviews($businessID: Int!) {
-    reviews(
-      where: { business_id: { _eq: $businessID } }
-    ) {
+    reviews(where: { business_id: { _eq: $businessID } }) {
       id
       rating
       title
@@ -214,8 +212,8 @@ export const GET_FORUMS_WITH_POST_COUNT = gql`
 `;
 
 export const GET_FORUM_BY_ID = gql`
-  query SelectForumById($id: Int!) {
-    forums(where: { id: { _eq: $id } }) {
+  query SelectForumById($forumID: Int!) {
+    forums(where: { id: { _eq: $forumID } }) {
       description
       id
       name
@@ -224,6 +222,10 @@ export const GET_FORUM_BY_ID = gql`
         id
         title
         updated_at
+        user {
+          username,
+          avatar_url
+        }
         responses_aggregate {
           aggregate {
             count
@@ -234,6 +236,39 @@ export const GET_FORUM_BY_ID = gql`
             count
           }
         }
+      }
+    }
+  }
+`;
+
+export const GET_POST_WITH_RESPONSES = gql`
+  query GetPostsWithResponses($postID: Int!) {
+    posts(where: { id: { _eq: $postID } }) {
+      post_likes_aggregate {
+        aggregate {
+          count
+        }
+      }
+      responses(order_by: { created_at: asc }) {
+        content
+        created_at
+        id
+        parent_id
+        post_id
+        updated_at
+        user {
+          avatar_url
+          username
+        }
+      }
+      content
+      created_at
+      id
+      title
+      updated_at
+      user {
+        avatar_url
+        username
       }
     }
   }

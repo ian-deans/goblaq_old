@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_FORUMS_WITH_POST_COUNT } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 
 interface ForumData {
   name: string | string[];
@@ -18,13 +19,13 @@ interface LinkProps extends ForumData {
 }
 
 export const ForumList: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_FORUMS_WITH_POST_COUNT);
+  const { loading, error, data } = useQuery(GET_FORUMS_WITH_POST_COUNT, {...setViewerHTTPHeader()});
 
   if (loading) {
     return <LinearProgress />;
   }
 
-  console.log("DATA ", data);
+  console.log("[Forum Data] -> ", data);
 
   const links = data
     ? data.forums.map(

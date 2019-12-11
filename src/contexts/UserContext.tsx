@@ -5,16 +5,16 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { GET_USER } from "~/services/graphql/queries";
 import { useApolloClient } from "@apollo/react-hooks";
 
-const userContext = createContext({ user: undefined });
+const userContext = createContext({ user: undefined, user_id: undefined });
 
 export const useSession = () => {
-  const { user } = useContext(userContext);
-  return user;
+  const { user, user_id } = useContext(userContext);
+  return {user, user_id};
 };
 
 // hook for... well, using auth
 export const useAuth = () => {
-  const client = useApolloClient();
+  // const client = useApolloClient();
   const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER);
   const [state, setState] = useState(() => {
     const user = firebase.auth.currentUser;
@@ -23,7 +23,8 @@ export const useAuth = () => {
     }
     return {
       initializing: !user,
-      user: user ? user.toJSON() : user,
+      user: user,
+      user_id: undefined,
     };
   });
 
@@ -35,12 +36,12 @@ export const useAuth = () => {
 
         //^ Get user from hasura
         loadUser({ variables: { uid: user.uid } });
-        setState({ initializing: false, user: user.toJSON() });
+        setState({ initializing: false, user, user_id: undefined });
       });
     } else {
       console.info("--> no user found <--");
       sessionStorage.removeItem("userToken");
-      setState({ initializing: false, user: undefined });
+      setState({ initializing: false, user: undefined, user_id: undefined });
     }
   }
 
@@ -57,12 +58,9 @@ export const useAuth = () => {
     if (data) {
       const {id} = data.users[0];
       const cpy = {...state};
-      cpy.user = {
-        ...cpy.user,
-        id,
-      };
+      cpy["user_id"] = id;
       setState(cpy);
-    }
+    };
   }, [data]);
 
   return state;
@@ -72,7 +70,7 @@ export const UserProvider = userContext.Provider;
 export const UserConsumer = userContext.Consumer;
 
 export const UserContext = ({ children }) => {
-  const { initializing, user } = useAuth();
+  const { initializing, user, user_id } = useAuth();
 
   // in the scenario where we want to refrain from rendering
   // children unless the user is loaded we could do something
@@ -81,5 +79,5 @@ export const UserContext = ({ children }) => {
     console.info("[User] intializing...");
   }
 
-  return <UserProvider value={{ user }}>{children}</UserProvider>;
+  return <UserProvider value={{ user, user_id }}>{children}</UserProvider>;
 };
