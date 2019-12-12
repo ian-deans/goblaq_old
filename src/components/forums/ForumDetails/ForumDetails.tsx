@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { useQuery } from "@apollo/react-hooks";
+import { useSession } from "~/contexts/UserContext";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 import { GET_FORUM_BY_ID } from "~/services/graphql/queries";
+import { DEACTIVATE_POST } from "~/services/graphql/mutations";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import moment from "moment";
-import { setViewerHTTPHeader } from "~/services/graphql/helpers";
-import { useSession } from "~/contexts/UserContext";
 
 interface Props {
   forumID: string | string[];
@@ -14,43 +15,51 @@ interface Props {
 
 export const ForumDetails: React.FC<Props> = ({ forumID }) => {
   const { user_id } = useSession();
-  const { loading, error, data } = useQuery(GET_FORUM_BY_ID, {
+
+  // const [deactivatePost, mutationData] = useMutation(DEACTIVATE_POST);
+  
+  //? requests user's post ids to check for delete permission?
+  // const userPostsQuery = useQuery();
+
+  const forumQuery = useQuery(GET_FORUM_BY_ID, {
     ...setViewerHTTPHeader(),
     pollInterval: 300000,
     variables: { forumID },
   });
 
-  if (loading || !data) {
+  if (forumQuery.loading || !forumQuery.data) {
     return <LinearProgress />;
   }
 
-  const forum = data.forums[0];
-
-  console.log("FORUM  ", forum);
+  const forum = forumQuery.data.forums[0];
 
   return (
     <section>
       {forumID}
       <div>{forum.name || "NAME"}</div>
       <div>{forum.description || "DESC"}</div>
-      <div>{forum.posts.map((p: any) => selectPostData(p)).map(PostLink)}</div>
+      <div>
+        {forum.posts
+          .map((p: any) => selectPostData(p))
+          .map((p: PostData, i: number) => <PostLink {...p} key={i} />)}
+      </div>
     </section>
   );
 };
 
-function PostLink(p: PostData, i: number) {
+function PostLink(props) {
   return (
-    <Link key={i} href={`/forums/posts/view?postID=${p.id}`}>
+    <Link href={`/forums/posts/view?postID=${props.id}`}>
       <div style={{ border: "solid red 1px", padding: "1em" }}>
-        <div>{p.title}</div>
-        <div>{moment(p.created_at).fromNow()}</div>
+        <div>{props.title}</div>
+        <div>{moment(props.created_at).fromNow()}</div>
         <div>
-          <img src={p.avatar_url} alt="author avatar" width="20" height="20" />
-          {p.username}
+          <img src={props.avatar_url} alt="author avatar" width="20" height="20" />
+          {props.username}
         </div>
-        <div>Likes: {p.likesCount}</div>
-        <div>Responses: {p.responsesCount}</div>
-        <button>delete</button>
+        <div>Likes: {props.likesCount}</div>
+        <div>Responses: {props.responsesCount}</div>
+        {/* //TODO condition check and render delete button or null  */}
       </div>
     </Link>
   );
@@ -64,7 +73,6 @@ function selectPostData({
   responses_aggregate,
   user: { username, avatar_url },
 }): PostData {
-  console.log("AVA ", avatar_url);
   return {
     id,
     title,

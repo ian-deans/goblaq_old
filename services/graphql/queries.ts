@@ -217,9 +217,9 @@ export const GET_FORUM_BY_ID = gql`
       description
       id
       name
-      posts {
-        created_at
+      posts(where: {active: {_eq: true}}) {
         id
+        created_at
         title
         updated_at
         user {
@@ -259,6 +259,11 @@ export const GET_POST_WITH_RESPONSES = gql`
         user {
           avatar_url
           username
+        }
+        responses_likes_aggregate {
+          aggregate {
+            count
+          }
         }
       }
       content

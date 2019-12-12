@@ -2,10 +2,10 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_BUSINESS_CATEGORIES } from "./node_modules/~/services/graphql/queries";
+import { GET_BUSINESS_CATEGORIES } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-import { ChangeFn } from "./node_modules/~/common/interface";
+import { ChangeFn } from "~/common/interface";
 
 interface SelectProps {
   onChange: ChangeFn;

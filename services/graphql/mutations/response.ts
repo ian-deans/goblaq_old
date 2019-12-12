@@ -4,7 +4,7 @@ export const INSERT_RESPONSE = gql`
   mutation InsertResponse($objects: [responses_insert_input!]!) {
     insert_responses(objects: $objects) {
       returning {
-        affected_rows
+        id
       }
     }
   }

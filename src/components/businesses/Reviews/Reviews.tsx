@@ -40,10 +40,6 @@ export const Reviews: React.FC<Props> = ({ businessID, uid, displayName }) => {
   }
 
   const { reviews } = data;
-
-  // const user = users[0];
-  // const userReview = reviews.find(r => r.user_id === user.id);
-
   return (
     <div className={classes.root}>
       <div>

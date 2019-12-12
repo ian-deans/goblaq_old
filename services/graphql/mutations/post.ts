@@ -17,3 +17,13 @@ mutation InsertPost($objects: [posts_insert_input!]!) {
   }
 }
 `;
+
+export const DEACTIVATE_POST = gql`
+  mutation DeactivatePost($postID: Int!) {
+    update_posts(where: {id: {_eq: $postID}}, _set: {active: false}) {
+      returning {
+        affected_rows
+      }
+    }
+  }
+`;

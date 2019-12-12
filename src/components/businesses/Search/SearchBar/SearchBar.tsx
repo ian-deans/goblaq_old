@@ -19,13 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "stretch",
       alignItems: "stretch",
-      // minHeight: "102px",
       width: "100%",
       marginTop: "2rem",
-      // flexWrap: "wrap",
       backgroundColor: theme.palette.common.white,
       [theme.breakpoints.down("sm")]: {
-        // flexDirection: "column",
         alignItems: "center",
         padding: "0 1em",
       },
@@ -47,12 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
     },
     input: {
-      // paddingLeft: "1em",
-      // lineHeight: "2em",
-      // width: "40%",
-      // [theme.breakpoints.down("sm")]: {
-      //   width: "90%",
-      // }
     },
 
     btnCol: {
@@ -62,10 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down("sm")]: {
         // width: "20%",
       },
-      // justifyContent: "stretch",
-      // alignItems: "stretch",
-      // alignContent: "stretch",
-
     },
 
     btn: {
@@ -81,14 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 28,
       margin: 4,
     },
-    // select: {
-    //   paddingLeft: theme.spacing(1),
-    //   marginLeft: theme.spacing(1),
-    //   marginRight: theme.spacing(2),
-    //   minWidth: "80px",
-    //   maxWidth: "100px",
-    //   flexGrow: 1,
-    // },
     menu: {},
   })
 );
