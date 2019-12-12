@@ -18,7 +18,7 @@ export const PostView: React.FC<Props> = ({postID}) => {
   });
 
   if (loading || !data) {
-    return <LinearProgress />;
+    return <LinearProgress color="secondary" />;
   }
 
   const post = data.posts[0];
