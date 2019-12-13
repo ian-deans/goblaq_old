@@ -20,7 +20,7 @@ const initialState = {
 
 export const WritePost: React.FC<Props> = ({ forumID }) => {
   const { push: pushRoute } = useRouter();
-  const { user_id } = useSession();
+  const { user: {hasura: {id: user_id}} } = useSession();
   const [savePost, mutationData] = useMutation(INSERT_POST);
   const [state, setState] = useState({
     ...initialState,

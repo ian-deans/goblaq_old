@@ -27,7 +27,7 @@ interface Props {
 
 
 
-export const Reviews: React.FC<Props> = ({ businessID, uid, displayName }) => {
+export const Reviews: React.FC<Props> = ({ businessID }) => {
   const classes = useStyles({});
   const { loading, data } = useQuery(GET_REVIEWS, {
     ...setViewerHTTPHeader(),
@@ -35,7 +35,7 @@ export const Reviews: React.FC<Props> = ({ businessID, uid, displayName }) => {
     variables: { businessID },
   });
 
-  if (loading) {
+  if (loading || !data) {
     return <LinearProgress />;
   }
 

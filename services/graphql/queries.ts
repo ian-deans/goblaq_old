@@ -1,13 +1,31 @@
 import gql from "graphql-tag";
 
 export const GET_USER = gql`
-  query selectUserByID($uid: String!) {
-    users(where: { firebase_uid: { _eq: $uid } }) {
+  query SelectUser {
+    users {
       id
       first_name
       last_name
       username
       email_address
+      created_at
+      avatar_url
+      reviews {
+        id
+      }
+      responses {
+        id
+      }
+      posts {
+        id
+      }
+      post_likes {
+        id
+      }
+      responses_likes {
+        id
+      }
+      updated_at
     }
   }
 `;
@@ -217,13 +235,13 @@ export const GET_FORUM_BY_ID = gql`
       description
       id
       name
-      posts(where: {active: {_eq: true}}) {
+      posts(where: { active: { _eq: true } }) {
         id
         created_at
         title
         updated_at
         user {
-          username,
+          username
           avatar_url
         }
         responses_aggregate {

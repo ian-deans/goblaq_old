@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { useSession } from "~/contexts/UserContext";
+// import { useSession } from "~/contexts/UserContext";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 import { GET_FORUM_BY_ID } from "~/services/graphql/queries";
 import { DEACTIVATE_POST } from "~/services/graphql/mutations";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import moment from "moment";
+// import moment from "moment";
 
 interface Props {
   forumID: string | string[];
@@ -14,10 +14,11 @@ interface Props {
 }
 
 export const ForumDetails: React.FC<Props> = ({ forumID }) => {
-  const { user_id } = useSession();
+  // const { user } = useSession();
+  
 
   // const [deactivatePost, mutationData] = useMutation(DEACTIVATE_POST);
-  
+
   //? requests user's post ids to check for delete permission?
   // const userPostsQuery = useQuery();
 
@@ -41,7 +42,9 @@ export const ForumDetails: React.FC<Props> = ({ forumID }) => {
       <div>
         {forum.posts
           .map((p: any) => selectPostData(p))
-          .map((p: PostData, i: number) => <PostLink {...p} key={i} />)}
+          .map((p: PostData, i: number) => (
+            <PostLink {...p} key={i} />
+          ))}
       </div>
     </section>
   );
@@ -52,9 +55,14 @@ function PostLink(props) {
     <Link href={`/forums/posts/view?postID=${props.id}`}>
       <div style={{ border: "solid red 1px", padding: "1em" }}>
         <div>{props.title}</div>
-        <div>{moment(props.created_at).fromNow()}</div>
+        {/* <div>{moment(props.created_at).fromNow()}</div> */}
         <div>
-          <img src={props.avatar_url} alt="author avatar" width="20" height="20" />
+          <img
+            src={props.avatar_url}
+            alt="author avatar"
+            width="20"
+            height="20"
+          />
           {props.username}
         </div>
         <div>Likes: {props.likesCount}</div>

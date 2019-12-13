@@ -86,7 +86,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
 
         <UserConsumer>
           {({ user }) =>
-            user ? (
+            user && user.firebase ? (
               <React.Fragment>
                 <Link href="/listings/add">
                   <Typography className={classes.link} variant="subtitle1">
@@ -104,7 +104,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
                     <Avatar
                       variant="rounded"
                       className={classes.avatar}
-                      src={user.photoURL}
+                      src={user.firebase.photoURL}
                     />
                   </IconButton>
                   <Menu
@@ -124,7 +124,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
                   >
                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
                     <MenuItem onClick={handleClose}>
-                      {user.displayName}
+                      {user.firebase.displayName}
                     </MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>

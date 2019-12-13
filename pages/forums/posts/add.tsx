@@ -2,26 +2,25 @@ import React from "react";
 import { useRouter } from "next/router";
 import { BackButton } from "~/components/common/BackButton";
 import { WritePost } from "~/components/forums/posts/WritePost";
+import {UserConditional} from "~/components/common/UserConditional/UserConditional";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { useSession } from "~/contexts/UserContext";
 
-export default () => {
+const WritePostPage = () => {
   const { forumID } = useRouter().query;
-  const { user_id } = useSession();
+
+  if (!forumID) {
+    return <LinearProgress />;
+  }
 
   return (
     <div>
       <BackButton> &lt; Back</BackButton>
       <h1>Write Post {forumID}</h1>
-      {forumID ? <WritePost forumID={forumID}/> : <LinearProgress />}
+      <UserConditional>
+        <WritePost forumID={forumID}/>
+      </UserConditional>
     </div>
   );
 };
 
-/*
-{
-  "objects": [
-    {"content": "blargy blarg blarg blargity blarg", "forum_id": 2, "title": "Just another Post", "user_id": 14}
-  ]
-}
-*/
+export default WritePostPage;

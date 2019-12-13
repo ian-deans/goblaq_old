@@ -63,7 +63,7 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
     variables,
   });
 
-  if (loading) {
+  if (loading || !data) {
     return (
       <article className={classes.root}>
         <LinearProgress color="secondary" />
@@ -82,12 +82,12 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
           <Description className={classes.description} {...listing} />
           <UserConsumer>
             {({ user }) =>
-              user ? (
+              user && user.hasura ? (
                 <React.Fragment>
                   <Reviews
                     businessID={businessID}
-                    uid={user.uid}
-                    displayName={user.displayName}
+                    uid={user.firebase.uid}
+                    displayName={user.firebase.displayName}
                   />
                   {/* <section>features</section>
                       <section>gallery</section> 

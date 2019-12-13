@@ -4,17 +4,17 @@ import { GET_POST_WITH_RESPONSES } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 
-import {PostDetails} from "./PostDetails";
-import {Responses, WriteResponse} from "./responses"
+import { PostDetails } from "./PostDetails";
+import { Responses, WriteResponse } from "./responses";
 
 interface Props {
   postID: string | string[];
 }
 
-export const PostView: React.FC<Props> = ({postID}) => {
-  const {loading, error, data} = useQuery(GET_POST_WITH_RESPONSES, {
+export const PostView: React.FC<Props> = ({ postID }) => {
+  const { loading, error, data } = useQuery(GET_POST_WITH_RESPONSES, {
     ...setViewerHTTPHeader(),
-    variables: {postID}
+    variables: { postID },
   });
 
   if (loading || !data) {
@@ -26,7 +26,7 @@ export const PostView: React.FC<Props> = ({postID}) => {
   return (
     <div>
       <div>
-        <PostDetails {...selectPostDetails(post)}  />
+        <PostDetails {...selectPostDetails(post)} />
       </div>
       <div>
         <Responses responses={post.responses} />
@@ -38,7 +38,15 @@ export const PostView: React.FC<Props> = ({postID}) => {
   );
 };
 
-function selectPostDetails({id, title, content, created_at, updated_at, post_likes_aggregate, user }): PostDetails {
+function selectPostDetails({
+  id,
+  title,
+  content,
+  created_at,
+  updated_at,
+  post_likes_aggregate,
+  user,
+}): PostDetails {
   return {
     id,
     created_at,
@@ -48,7 +56,7 @@ function selectPostDetails({id, title, content, created_at, updated_at, post_lik
     likes: selectCount(post_likes_aggregate),
     username: user.username,
     avatarURL: user.avatar_url,
-  }
+  };
 }
 
 function selectCount({ aggregate: { count } }) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
+// import moment from "moment";
 import Paper from "@material-ui/core/Paper";
 
 interface Props {
@@ -24,18 +24,21 @@ export const PostDetails: React.FC<Props> = ({
   avatarURL,
 }) => {
   return (
-    <Paper style={{padding: "1em", marginBottom: "1em"}}>
-      <header className="post-header" >
+    <Paper style={{ padding: "1em", marginBottom: "1em" }}>
+      <header className="post-header">
         <h2>{title}</h2>
         <div>
           <img width="20" height="20" src={avatarURL} />
           <span> {username}</span>
-          <span> || {moment(created_at).format("D/MM/YYYY")}</span>
-          <span> || last updated: {moment(updated_at).fromNow()}</span>
+          {/* <span> || {moment(created_at).format("D/MM/YYYY")}</span> */}
+          {/* <span> || last updated: {moment(updated_at).fromNow()}</span> */}
         </div>
         <div>: {likes} likes</div>
       </header>
-      <article className="post-content" style={{border: "solid red 1px", margin: "1em" }}>
+      <article
+        className="post-content"
+        style={{ border: "solid red 1px", margin: "1em" }}
+      >
         <p>{content}</p>
       </article>
     </Paper>

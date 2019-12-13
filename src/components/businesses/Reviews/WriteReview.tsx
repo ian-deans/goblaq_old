@@ -57,7 +57,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
   const classes = useStyles(theme);
 
   // get user if from UserContext
-  const {user, user_id} = useSession();
+  const {user: {hasura: {id:userID}}} = useSession();
 
   // initialize state
   const [title, setTitle] = React.useState<string>("");
@@ -83,7 +83,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
     }
     if (data) {
       // did it this way for when admins are logged in; swap with better admin interface
-      const review = data.reviews.find(review => review.user_id === user.id);
+      const review = data.reviews.find(review => review.user_id === userID);
       if (review) {
         setTitle(review.title);
         setRating(review.rating);
@@ -93,7 +93,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
     }
   }, [data]);
 
-  if (!user) {
+  if (!userID) {
     //TODO handle user error
     return <p>No User Found</p>;
   }
@@ -124,7 +124,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
         objects: [
           {
             ...data,
-            user_id,
+            user_id: userID,
             business_id: businessID,
           },
         ],

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { BackButton } from "~/components/common/BackButton";
 import { ForumDetails } from "~/components/forums/ForumDetails/ForumDetails";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import {UserConditional} from "~/components/common/UserConditional/UserConditional";
 
 const addPostURL = "/forums/posts/add";
 
@@ -24,10 +25,14 @@ const ViewForumPage = () => {
         <Link href={`${addPostURL}?forumID=${forumID}`}>
           <button>+ Add Post</button>
         </Link>
+        <UserConditional>
+          <ForumDetails forumID={forumID} />
+        </UserConditional>
       </div>
-      <ForumDetails forumID={forumID} />
+
     </section>
   );
 };
 
 export default ViewForumPage;
+

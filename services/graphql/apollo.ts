@@ -16,28 +16,28 @@ const typeDefs = gql`
   type appState {
     test: String!
   }
-
 `;
 
 const cache = new InMemoryCache();
 
 const request = async operation => {
-
   const headers = operation.getContext().headers;
-    const token = await sessionStorage.getItem("userToken");
-    console.info("[Apollo Request] Checking for user token...");
-    if ( token !== null ) {
-      console.info( "[Apollo Request] User token found. Setting graphql authorization headers...");
-      operation.setContext({
-        headers: {
-          authorization: `Bearer ${token}`,
-          ...headers
-        },
-      });
-      console.info("[Apollo Request] ...done.");
-    } else {
-      console.info("[Apollo Request] No user logged in.");
-    }
+  const token = await sessionStorage.getItem("userToken");
+  console.info("[Apollo Request] Checking for user token...");
+  if (token !== null) {
+    console.info(
+      "[Apollo Request] User token found. Setting graphql authorization headers..."
+    );
+    operation.setContext({
+      headers: {
+        authorization: `Bearer ${token}`,
+        ...headers,
+      },
+    });
+    console.info("[Apollo Request] ...done.");
+  } else {
+    console.info("[Apollo Request] No user logged in.");
+  }
 };
 
 const requestLink = new ApolloLink(

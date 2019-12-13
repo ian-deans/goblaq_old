@@ -17,7 +17,7 @@ interface Props {
 
 export const WriteResponse: React.FC<Props> = ({ postID }) => {
   const {push: pushRoute} = useRouter();
-  const { user_id } = useSession();
+  const { user: {hasura: {id: user_id}} } = useSession();
   const [content, setContent] = useState("");
   const [saveResponse, mutationData] = useMutation(INSERT_RESPONSE);
 
