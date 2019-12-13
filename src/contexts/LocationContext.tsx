@@ -34,7 +34,9 @@ const useMapbox = () => {
   };
 
   useEffect(() => {
-    resolveLocation();
+    if(process.browser) {
+      resolveLocation();
+    }
   }, []);
 
   return state;
@@ -44,6 +46,10 @@ export const LocationProvider = locationContext.Provider;
 export const LocationConsumer = locationContext.Consumer;
 
 export const LocationContext = ({ children }) => {
+  // if (!process.browser) {
+  //   return null;
+  // }
+
   const { initializing, location } = useMapbox();
 
   if (initializing) {

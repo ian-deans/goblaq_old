@@ -75,6 +75,7 @@ const client = new ApolloClient({
       }
       if (networkError) {
         console.info("[Network Error]: signing user out");
+        console.error(networkError);
         firebase.doSignOut();
       }
     }),
