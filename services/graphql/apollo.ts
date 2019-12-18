@@ -3,10 +3,21 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink, Observable } from "apollo-link";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
+
+import { split } from "apollo-link";
+import { getMainDefinition } from "apollo-utilities";
+
+import { SubscriptionClient } from "subscriptions-transport-ws";
+import { WebSocketLink } from "apollo-link-ws";
+
 import { onError } from "apollo-link-error";
 import gql from "graphql-tag";
 import firebase from "~/services/firebase";
 import { graphqlURL } from "../../config";
+
+import ws from "ws";
+
+const WS_PATH = "wss://goblaq.herokuapp.com/v1/graphql";
 
 const typeDefs = gql`
   extend type Query {
@@ -63,15 +74,47 @@ const requestLink = new ApolloLink(
     })
 );
 
+const httpLink = new HttpLink({
+  uri: graphqlURL,
+  fetch,
+});
+
+// Make sure the wsLink is only created on the browser. The server doesn't have a native implemention for websockets
+const wsLink = process.browser
+  ? new WebSocketLink(new SubscriptionClient(WS_PATH, { reconnect: true }))
+  : new WebSocketLink(new SubscriptionClient(WS_PATH, { reconnect: true }, ws));
+
+interface Definintion {
+  kind: string;
+  operation?: string;
+}
+
+// Let Apollo figure out if the request is over ws or http
+const terminatingLink = split(
+  ({ query }) => {
+    const { kind, operation }: Definintion = getMainDefinition(query);
+    return (
+      kind === "OperationDefinition" &&
+      operation === "subscription" &&
+      process.browser
+    );
+  },
+  wsLink,
+  httpLink
+);
+
 const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
         console.error("[Apollo Request] Send errors to logging service here");
         console.error(graphQLErrors);
-        //TODO: refresh jwt here
         console.info("[Apollo Request] Refresh Token Here");
-        // sendToLoggingService(graphQLErrors);
+        //TODO: refresh jwt here
+        if(process.browser) {
+          window.location.reload();
+        }
+        //TODO: sendToLoggingService(graphQLErrors);
       }
       if (networkError) {
         console.info("[Network Error]: signing user out");
@@ -80,10 +123,8 @@ const client = new ApolloClient({
       }
     }),
     requestLink,
-    new HttpLink({
-      uri: graphqlURL,
-      fetch,
-    }),
+
+    terminatingLink,
   ]),
   cache,
   typeDefs,

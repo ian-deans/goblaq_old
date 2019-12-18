@@ -8,24 +8,24 @@ export const Responses: React.FC<any> = ({ responses }) => {
   const responseComponents = responses.map((data, i) => (
     <Response key={i} {...selectResponseData(data)} />
   ));
-  return <Paper style={{ padding: "1em" }}>{responseComponents}</Paper>;
+  return <div style={{ padding: "1em" }}>{responseComponents}</div>;
 };
 
 const Response: React.FC<any> = props => {
   return (
-    <article style={{ border: "solid green 1px", margin: "1em 0" }}>
+    <Paper component="article" color="primary" style={{ padding: "2em", margin: "1em 0", display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex" }}>
         <Avatar
           alt="user avatar"
           style={{ width: 20, height: 20, marginRight: ".5em" }}
           src={props.avatarURL}
         />
-        <Typography>{props.username}</Typography>
+        <Typography align="center" variant="body2">{props.username}</Typography>
       </div>
       {/* <div>created: {moment(props.created_at).format("D-MM-YY")}</div> */}
       {/* <div>edited: {moment(props.updated_at).fromNow()}</div> */}
-      <div style={{ padding: "1em" }}>{props.content}</div>
-    </article>
+      <div style={{ padding: "1em", width: "75%"  }}>{props.content}</div>
+    </Paper>
   );
 };
 

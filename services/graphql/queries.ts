@@ -43,8 +43,9 @@ export const GET_BUSINESS_CATEGORIES = gql`
 export const GET_BUSINESS_DETAILS = gql`
   query selectBasicDetails($id: Int!) {
     businesses(where: { id: { _eq: $id } }) {
+      id
       name
-      average_rating
+      # average_rating
       claimed
       created_at
       description

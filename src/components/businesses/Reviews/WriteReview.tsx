@@ -7,7 +7,10 @@ import { Rating } from "~/components/common/Rating";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { INSERT_REVIEW, UPDATE_REVIEW } from "~/services/graphql/mutations/review";
+import {
+  INSERT_REVIEW,
+  UPDATE_REVIEW,
+} from "~/services/graphql/mutations/review";
 import { useSession } from "~/contexts/UserContext";
 import { GET_USER_REVIEWS } from "~/services/graphql/queries";
 import { ErrorBoundary } from "~/components/common/ErrorBoundary/ErrorBoundary";
@@ -28,36 +31,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface State {
-  title: string | null;
-  rating: number;
-  description: string;
-  id?: number | undefined;
-  user_id?: number | undefined;
-}
-
 interface Props {
   businessID: string | string[];
+  refetchFn: any;
   theme?: Theme;
 }
 
-const defaultState: State = {
-  id: undefined,
-  user_id: undefined,
-  title: "",
-  description: "",
-  rating: 0,
-};
-
 export const WriteReview: React.FunctionComponent<Props> = ({
   businessID,
+  refetchFn,
   theme,
 }) => {
   // get css classes
   const classes = useStyles(theme);
 
   // get user if from UserContext
-  const {user: {hasura: {id:userID}}} = useSession();
+  const {
+    user: {
+      hasura: { id: userID },
+    },
+  } = useSession();
 
   // initialize state
   const [title, setTitle] = React.useState<string>("");
@@ -66,19 +59,24 @@ export const WriteReview: React.FunctionComponent<Props> = ({
   const [reviewID, setReviewID] = React.useState<number | null>(undefined);
   const [error, setError] = React.useState<any | null>(undefined);
 
-  // initialize mutations
+  // initialize mutations to be used later
   const [postReview, postData] = useMutation(INSERT_REVIEW);
   const [updateReview, updateData] = useMutation(UPDATE_REVIEW);
 
-  // submit query
-  const { loading, error: queryError, data } = useQuery(GET_USER_REVIEWS, {
+  // submit query to get reviews owned by the user
+  const queryData = useQuery(GET_USER_REVIEWS, {
     variables: { businessID },
   });
 
-  React.useEffect(() => {
-    if (queryError) {
+  // Attach listeners to graphql requests
+  React.useEffect(handleQueryData, [queryData]);
+  React.useEffect(handlePostData, [postData]);
+
+  function handleQueryData() {
+    const { loading, error, data } = queryData;
+    if (error) {
       setError("An Error Occurred.");
-      console.error(queryError);
+      console.error(error);
       return;
     }
     if (data) {
@@ -91,14 +89,25 @@ export const WriteReview: React.FunctionComponent<Props> = ({
         setReviewID(review.id);
       }
     }
-  }, [data]);
-
-  if (!userID) {
-    //TODO handle user error
-    return <p>No User Found</p>;
   }
 
-  if (loading) {
+  function handlePostData() {
+    const { called, loading, error, data } = postData;
+    if (!called) {
+      return;
+    }
+
+    if (!loading && !error) {
+      refetchFn();
+    }
+  }
+
+  // if (!userID) {
+  //   //TODO handle user error
+  //   return <p>No User Found</p>;
+  // }
+
+  if (queryData.loading) {
     return <LinearProgress />;
   }
 
@@ -107,7 +116,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
     const data = { rating, title, description };
 
     if (rating < 0.5) {
-      console.log ("No rating given.")
+      console.info("No rating given.");
       setError("You must provide a rating score");
       return;
     }
@@ -129,8 +138,8 @@ export const WriteReview: React.FunctionComponent<Props> = ({
           },
         ],
       };
-      console.log(variables);
       postReview({ variables });
+      // useEffect watches mutation data and handles refetching
     }
   };
 
@@ -183,7 +192,7 @@ export const WriteReview: React.FunctionComponent<Props> = ({
           <Button onClick={handleSubmit} color="secondary" variant="contained">
             Submit
           </Button>
-          <span style={{marginLeft: "1em"}}>{error}</span>
+          <span style={{ marginLeft: "1em" }}>{error}</span>
         </div>
       </ErrorBoundary>
     </Paper>

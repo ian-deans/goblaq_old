@@ -11,7 +11,7 @@ export const useSession = () => {
 };
 
 const useAuth = () => {
-  const [fetchUserFromHasura, fetchData] = useLazyQuery(GET_USER);
+  const [fetchUserFromHasura, fetchData] = useLazyQuery(GET_USER, {fetchPolicy: "no-cache"});
   const [state, setState] = useState(() => {
     const { currentUser } = firebase.auth;
     return {

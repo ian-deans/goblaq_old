@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_BUSINESS_DETAILS } from "~/services/graphql/queries";
 import { UserConsumer } from "~/contexts/UserContext";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Reviews } from "~/components/businesses/Reviews";
+// import { Reviews } from "~/components/businesses/Reviews";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +63,7 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
     variables,
   });
 
+
   if (loading || !data) {
     return (
       <article className={classes.root}>
@@ -80,44 +81,46 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
       <div className={classes.contentFrame}>
         <section className={classes.mainSection}>
           <Description className={classes.description} {...listing} />
-          <UserConsumer>
-            {({ user }) =>
-              user && user.hasura ? (
-                <React.Fragment>
-                  <Reviews
-                    businessID={businessID}
-                    uid={user.firebase.uid}
-                    displayName={user.firebase.displayName}
-                  />
-                  {/* <section>features</section>
-                      <section>gallery</section> 
-                      <section>reservation maker (phase4+)</section> */}
-                </React.Fragment>
-              ) : (
-                <div>Sign up for free to see more information!</div>
-              )
-            }
-          </UserConsumer>
         </section>
-
         <aside className={classes.sideSection}>
           <section>Business Hours</section>
+        <UsersOnly>
+          <span>More Features To Come!</span>
           <div className="user-consumer">
-            <section>location</section>
+            <section>Location</section>
             {/* <section>video - phase3+</section> */}
-            {/* <section>social media links</section> //TODO: once claimed these will be visible */} 
+            {/* <section>social media links</section> //TODO: once claimed these will be visible */}
             {/* <section>suggestions</section> //TODO: suggestions based on location and search */}
           </div>
+        </UsersOnly>
         </aside>
       </div>
     </article>
   );
 };
 
+
+
 function Description({ description, className }) {
   return (
     <section className={className}>
       <p>{description || "No description provided."}</p>
     </section>
+  );
+}
+
+function UsersOnly({ children }) {
+  return (
+    <UserConsumer>
+      {({ user }) =>
+        user && user.hasura ? (
+          <div>
+            { children }
+          </div>
+        ) : (
+          <div>Sign up for free to see more information!</div>
+        )
+      }
+    </UserConsumer>
   );
 }

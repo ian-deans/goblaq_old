@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 import { GET_FORUM_BY_ID } from "~/services/graphql/queries";
-import { DEACTIVATE_POST } from "~/services/graphql/mutations";
+// // import { DEACTIVATE_POST } from "~/services/graphql/mutations";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 // import moment from "moment";
 
 interface Props {
@@ -14,14 +16,6 @@ interface Props {
 }
 
 export const ForumDetails: React.FC<Props> = ({ forumID }) => {
-  // const { user } = useSession();
-  
-
-  // const [deactivatePost, mutationData] = useMutation(DEACTIVATE_POST);
-
-  //? requests user's post ids to check for delete permission?
-  // const userPostsQuery = useQuery();
-
   const forumQuery = useQuery(GET_FORUM_BY_ID, {
     ...setViewerHTTPHeader(),
     pollInterval: 300000,
@@ -53,22 +47,24 @@ export const ForumDetails: React.FC<Props> = ({ forumID }) => {
 function PostLink(props) {
   return (
     <Link href={`/forums/posts/view?postID=${props.id}`}>
-      <div style={{ border: "solid red 1px", padding: "1em" }}>
-        <div>{props.title}</div>
+      <Paper style={{ margin: ".5em 0", padding: "1em" }}>
         {/* <div>{moment(props.created_at).fromNow()}</div> */}
         <div>
           <img
             src={props.avatar_url}
             alt="author avatar"
-            width="20"
-            height="20"
+            width="15"
+            height="15"
           />
-          {props.username}
+          <Typography variant="caption">
+            {props.username}
+          </Typography>
         </div>
-        <div>Likes: {props.likesCount}</div>
-        <div>Responses: {props.responsesCount}</div>
+        <Typography style={{margin: ".5em 0 .5em 1em"}} variant="h4">{props.title}</Typography>
+        <Typography variant="body2">Likes: {props.likesCount}</Typography>
+        <Typography variant="body2">Responses: {props.responsesCount}</Typography>
         {/* //TODO condition check and render delete button or null  */}
-      </div>
+      </Paper>
     </Link>
   );
 }

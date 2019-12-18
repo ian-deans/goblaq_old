@@ -88,11 +88,6 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
           {({ user }) =>
             user && user.firebase ? (
               <React.Fragment>
-                <Link href="/listings/add">
-                  <Typography className={classes.link} variant="subtitle1">
-                    Add Listing
-                  </Typography>
-                </Link>
                 <div>
                   <IconButton
                     aria-label="account of current user"
@@ -126,6 +121,9 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
                     <MenuItem onClick={handleClose}>
                       {user.firebase.displayName}
                     </MenuItem>
+                    <Link href="/businesses/add">
+                      <MenuItem onClick={handleClose}>Add Listing</MenuItem>
+                    </Link>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
                 </div>

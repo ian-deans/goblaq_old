@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme: any) =>
 
 interface Props {
   businessID: string | string[];
-  uid: string | string[];
-  displayName: string | string[];
+  uid?: string | string[];
+  displayName?: string | string[];
 }
 
 
 
 export const Reviews: React.FC<Props> = ({ businessID }) => {
   const classes = useStyles({});
-  const { loading, data } = useQuery(GET_REVIEWS, {
+  const { loading, data, refetch } = useQuery(GET_REVIEWS, {
     ...setViewerHTTPHeader(),
     pollInterval: 300000,
     variables: { businessID },
@@ -39,6 +39,8 @@ export const Reviews: React.FC<Props> = ({ businessID }) => {
     return <LinearProgress />;
   }
 
+  const refetchReviews = () => refetch();
+
   const { reviews } = data;
   return (
     <div className={classes.root}>
@@ -47,6 +49,7 @@ export const Reviews: React.FC<Props> = ({ businessID }) => {
       </div>
       <WriteReview
         businessID={businessID}
+        refetchFn={refetchReviews}
       />
     </div>
   );

@@ -4,10 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Rating } from "~/components/common/Rating";
 
+import { useSubscription } from "@apollo/react-hooks";
+import { SUBSCRIBE_TO_BUSINESS_RATING } from "~/services/graphql/subscriptions";
+
+
 // import from "@material-ui/core/";
 
 export const ListingHeader = ({
-  average_rating,
+  id,
   name,
   tags,
   claimed,
@@ -65,13 +69,9 @@ export const ListingHeader = ({
           <Typography align="right" variant="body2">
             {contacts[0] ? contacts[0].contact_value : null}
           </Typography>
+          <AverageRating businessID={id}/>
         </div>
-        <div>
-          <Typography align="right" variant="h5">
-            {average_rating}
-          </Typography>
-          <Rating readOnly={true} value={average_rating} />
-        </div>
+
         {/* <div>
           <Button size="small" variant="outlined">
             Write Review
@@ -88,6 +88,35 @@ export const ListingHeader = ({
     </header>
   );
 };
+
+function AverageRating({ businessID }) {
+  
+  const [rating, setRating] = React.useState(0);
+  
+  const subscription = useSubscription(SUBSCRIBE_TO_BUSINESS_RATING, {
+    variables: {id: businessID}
+  });
+  
+  function handleSubsciption() {
+    const {loading, error, data} = subscription;
+
+    if (data) {
+      const rating = data.businesses[0].average_rating;
+      setRating(rating);
+    }
+  }
+
+  React.useEffect(handleSubsciption, [subscription])
+
+  return (
+    <div>
+      <Typography align="right" variant="h5">
+        {rating}
+      </Typography>
+      <Rating readOnly={true} value={rating} />
+    </div>
+  );
+}
 
 function buildLocationString({ address_1, address_2, city, state, zip }) {
   const tokens = [];

@@ -18,7 +18,7 @@ const initialState = {
   forum_id: "",
 };
 
-export const WritePost: React.FC<Props> = ({ forumID }) => {
+export const WritePost: React.FC<Props> = ({ forumID, refetchFn }) => {
   const { push: pushRoute } = useRouter();
   const { user: {hasura: {id: user_id}} } = useSession();
   const [savePost, mutationData] = useMutation(INSERT_POST);

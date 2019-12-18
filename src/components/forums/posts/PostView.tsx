@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const PostView: React.FC<Props> = ({ postID }) => {
-  const { loading, error, data } = useQuery(GET_POST_WITH_RESPONSES, {
+  const { loading, error, data, refetch } = useQuery(GET_POST_WITH_RESPONSES, {
     ...setViewerHTTPHeader(),
     variables: { postID },
   });
@@ -32,7 +32,7 @@ export const PostView: React.FC<Props> = ({ postID }) => {
         <Responses responses={post.responses} />
       </div>
       <div>
-        <WriteResponse postID={postID} />
+        <WriteResponse refetchFn={refetch} postID={postID} />
       </div>
     </div>
   );

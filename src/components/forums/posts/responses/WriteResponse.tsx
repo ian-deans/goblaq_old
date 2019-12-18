@@ -11,11 +11,12 @@ const returnURL = "/forums/posts/view?postID=";
 
 interface Props {
   postID: string | string[];
+  refetchFn: any;
   theme?: any;
 }
 
 
-export const WriteResponse: React.FC<Props> = ({ postID }) => {
+export const WriteResponse: React.FC<Props> = ({ postID, refetchFn }) => {
   const {push: pushRoute} = useRouter();
   const { user: {hasura: {id: user_id}} } = useSession();
   const [content, setContent] = useState("");
@@ -31,8 +32,12 @@ export const WriteResponse: React.FC<Props> = ({ postID }) => {
     } else if (!loading && called ) {
       setSaving(false);
       setContent("");
-      pushRoute(`${returnURL}${postID}`);
+      refetchFn();
+      // pushRoute(`${returnURL}${postID}`);
+
     }
+
+    
   }, [mutationData]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = event => {

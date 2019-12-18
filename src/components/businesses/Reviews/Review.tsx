@@ -15,6 +15,7 @@ export const Review: React.SFC<any> = ({ title, description, rating, created_at,
       <div>
         <Typography>{title}</Typography>
         <Rating size="small" value={rating} readOnly={true} />
+        <Typography variant="caption">{created_at}</Typography>
       </div>
       <div>
         {description && (
