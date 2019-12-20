@@ -22,6 +22,7 @@ interface PopularPlacesProps {
 }
 
 export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
+  //TODO: Rip this out
   const variables = { city: "%Houston%", limit: 6};
 
   const { loading, error, data } = useQuery(GET_RECENT_BUSINESSES_BY_CITY, {variables});

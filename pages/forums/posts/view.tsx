@@ -1,9 +1,9 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { BackButton } from "~/components/common/BackButton";
-import {UserConditional} from "~/components/common/UserConditional/UserConditional";
-import { PostView } from "~/components/forums/posts/PostView";
+import { useRouter } from "next/router";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { PostView } from "~/components/forums/posts/PostView";
+import {UserConditional} from "~/components/common/UserConditional/UserConditional";
 
 export default () => {
   const { postID } = useRouter().query;

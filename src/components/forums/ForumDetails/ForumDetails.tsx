@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-// import { useSession } from "~/contexts/UserContext";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 import { GET_FORUM_BY_ID } from "~/services/graphql/queries";
@@ -15,6 +14,17 @@ interface Props {
   theme?: any;
 }
 
+interface PostData {
+  id: number;
+  created_at: string;
+  title: string;
+  username: string;
+  avatar_url: string;
+  likesCount: number;
+  responsesCount: number;
+}
+
+//# Main Component
 export const ForumDetails: React.FC<Props> = ({ forumID }) => {
   const forumQuery = useQuery(GET_FORUM_BY_ID, {
     ...setViewerHTTPHeader(),
@@ -44,6 +54,7 @@ export const ForumDetails: React.FC<Props> = ({ forumID }) => {
   );
 };
 
+
 function PostLink(props) {
   return (
     <Link href={`/forums/posts/view?postID=${props.id}`}>
@@ -56,13 +67,15 @@ function PostLink(props) {
             width="15"
             height="15"
           />
-          <Typography variant="caption">
-            {props.username}
-          </Typography>
+          <Typography variant="caption">{props.username}</Typography>
         </div>
-        <Typography style={{margin: ".5em 0 .5em 1em"}} variant="h4">{props.title}</Typography>
+        <Typography style={{ margin: ".5em 0 .5em 1em" }} variant="h4">
+          {props.title}
+        </Typography>
         <Typography variant="body2">Likes: {props.likesCount}</Typography>
-        <Typography variant="body2">Responses: {props.responsesCount}</Typography>
+        <Typography variant="body2">
+          Responses: {props.responsesCount}
+        </Typography>
         {/* //TODO condition check and render delete button or null  */}
       </Paper>
     </Link>
@@ -92,12 +105,3 @@ function selectCount({ aggregate: { count } }) {
   return count;
 }
 
-interface PostData {
-  id: number;
-  created_at: string;
-  title: string;
-  username: string;
-  avatar_url: string;
-  likesCount: number;
-  responsesCount: number;
-}

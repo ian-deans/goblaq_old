@@ -10,13 +10,8 @@ const userContext = createContext({
 });
 
 export const useSession = () => {
-  const { user } = useContext(userContext);
-  return { user };
-};
-
-export const useRefetchUser = () => {
-  const { refetchUser } = useContext(userContext);
-  return { refetchUser };
+  const { user, refetchUser, userObj } = useContext(userContext);
+  return { user, refetchUser, userObj };
 };
 
 const useAuth = () => {

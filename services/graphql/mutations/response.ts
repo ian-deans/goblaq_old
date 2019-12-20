@@ -12,7 +12,7 @@ export const INSERT_RESPONSE = gql`
 
 export const UPDATE_RESPONSE = gql`
   mutation UpdateResponse($objects: reviews_set_input!, $id: Int!) {
-    update_resposne(where: {id: {_eq: $id}}, _set: $objects) {
+    update_resposne(where: { id: { _eq: $id } }, _set: $objects) {
       returning {
         affected_rows
       }
@@ -22,7 +22,7 @@ export const UPDATE_RESPONSE = gql`
 
 export const DELETE_RESPONSE = gql`
   mutation DeleteResponse($id: Int!) {
-    delete_responses(where: {id: {_eq: $id}}) {
+    delete_responses(where: { id: { _eq: $id } }) {
       returning {
         id
       }
@@ -39,11 +39,16 @@ export const LIKE_RESPONSE = gql`
 `;
 
 export const UNLIKE_RESPONSE = gql`
-mutation UnlikeResponse($userID: Int!, $responseID: Int!) {
-  delete_responses_likes(where: {user_id: {_eq: $userID}, _and: {response_id: {_eq: $responseID}}}) {
-    returning {
-      id
+  mutation DeleteResponseLike($userID: Int!, $responseID: Int!) {
+    delete_responses_likes(
+      where: {
+        user_id: { _eq: $userID }
+        _and: { response_id: { _eq: $responseID } }
+      }
+    ) {
+      returning {
+        id
+      }
     }
   }
-}
 `;

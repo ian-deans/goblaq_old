@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_FORUMS_WITH_POST_COUNT } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
+import Paper from "@material-ui/core/Paper";
 
 interface ForumData {
   name: string | string[];
@@ -39,11 +40,11 @@ export const ForumList: React.FC = () => {
 const ForumLink: React.FC<LinkProps> = props => {
   return (
     <Link href={`/forums/view?forumID=${props.id}`}>
-      <div style={{border: "solid black 1px"}}>
+      <Paper>
         <div>{props.name}</div>
         <div>{props.description}</div>
         <div>{props.created_at}</div>
-      </div>
+      </Paper>
     </Link>
   );
 };

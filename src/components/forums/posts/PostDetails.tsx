@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import moment from "moment";
 import Paper from "@material-ui/core/Paper";
+import { PostLikeButton } from "./PostLikeButton";
+import DeleteIcon from "@material-ui/icons/DeleteForever";
 
 interface Props {
   id: number;
@@ -11,8 +13,11 @@ interface Props {
   likes: number;
   username: string;
   avatarURL: string;
+  userOwnsPost: boolean;
+  userLikedPost: boolean;
 }
 
+//# Main Component
 export const PostDetails: React.FC<Props> = ({
   id,
   created_at,
@@ -22,6 +27,8 @@ export const PostDetails: React.FC<Props> = ({
   likes,
   username,
   avatarURL,
+  userOwnsPost,
+  userLikedPost,
 }) => {
   return (
     <Paper style={{ padding: "1em", marginBottom: "1em" }}>
@@ -41,6 +48,15 @@ export const PostDetails: React.FC<Props> = ({
       >
         <p>{content}</p>
       </article>
+      <div className="toolbar">
+          {userOwnsPost ? (
+            <DeleteIcon />
+          ) : (
+            <PostLikeButton
+              userLikedPost={userLikedPost}
+            />
+          )}
+        </div>
     </Paper>
   );
 };

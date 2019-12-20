@@ -3,27 +3,24 @@ import { useSession } from "~/contexts/UserContext";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_RESPONSE } from "~/services/graphql/mutations/response";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/DeleteForever";
-import {ResponseLikeButton} from "./ResponseLikeButton";
+import { ResponseLikeButton } from "./ResponseLikeButton";
 import Paper from "@material-ui/core/Paper";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import Typography from "@material-ui/core/Typography";
 // import moment from "moment";
+import { usePostContext } from "~/contexts/ForumContexts";
 
-export const Responses: React.FC<any> = ({ responses, refetchFn }) => {
+
+export const Responses: React.FC<any> = ({ responses }) => {
   const { user } = useSession();
 
   const userOwnedResponses = user.hasura.responses.map(({ id }) => id);
   const userLikedResponses = user.hasura.responses_likes.map(
     ({ response_id }) => response_id
   );
-  const userID = user.hasura.id;
 
   const responseComponents = responses.map((data, i) => {
     const response = selectResponseData(data);
-
     const userOwnsResponse = userOwnedResponses.includes(response.id);
     const userLikedResponse = userLikedResponses.includes(response.id);
 
@@ -33,8 +30,6 @@ export const Responses: React.FC<any> = ({ responses, refetchFn }) => {
         {...response}
         userOwnsResponse={userOwnsResponse}
         userLikedResponse={userLikedResponse}
-        userID={userID}
-        refetchFn={refetchFn}
       />
     );
   });
@@ -42,15 +37,19 @@ export const Responses: React.FC<any> = ({ responses, refetchFn }) => {
 };
 
 const Response: React.FC<any> = props => {
-  const [deleteResponse, deleteMutationData] = useMutation(DELETE_RESPONSE);
-  const delResponse = () => deleteResponse({variables: {id: props.id}});
-  useEffect(handleRefetch, [deleteMutationData]);
+  // Grab refetchFn from context
+  const { refetchFn } = usePostContext();
 
+  // Initialize mutation
+  const [deleteResponse, deleteMutationData] = useMutation(DELETE_RESPONSE);
+  const delResponse = () => deleteResponse({ variables: { id: props.id } });
+
+  // Setup effect to refetch data when delete function is called
+  useEffect(handleRefetch, [deleteMutationData]);
   function handleRefetch() {
     const deleted = deleteMutationData.called && deleteMutationData.data;
-
     if (deleted) {
-      props.refetchFn();
+      refetchFn();
     }
   }
 
@@ -83,9 +82,9 @@ const Response: React.FC<any> = props => {
           <DeleteIcon onClick={delResponse} />
         ) : (
           <ResponseLikeButton
-            refetchFn={props.refetchFn}
+            // refetchFn={props.refetchFn}
             responseID={props.id}
-            userID={props.userID}
+            // userID={props.userID}
             userLikedResponse={props.userLikedResponse}
           />
         )}
@@ -93,14 +92,6 @@ const Response: React.FC<any> = props => {
     </Paper>
   );
 };
-
-function DeleteButton({ responseID, delFn }) {
-  return (
-    <Button onClick={() => delFn(responseID)}>
-      
-    </Button>
-  );
-}
 
 function selectResponseData({
   created_at,

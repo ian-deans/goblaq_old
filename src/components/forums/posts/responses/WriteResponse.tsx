@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from "react";
-import {useRouter} from "next/router"
-import { useSession } from "~/contexts/UserContext";
-import { TextField, Button, Paper } from "@material-ui/core";
-import { useMutation } from "@apollo/react-hooks";
-import { INSERT_RESPONSE } from "~/services/graphql/mutations/response";
-import SendIcon from "@material-ui/icons/Send";
+import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { INSERT_RESPONSE } from "~/services/graphql/mutations/response";
+import Paper from "@material-ui/core/Paper";
+import SendIcon from "@material-ui/icons/Send";
+import TextField from "@material-ui/core/TextField";
+import { useMutation } from "@apollo/react-hooks";
+import { useSession } from "~/contexts/UserContext";
 
-const returnURL = "/forums/posts/view?postID=";
-
-interface Props {
-  postID: string | string[];
-  refetchFn: any;
-  theme?: any;
-}
+import { usePostContext } from "~/contexts/ForumContexts";
 
 
-export const WriteResponse: React.FC<Props> = ({ postID, refetchFn }) => {
-  const {push: pushRoute} = useRouter();
-
-  const { user: {hasura: {id: user_id}} }: any = useSession();
+export const WriteResponse: React.FC = () => {
+  const { postID, refetchFn } = usePostContext();
+  const {
+    user: {
+      hasura: { id: user_id },
+    },
+  }: any = useSession();
 
   const [content, setContent] = useState("");
-  
   const [saveResponse, mutationData] = useMutation(INSERT_RESPONSE);
-
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -32,14 +28,11 @@ export const WriteResponse: React.FC<Props> = ({ postID, refetchFn }) => {
 
     if (loading) {
       setSaving(true);
-    } else if (!loading && called ) {
+    } else if (!loading && called) {
       setSaving(false);
       setContent("");
       refetchFn();
-        // pushRoute(`${returnURL}${postID}`);
     }
-
-    
   }, [mutationData]);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = event => {
