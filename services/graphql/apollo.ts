@@ -109,11 +109,11 @@ const client = new ApolloClient({
       if (graphQLErrors) {
         console.error("[Apollo Request] Send errors to logging service here");
         console.error(graphQLErrors);
-        console.info("[Apollo Request] Refresh Token Here");
+        // console.info("[Apollo Request] Refresh Token Here");
         //TODO: refresh jwt here
-        if(process.browser) {
-          window.location.reload();
-        }
+        // if(process.browser) {
+        //   window.location.reload();
+        // }
         //TODO: sendToLoggingService(graphQLErrors);
       }
       if (networkError) {

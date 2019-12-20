@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // import moment from "moment";
 import Paper from "@material-ui/core/Paper";
 import { PostLikeButton } from "./PostLikeButton";
-import DeleteIcon from "@material-ui/icons/DeleteForever";
+import { PostDeleteButton } from "./PostDeleteButton";
 
 interface Props {
   id: number;
@@ -50,7 +50,7 @@ export const PostDetails: React.FC<Props> = ({
       </article>
       <div className="toolbar">
           {userOwnsPost ? (
-            <DeleteIcon />
+            <PostDeleteButton />
           ) : (
             <PostLikeButton
               userLikedPost={userLikedPost}

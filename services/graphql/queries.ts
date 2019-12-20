@@ -264,7 +264,7 @@ export const GET_FORUM_BY_ID = gql`
 
 export const GET_POST_WITH_RESPONSES = gql`
   query GetPostsWithResponses($postID: Int!) {
-    posts(where: { id: { _eq: $postID } }) {
+    posts(where: { id: { _eq: $postID }, _and: {active: {_eq: true}} }) {
       post_likes_aggregate {
         aggregate {
           count

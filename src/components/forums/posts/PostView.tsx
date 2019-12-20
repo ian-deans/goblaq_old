@@ -6,7 +6,7 @@ import { setViewerHTTPHeader } from "~/services/graphql/helpers";
 import { useSession } from "~/contexts/UserContext";
 import { PostDetails } from "./PostDetails";
 import { Responses, WriteResponse } from "./responses";
-import {PostProvider} from "~/contexts/ForumContexts";
+import { PostProvider } from "~/contexts/ForumContexts";
 
 interface Props {
   postID: string | string[];
@@ -22,7 +22,6 @@ interface PostDetails {
   username: string;
   avatarURL: string;
 }
-
 
 //# Main Component
 export const PostView: React.FC<Props> = ({ postID }) => {
@@ -40,6 +39,11 @@ export const PostView: React.FC<Props> = ({ postID }) => {
 
   if (loading || !data) {
     return <LinearProgress color="secondary" />;
+  }
+
+  if (data && !data.posts.length) {
+    //TODO: Render something prettier here
+    return <div>No post with that ID found.</div>;
   }
 
   const post = data.posts[0] || {};
@@ -102,4 +106,3 @@ function selectPostDetails({
 function selectCount({ aggregate: { count } }) {
   return count;
 }
-
