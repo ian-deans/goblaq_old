@@ -18,8 +18,11 @@ interface Props {
 
 export const WriteResponse: React.FC<Props> = ({ postID, refetchFn }) => {
   const {push: pushRoute} = useRouter();
-  const { user: {hasura: {id: user_id}} } = useSession();
+
+  const { user: {hasura: {id: user_id}} }: any = useSession();
+
   const [content, setContent] = useState("");
+  
   const [saveResponse, mutationData] = useMutation(INSERT_RESPONSE);
 
   const [saving, setSaving] = useState(false);
@@ -33,8 +36,7 @@ export const WriteResponse: React.FC<Props> = ({ postID, refetchFn }) => {
       setSaving(false);
       setContent("");
       refetchFn();
-      // pushRoute(`${returnURL}${postID}`);
-
+        // pushRoute(`${returnURL}${postID}`);
     }
 
     

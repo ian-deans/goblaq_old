@@ -34,20 +34,20 @@ const cache = new InMemoryCache();
 const request = async operation => {
   const headers = operation.getContext().headers;
   const token = await sessionStorage.getItem("userToken");
-  console.info("[Apollo Request] Checking for user token...");
+  // console.info("[Apollo Request] Checking for user token...");
   if (token !== null) {
     console.info(
-      "[Apollo Request] User token found. Setting graphql authorization headers..."
+      // "[Apollo Request] User token found. Setting graphql authorization headers..."
     );
     operation.setContext({
       headers: {
-        authorization: `Bearer ${token}`,
         ...headers,
+        authorization: `Bearer ${token}`,
       },
     });
-    console.info("[Apollo Request] ...done.");
+    // console.info("[Apollo Request] ...done.");
   } else {
-    console.info("[Apollo Request] No user logged in.");
+    // console.info("[Apollo Request] No user logged in.");
   }
 };
 

@@ -52,7 +52,7 @@ interface Props {
   theme?: Theme;
 }
 
-export const ListingDetails: React.FunctionComponent<Props> = ({
+export const BusinessDetails: React.FunctionComponent<Props> = ({
   theme,
   businessID,
 }) => {
@@ -61,6 +61,7 @@ export const ListingDetails: React.FunctionComponent<Props> = ({
 
   const { loading, error, data } = useQuery(GET_BUSINESS_DETAILS, {
     variables,
+    pollInterval: 60000,
   });
 
 

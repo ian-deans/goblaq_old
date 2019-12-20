@@ -37,7 +37,7 @@ export const PostDetails: React.FC<Props> = ({
       </header>
       <article
         className="post-content"
-        style={{ border: "solid red 1px", margin: "1em" }}
+        style={{ margin: "1em" }}
       >
         <p>{content}</p>
       </article>

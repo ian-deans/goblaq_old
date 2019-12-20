@@ -25,8 +25,6 @@ export const ForumList: React.FC = () => {
     return <LinearProgress />;
   }
 
-  console.log("[Forum Data] -> ", data);
-
   const links = data
     ? data.forums.map(
         (forum: ForumData, i: number): React.ReactElement => (

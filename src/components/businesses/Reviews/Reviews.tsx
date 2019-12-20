@@ -31,7 +31,8 @@ export const Reviews: React.FC<Props> = ({ businessID }) => {
   const classes = useStyles({});
   const { loading, data, refetch } = useQuery(GET_REVIEWS, {
     ...setViewerHTTPHeader(),
-    pollInterval: 300000,
+    pollInterval: 5000,
+    // fetchPolicy: "no-cache",
     variables: { businessID },
   });
 

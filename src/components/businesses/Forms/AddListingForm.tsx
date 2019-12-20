@@ -74,7 +74,6 @@ export const AddListingForm = props => {
     event: React.FormEvent<HTMLFormElement>
   ): void => {
     event.preventDefault();
-    console.log(state);
     const details = gatherDetailsData(state);
     const location = gatherLocationData(state);
     const contacts = gatherContactsData(state);
@@ -87,19 +86,18 @@ export const AddListingForm = props => {
     }
     
     payload.variables.objects.push(object);
-    console.log("PAYLOAD ", payload);
     addBusiness(payload);
   };
 
   React.useEffect(() => {
     if (addBusinessData.loading) {
-      console.log(addBusinessData);
+      console.info(addBusinessData);
     }
     if (addBusinessData.error) {
-      console.log(addBusinessData);
+      console.info(addBusinessData);
     }
     if (addBusinessData.data) {
-      console.log(addBusinessData);
+      console.info(addBusinessData);
     }
   }, [addBusinessData]);
 

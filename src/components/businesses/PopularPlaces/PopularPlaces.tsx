@@ -28,7 +28,6 @@ export const PopularPlaces: React.SFC<PopularPlacesProps> = props => {
 
   if (loading) {
     const skeletons = Array.from(new Array(6)).map((c, i)=> (<BusinessCardSkeleton key={i} />))
-    console.log("loading ::", loading);
     return (
       <div>
         <Box style={{margin: "1em 0"}}>

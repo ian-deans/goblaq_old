@@ -21,9 +21,11 @@ export const GET_USER = gql`
       }
       post_likes {
         id
+        post_id
       }
       responses_likes {
         id
+        response_id
       }
       updated_at
     }

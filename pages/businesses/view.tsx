@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { ListingDetails } from "~/components/businesses/BusinessDetails/BusinessDetails";
+import { BusinessDetails } from "~/components/businesses/BusinessDetails/BusinessDetails";
 import { UserConditional } from "~/components/common/UserConditional/UserConditional";
 import { Reviews } from "~/components/businesses/Reviews";
 
@@ -10,8 +10,6 @@ const ViewListing = () => {
   if (!businessID) {
     return <LinearProgress />;
   }
-
-  console.log("BUSINESS ID\n", businessID);
 
   return (
     <React.Fragment>
@@ -32,7 +30,7 @@ const ViewListing = () => {
         className="details-container"
         style={{ marginTop: "15vh", padding: "0 1em" }}
       >
-        <ListingDetails businessID={businessID} />
+        <BusinessDetails businessID={businessID} />
         <UserConditional>
           <Reviews
             businessID={businessID}

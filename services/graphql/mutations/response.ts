@@ -24,8 +24,26 @@ export const DELETE_RESPONSE = gql`
   mutation DeleteResponse($id: Int!) {
     delete_responses(where: {id: {_eq: $id}}) {
       returning {
-        affected_rows
+        id
       }
     }
   }
+`;
+
+export const LIKE_RESPONSE = gql`
+  mutation InsertResponseLike($objects: [responses_likes_insert_input!]!) {
+    insert_responses_likes(objects: $objects) {
+      affected_rows
+    }
+  }
+`;
+
+export const UNLIKE_RESPONSE = gql`
+mutation UnlikeResponse($userID: Int!, $responseID: Int!) {
+  delete_responses_likes(where: {user_id: {_eq: $userID}, _and: {response_id: {_eq: $responseID}}}) {
+    returning {
+      id
+    }
+  }
+}
 `;
