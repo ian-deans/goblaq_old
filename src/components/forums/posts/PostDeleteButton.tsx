@@ -20,15 +20,14 @@ export const PostDeleteButton: React.SFC = () => {
     if (!called) {
       return;
     }
-    
-    console.log("Del Function Called")
+
     if (error) {
       console.error(error);
       return;
     }
 
     if (!error && data) {
-      // refetchFn();
+      refetchFn();
     }
   }, [deleteData]);
 
