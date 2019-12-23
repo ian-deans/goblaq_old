@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useRouter} from "next/router";
 import { DEACTIVATE_POST } from "~/services/graphql/mutations/post";
 import DeleteIcon from "@material-ui/icons/DeleteForever";
 import { useMutation } from "@apollo/react-hooks";
@@ -9,6 +10,7 @@ import { usePostContext } from "~/contexts/ForumContexts";
 // inactive for a TBD amount of time.
 
 export const PostDeleteButton: React.SFC = () => {
+  const {back} = useRouter();
   const { postID, refetchFn } = usePostContext();
   const [deactivatePost, deleteData] = useMutation(DEACTIVATE_POST);
   console.log("ID ", postID)
@@ -28,6 +30,7 @@ export const PostDeleteButton: React.SFC = () => {
 
     if (!error && data) {
       refetchFn();
+      back();
     }
   }, [deleteData]);
 
