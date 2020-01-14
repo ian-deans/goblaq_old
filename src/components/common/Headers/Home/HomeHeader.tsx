@@ -39,7 +39,7 @@ export const HomeHeader: React.SFC = props => {
       {/* <BannerImage className={classes.background}/> */}
       <Typography color="secondary" variant="h3">Goblaq and Beyond</Typography>
       <Typography variant="subtitle1">
-        A little message from yours truly
+        Discover more experiences within the Black Community
       </Typography>
     </Box>
   );
