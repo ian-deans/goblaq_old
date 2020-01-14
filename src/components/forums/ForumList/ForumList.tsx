@@ -1,13 +1,12 @@
 import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_FORUMS_WITH_POST_COUNT } from "~/services/graphql/queries";
+import { GET_FORUMS_BY_TYPE } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
-import Paper from "@material-ui/core/Paper";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { ForumSection } from "./ForumSection";
 
-interface ForumData {
+export interface ForumData {
   name: string | string[];
   description: string;
   created_at: string;
@@ -15,36 +14,31 @@ interface ForumData {
   id: number;
 }
 
-interface LinkProps extends ForumData {
-  key?: any;
-}
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    list: {},
+    section: {},
+    linkPaper: {},
+  })
+);
 
 export const ForumList: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_FORUMS_WITH_POST_COUNT, {...setViewerHTTPHeader()});
+  const { loading, error, data } = useQuery(GET_FORUMS_BY_TYPE, {
+    ...setViewerHTTPHeader(),
+  });
 
   if (loading) {
     return <LinearProgress />;
   }
 
-  const links = data
-    ? data.forums.map(
-        (forum: ForumData, i: number): React.ReactElement => (
-          <ForumLink key={i} {...forum} />
-        )
-      )
-    : <LinearProgress />;
+  console.log(data);
+  let thing = {};
 
-  return <div>{links}</div>;
-};
-
-const ForumLink: React.FC<LinkProps> = props => {
-  return (
-    <Link href={`/forums/view?forumID=${props.id}`}>
-      <Paper>
-        <div>{props.name}</div>
-        <div>{props.description}</div>
-        <div>{props.created_at}</div>
-      </Paper>
-    </Link>
+  const sections = data ? (
+    data.forum_types.map((d, i) => <ForumSection key={i} {...d} />)
+  ) : (
+    <LinearProgress />
   );
+
+  return <div>{sections}</div>;
 };

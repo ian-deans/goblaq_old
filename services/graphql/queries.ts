@@ -228,6 +228,28 @@ export const GET_FORUMS_WITH_POST_COUNT = gql`
       description
       id
       name
+      forum_type_id
+    }
+  }
+`;
+
+export const GET_FORUMS_BY_TYPE = gql`
+  query GetForumsByType {
+    forum_types {
+      name
+      id
+      type
+      forums {
+        created_at
+        description
+        id
+        name
+        posts_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
     }
   }
 `;
@@ -264,7 +286,7 @@ export const GET_FORUM_BY_ID = gql`
 
 export const GET_POST_WITH_RESPONSES = gql`
   query GetPostsWithResponses($postID: Int!) {
-    posts(where: { id: { _eq: $postID }, _and: {active: {_eq: true}} }) {
+    posts(where: { id: { _eq: $postID }, _and: { active: { _eq: true } } }) {
       post_likes_aggregate {
         aggregate {
           count

@@ -1,16 +1,14 @@
 import React from "react";
-// import { useRouter } from "next/router";
-import { SearchBar, SearchResults } from "../../src/components/businesses/Search";
-// import { SearchQueryContext, useSearchQuery } from "../../src/contexts/SearchQueryContext";
-
+import {
+  SearchBar,
+  SearchResults,
+} from "../../src/components/businesses/Search";
 
 export default props => {
   return (
     <React.Fragment>
-      {/* <SearchQueryContext> */}
-        <SearchBar />
-        <SearchResults />
-      {/* </SearchQueryContext> */}
+      <SearchBar />
+      <SearchResults />
     </React.Fragment>
   );
 };

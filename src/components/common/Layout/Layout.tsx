@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
           fontSize: 14,
         },
       },
+      body: {
+        backgroundColor: "#fff",
+      }
     },
     layout: {
       backgroundColor: "#fff",
@@ -30,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       justifyContent: "space-between",
       alignContent: "stretch",
+      // padding: "0 .5em",
       [theme.breakpoints.down("md")]: {
         fontSize: "11px",
       },
@@ -45,10 +49,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyItems: "stretch",
       justifyContent: "stretch",
+      backgroundColor: theme.palette.background.default,
     },
     pageContainer: {
       display: "flex",
       flexDirection: "column",
+      backgroundColor: theme.palette.background.paper,
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
         paddingRight: 0,

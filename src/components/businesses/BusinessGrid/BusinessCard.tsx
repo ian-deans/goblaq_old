@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       // Card
       maxWidth: "150px",
-      minWidth: "150px",
+      minWidth: "145px",
       height: "200px",
       position: "relative",
       [theme.breakpoints.up("lg")]: {
@@ -125,17 +125,17 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
 
       <CardContent className={classes.content}>
         <header className={classes.titleContainer}>
-          <Typography className={classes.title} variant="subtitle2">
+          <Typography color="textPrimary" className={classes.title} variant="subtitle2">
             {name}
           </Typography>
         </header>
         <section>
           <div className={classes.caption}>
-            <RoomTwoToneIcon fontSize="small" />
+            <RoomTwoToneIcon color="secondary" fontSize="small" />
             <Typography
               variant="body2"
               align="left"
-              color="textSecondary"
+              color="textPrimary"
               className={classes.captionContent}
             >
               {locationString}
@@ -143,9 +143,9 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
           </div>
 
           <div className={classes.caption}>
-            <PhoneTwoToneIcon fontSize="small" />
+            <PhoneTwoToneIcon color="secondary" fontSize="small" />
             <Typography
-              color="textSecondary"
+              color="textPrimary"
               variant="body2"
               align="left"
               className={classes.captionContent}

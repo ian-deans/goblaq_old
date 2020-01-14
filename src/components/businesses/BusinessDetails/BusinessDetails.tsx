@@ -1,11 +1,10 @@
 import React from "react";
-import { ListingHeader } from "./ListingHeader";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useQuery } from "@apollo/react-hooks";
 import { GET_BUSINESS_DETAILS } from "~/services/graphql/queries";
-import { UserConsumer } from "~/contexts/UserContext";
 import LinearProgress from "@material-ui/core/LinearProgress";
-// import { Reviews } from "~/components/businesses/Reviews";
+import { ListingHeader } from "./ListingHeader";
+import { UserConsumer } from "~/contexts/UserContext";
+import { useQuery } from "@apollo/react-hooks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,7 +63,6 @@ export const BusinessDetails: React.FunctionComponent<Props> = ({
     pollInterval: 60000,
   });
 
-
   if (loading || !data) {
     return (
       <article className={classes.root}>
@@ -78,28 +76,34 @@ export const BusinessDetails: React.FunctionComponent<Props> = ({
   return (
     <article className={classes.root}>
       <ListingHeader {...listing} />
-
+      <SideBar className={classes.sideSection} />
       <div className={classes.contentFrame}>
         <section className={classes.mainSection}>
           <Description className={classes.description} {...listing} />
         </section>
-        <aside className={classes.sideSection}>
-          <section>Business Hours</section>
-        <UsersOnly>
-          <span>More Features To Come!</span>
-          <div className="user-consumer">
-            <section>Location</section>
-            {/* <section>video - phase3+</section> */}
-            {/* <section>social media links</section> //TODO: once claimed these will be visible */}
-            {/* <section>suggestions</section> //TODO: suggestions based on location and search */}
-          </div>
-        </UsersOnly>
-        </aside>
       </div>
     </article>
   );
 };
 
+function SideBar({ className }) {
+  return (
+    <aside className={className}>
+      {/* portion of sidebar that is visible to all  */}
+      <section>Business Hours</section>
+      <UsersOnly>
+        {/* visible only to users */}
+        {/* <span>More Features To Come!</span> */}
+        <div className="user-consumer">
+          {/* <section>Location</section> */}
+          {/* <section>video - phase3+</section> */}
+          {/* <section>social media links</section> //TODO: once claimed these will be visible */}
+          {/* <section>suggestions</section> //TODO: suggestions based on location and search */}
+        </div>
+      </UsersOnly>
+    </aside>
+  );
+}
 
 
 function Description({ description, className }) {
@@ -115,9 +119,7 @@ function UsersOnly({ children }) {
     <UserConsumer>
       {({ user }) =>
         user && user.hasura ? (
-          <div>
-            { children }
-          </div>
+          <div>{children}</div>
         ) : (
           <div>Sign up for free to see more information!</div>
         )

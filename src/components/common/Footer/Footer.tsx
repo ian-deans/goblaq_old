@@ -1,10 +1,8 @@
 import React from "react";
-// import Container from "@material-ui/core/Container";
-
+import Link from "next/link";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-// const downBreakpoint = "@media (max-width: 425px)";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     link: {
       marginTop: "1em",
+      ["&:hover"]: {
+        cursor: "pointer",
+      }
     },
     subfooter: {
       display: "flex",
@@ -84,8 +85,12 @@ export const Footer: React.SFC = props => {
           <section className={classes.content}>
             <nav className={classes.linkbox}>
               <div className={classes.linkcolumn}>
-                <div className={classes.link}>Home</div>
-                <div className={classes.link}>Forums</div>
+                <Link href="/">
+                  <div className={classes.link}>Home</div>
+                </Link>
+                <Link href="/forums/explore">
+                  <div className={classes.link}>Forums</div>
+                </Link>
                 <div className={classes.link}>Explore</div>
                 {/* <div className={classes.link}>LINK</div> */}
               </div>

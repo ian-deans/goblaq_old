@@ -7,9 +7,8 @@ import DeleteIcon from "@material-ui/icons/DeleteForever";
 import { ResponseLikeButton } from "./ResponseLikeButton";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-// import moment from "moment";
+import moment from "moment";
 import { usePostContext } from "~/contexts/ForumContexts";
-
 
 export const Responses: React.FC<any> = ({ responses }) => {
   const { user } = useSession();
@@ -33,7 +32,16 @@ export const Responses: React.FC<any> = ({ responses }) => {
       />
     );
   });
-  return <div style={{ padding: "1em" }}>{responseComponents}</div>;
+  return (
+    <Paper
+      style={{
+        padding: "1em",
+        // margin: "0 .5em",
+      }}
+    >
+      {responseComponents}
+    </Paper>
+  );
 };
 
 const Response: React.FC<any> = props => {
@@ -57,11 +65,13 @@ const Response: React.FC<any> = props => {
     <Paper
       component="article"
       color="primary"
+      elevation={0}
       style={{
         padding: "2em",
-        margin: "1em 0",
+        margin: "2em 0",
         display: "flex",
         flexDirection: "column",
+        borderLeft: "solid black 2px",
       }}
     >
       <div style={{ display: "flex" }}>
@@ -74,9 +84,18 @@ const Response: React.FC<any> = props => {
           {props.username}
         </Typography>
       </div>
-      {/* <div>created: {moment(props.created_at).format("D-MM-YY")}</div> */}
-      {/* <div>edited: {moment(props.updated_at).fromNow()}</div> */}
-      <div style={{ padding: "1em", width: "75%" }}>{props.content}</div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <Typography variant="caption">
+          Posted: {moment(props.created_at).format("M/D/YYYY")}
+        </Typography>
+        <Typography variant="caption">
+          Updated: {moment(props.updated_at).fromNow()}
+        </Typography>
+      </div>
+      <Typography variant="body2">
+        {props.likes} likes
+      </Typography>
+      <div style={{ padding: "1em", width: "100%" }}>{props.content}</div>
       <div>
         {props.userOwnsResponse ? (
           <DeleteIcon onClick={delResponse} />

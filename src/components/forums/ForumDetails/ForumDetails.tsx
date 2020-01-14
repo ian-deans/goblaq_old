@@ -7,6 +7,9 @@ import { GET_FORUM_BY_ID } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import Container from "@material-ui/core/Container";
 // import moment from "moment";
 
 interface Props {
@@ -24,6 +27,24 @@ interface PostData {
   responsesCount: number;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    postLink: {
+      borderBottomStyle: "solid",
+      borderBottomColor: theme.palette.background.default,
+      margin: ".5em 0",
+      padding: "1em",
+      ["&:hover"]: {
+        cursor: "pointer",
+        backgroundColor: theme.palette.background.default,
+        ["> div > h6"]: {
+          color: "red"
+        }
+      },
+    },
+  })
+);
+
 //# Main Component
 export const ForumDetails: React.FC<Props> = ({ forumID }) => {
   const forumQuery = useQuery(GET_FORUM_BY_ID, {
@@ -39,10 +60,11 @@ export const ForumDetails: React.FC<Props> = ({ forumID }) => {
   const forum = forumQuery.data.forums[0];
 
   return (
-    <section>
-      {forumID}
-      <div>{forum.name || "NAME"}</div>
-      <div>{forum.description || "DESC"}</div>
+    <Paper component="section" style={{paddingTop: "1em"}}>
+      <Container style={{padding: "1em 0 1em 2em"}}>
+        <Typography variant="h5">{forum.name || "NAME"}</Typography>
+        <Typography variant="body1">{forum.description || "DESC"}</Typography>
+      </Container>
       <div>
         {forum.posts
           .map((p: any) => selectPostData(p))
@@ -50,32 +72,38 @@ export const ForumDetails: React.FC<Props> = ({ forumID }) => {
             <PostLink {...p} key={i} />
           ))}
       </div>
-    </section>
+    </Paper>
   );
 };
 
-
 function PostLink(props) {
+  const classes = useStyles(props);
   return (
     <Link href={`/forums/posts/view?postID=${props.id}`}>
-      <Paper style={{ margin: ".5em 0", padding: "1em" }}>
+      <Paper className={classes.postLink} elevation={0}>
         {/* <div>{moment(props.created_at).fromNow()}</div> */}
-        <div>
-          <img
-            src={props.avatar_url}
-            alt="author avatar"
-            width="15"
-            height="15"
-          />
-          <Typography variant="caption">{props.username}</Typography>
+        <div style={{ display: "flex" }}>
+          <div style={{width: "100px", minWidth: "100px"}}>
+            <Avatar
+              style={{ width: "30px", height: "30px" }}
+              variant="rounded"
+              src={props.avatar_url}
+            />
+            <Typography variant="caption">{props.username}</Typography>
+          </div>
+          <Typography style={{ margin: ".5em 0 .5em 1em" }} variant="h6">
+            {props.title}
+          </Typography>
         </div>
-        <Typography style={{ margin: ".5em 0 .5em 1em" }} variant="h4">
-          {props.title}
-        </Typography>
-        <Typography variant="body2">Likes: {props.likesCount}</Typography>
-        <Typography variant="body2">
-          Responses: {props.responsesCount}
-        </Typography>
+
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Typography style={{ marginRight: "2em" }} variant="body2">
+            Likes: {props.likesCount}
+          </Typography>
+          <Typography variant="body2">
+            Responses: {props.responsesCount}
+          </Typography>
+        </div>
         {/* //TODO condition check and render delete button or null  */}
       </Paper>
     </Link>
@@ -104,4 +132,3 @@ function selectPostData({
 function selectCount({ aggregate: { count } }) {
   return count;
 }
-

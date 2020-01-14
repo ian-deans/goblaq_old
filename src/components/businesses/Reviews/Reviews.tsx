@@ -1,11 +1,11 @@
 import React from "react";
-import { WriteReview } from "./WriteReview";
-import { ReviewList } from "./ReviewList";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { GET_REVIEWS } from "~/services/graphql/queries";
-import { useQuery, useMutation } from "@apollo/react-hooks";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { ReviewList } from "./ReviewList";
 import { setViewerHTTPHeader } from "~/services/graphql/helpers";
+import { useQuery } from "@apollo/react-hooks";
+import { WriteReview } from "./WriteReview";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -17,15 +17,11 @@ const useStyles = makeStyles((theme: any) =>
   })
 );
 
-
-
 interface Props {
   businessID: string | string[];
   uid?: string | string[];
   displayName?: string | string[];
 }
-
-
 
 export const Reviews: React.FC<Props> = ({ businessID }) => {
   const classes = useStyles({});
@@ -48,12 +44,9 @@ export const Reviews: React.FC<Props> = ({ businessID }) => {
       <div>
         <ReviewList reviews={reviews} />
       </div>
-      <WriteReview
-        businessID={businessID}
-        refetchFn={refetchReviews}
-      />
+      <WriteReview businessID={businessID} refetchFn={refetchReviews} />
     </div>
   );
 };
 
-
+export const Review: React.SFC<any> = () => <div>STUFF</div>;

@@ -56,32 +56,32 @@ export const CategorySearchLinks: React.SFC = props => {
   const classes = useStyles(props);
   const linkData = [
     {
-      icon: <SportsFootballIcon color="primary" />,
+      icon: <SportsFootballIcon color="secondary" />,
       name: "Sports",
       href: `${exploreURL}?search_desc=sports&search_loc=${searchLocation}`,
     },
     {
-      icon: <HotelIcon color="primary" />,
+      icon: <HotelIcon color="secondary" />,
       name: "Hotels",
       href: `${exploreURL}?search_desc=hotelsandtravel&search_loc=${searchLocation}`,
     },
     {
-      icon: <RestaurantIcon color="primary" />,
+      icon: <RestaurantIcon color="secondary" />,
       name: "Food",
       href: `${exploreURL}?search_desc=food&search_loc=${searchLocation}`,
     },
     {
-      icon: <ShoppingBasketIcon color="primary" />,
+      icon: <ShoppingBasketIcon color="secondary" />,
       name: "Shopping",
       href: `${exploreURL}?search_desc=shopping&search_loc=${searchLocation}`,
     },
     {
-      icon: <ConfirmationNumberIcon color="primary" />,
+      icon: <ConfirmationNumberIcon color="secondary" />,
       name: "Art & Entertainment",
       href: `${exploreURL}?search_desc=artsandentertainment&search_loc=${searchLocation}`,
     },
     {
-      icon: <LocalBarIcon color="primary" />,
+      icon: <LocalBarIcon color="secondary" />,
       name: "Nightlife",
       href: `${exploreURL}?search_desc=bars&search_loc=${searchLocation}`,
     },
@@ -104,12 +104,12 @@ function CategorySearchLink({ href, icon, name, className }) {
     <Link href={href}>
     <Box className={className} flexGrow="1">
       {icon}
-      <Typography align="center" variant="body1">
+      <Typography align="center" variant="body1" color="textPrimary">
         {name}
       </Typography>
-      <Typography align="center" variant="caption">
+      {/* <Typography align="center" variant="caption">
         12 Locations
-      </Typography>
+      </Typography> */}
     </Box>
     </Link>
   );

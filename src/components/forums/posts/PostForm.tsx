@@ -14,6 +14,9 @@ export const PostForm = ({ submitFn, changeFn, title, content, saving }) => {
         name="title"
         value={title}
         onChange={changeFn}
+        style={{
+          marginBottom: "2em"
+        }}
       />
       <TextField
         variant="outlined"
@@ -24,7 +27,7 @@ export const PostForm = ({ submitFn, changeFn, title, content, saving }) => {
         value={content}
         onChange={changeFn}
       />
-      <Button type="submit" disabled={saving}>
+      <Button type="submit" color="secondary" variant="contained" disabled={saving}>
         Post
       </Button>
     </form>

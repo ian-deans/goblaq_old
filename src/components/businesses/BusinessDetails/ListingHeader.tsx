@@ -7,7 +7,6 @@ import { Rating } from "~/components/common/Rating";
 import { useSubscription } from "@apollo/react-hooks";
 import { SUBSCRIBE_TO_BUSINESS_RATING } from "~/services/graphql/subscriptions";
 
-
 // import from "@material-ui/core/";
 
 export const ListingHeader = ({
@@ -40,9 +39,6 @@ export const ListingHeader = ({
           width: "66%",
         }}
       >
-        <Typography onClick={() => back()} variant="body2">
-          &lt; Back
-        </Typography>
         <Typography variant="h5">{name}</Typography>
         <Typography variant="body2">{tags}</Typography>
       </div>
@@ -63,13 +59,15 @@ export const ListingHeader = ({
             flexDirection: "column",
           }}
         >
+          <a target="_blank" href={`https://www.google.com/maps/place/${locationString}`} >
           <Typography align="right" variant="body2">
             {locationString}
           </Typography>
+          </a>
           <Typography align="right" variant="body2">
             {contacts[0] ? contacts[0].contact_value : null}
           </Typography>
-          <AverageRating businessID={id}/>
+          <AverageRating businessID={id} />
         </div>
 
         {/* <div>
@@ -90,15 +88,14 @@ export const ListingHeader = ({
 };
 
 function AverageRating({ businessID }) {
-  
   const [rating, setRating] = React.useState(0);
-  
+
   const subscription = useSubscription(SUBSCRIBE_TO_BUSINESS_RATING, {
-    variables: {id: businessID}
+    variables: { id: businessID },
   });
-  
+
   function handleSubsciption() {
-    const {loading, error, data} = subscription;
+    const { loading, error, data } = subscription;
 
     if (data) {
       const rating = data.businesses[0].average_rating;
@@ -106,14 +103,27 @@ function AverageRating({ businessID }) {
     }
   }
 
-  React.useEffect(handleSubsciption, [subscription])
+  React.useEffect(handleSubsciption, [subscription]);
 
   return (
-    <div>
-      <Typography align="right" variant="h5">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        marginTop: "1em",
+      }}
+    >
+      <Rating align="right" readOnly={true} value={rating} />
+      <Typography
+        color="textSecondary"
+        align="right"
+        variant="h5"
+        style={{
+          marginLeft: "1em",
+        }}
+      >
         {rating}
       </Typography>
-      <Rating readOnly={true} value={rating} />
     </div>
   );
 }

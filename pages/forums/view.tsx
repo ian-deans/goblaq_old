@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { BackButton } from "~/components/common/BackButton";
+// import { BackButton } from "~/components/common/BackButton";
 import { ForumDetails } from "~/components/forums/ForumDetails/ForumDetails";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {UserConditional} from "~/components/common/UserConditional/UserConditional";
+import Button from "@material-ui/core/Button";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const addPostURL = "/forums/posts/add";
 
@@ -17,14 +19,15 @@ const ViewForumPage = () => {
 
   return (
     <section>
-      <h1>View Forum</h1>
       <div>
-        <BackButton color="secondary" variant="contained">
-          Back
-        </BackButton>
-        <Link href={`${addPostURL}?forumID=${forumID}`}>
-          <button>+ Add Post</button>
-        </Link>
+        <Toolbar color="secondary">
+          <Link href={`/forums/explore`}>
+            <Button style={{marginRight: "1em"}} color="primary" variant="contained">Back</Button>
+          </Link>
+          <Link href={`${addPostURL}?forumID=${forumID}`}>
+            <Button color="secondary" variant="contained">+ Add Post</Button>
+          </Link>
+        </Toolbar>
         <UserConditional>
           <ForumDetails forumID={forumID} />
         </UserConditional>
@@ -35,4 +38,3 @@ const ViewForumPage = () => {
 };
 
 export default ViewForumPage;
-

@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { INSERT_POST } from "~/services/graphql/mutations/post";
 import { useSession } from "~/contexts/UserContext";
 import { useRouter } from "next/router";
-
+import Paper from "@material-ui/core/Paper";
 import { PostForm } from "./PostForm";
 
 interface Props {
@@ -20,7 +20,11 @@ const initialState = {
 
 export const WritePost: React.FC<Props> = ({ forumID }) => {
   const { push: pushRoute } = useRouter();
-  const { user: {hasura: {id: user_id}} } = useSession();
+  const {
+    user: {
+      hasura: { id: user_id },
+    },
+  } = useSession();
   const [savePost, mutationData] = useMutation(INSERT_POST);
   const [state, setState] = useState({
     ...initialState,
@@ -57,12 +61,16 @@ export const WritePost: React.FC<Props> = ({ forumID }) => {
   };
 
   return (
-    <PostForm
-      submitFn={handleSubmit}
-      changeFn={handleChange}
-      title={state.title}
-      content={state.content}
-      saving={metaState.saving}
-    />
+    <Paper style={{
+      padding: "2em"
+    }}>
+      <PostForm
+        submitFn={handleSubmit}
+        changeFn={handleChange}
+        title={state.title}
+        content={state.content}
+        saving={metaState.saving}
+      />
+    </Paper>
   );
 };
