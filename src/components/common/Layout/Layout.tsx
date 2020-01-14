@@ -49,12 +49,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyItems: "stretch",
       justifyContent: "stretch",
-      backgroundColor: theme.palette.background.default,
+      // backgroundColor: theme.palette.background.default,
+      backgroundImage: "url('images/backgrounds/01.jpg')",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
     },
     pageContainer: {
       display: "flex",
       flexDirection: "column",
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: "rgba(255,255,255,.5)",
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
         paddingRight: 0,

@@ -94,7 +94,7 @@ function SideBar({ className }) {
       <UsersOnly>
         {/* visible only to users */}
         {/* <span>More Features To Come!</span> */}
-        <div className="user-consumer">
+        <div className="user-consumer"> 
           {/* <section>Location</section> */}
           {/* <section>video - phase3+</section> */}
           {/* <section>social media links</section> //TODO: once claimed these will be visible */}
