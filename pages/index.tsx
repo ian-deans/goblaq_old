@@ -1,17 +1,21 @@
 /* Home */
 import React from "react";
-import { CategorySearchLinks } from "../src/components/directory/CategorySearchLinks";
-import { PopularPlaces } from "../src/components/directory/PopularPlaces/PopularPlaces";
-import { HomeHeader } from "../src/components/directory/Headers/Home/HomeHeader";
+import { CategorySearchLinks } from "../src/components/businesses/categories/CategorySearchLinks";
+import { PopularPlaces } from "../src/components/businesses/PopularPlaces/PopularPlaces";
+import { HomeHeader } from "../src/components/common/Headers/Home/HomeHeader";
+import { SearchBar } from "~/components/businesses/Search";
+import Paper from "@material-ui/core/Paper";
+
 
 const Home: React.SFC = (props: any) => {
   return (
-    <div>
+    <React.Fragment>
       <HomeHeader />
+      <SearchBar />
       <CategorySearchLinks {...props} />
       <hr />
       <PopularPlaces top3={true} />
-    </div>
+    </React.Fragment>
   );
 };
 

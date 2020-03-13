@@ -1,10 +1,8 @@
 import React from "react";
-// import Container from "@material-ui/core/Container";
-
+import Link from "next/link";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-// const downBreakpoint = "@media (max-width: 425px)";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
         minHeight: "100%",
-      }
+      },
     },
     flex: {
       display: "flex",
@@ -26,7 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-end",
+      justifyContent: "flex-end",
       width: "100%",
+      marginBottom: "1em",
       ["&:first-child"]: {
         marginRight: "1em",
         alignItems: "flex-start",
@@ -40,8 +40,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     message: {},
     linkbox: {},
-    linkcolumn: {},
-    link: {},
+    linkcolumn: {
+      marginRight: "1em",
+    },
+    link: {
+      marginTop: "1em",
+      ["&:hover"]: {
+        cursor: "pointer",
+      }
+    },
     subfooter: {
       display: "flex",
       alignItems: "flex-end",
@@ -67,28 +74,38 @@ export const Footer: React.SFC = props => {
         </div>
       </article>
       <article className={classes.article}>
-        <section style={{display: "flex", width: "100%", justifyContent: "space-around"}}>
-
-        <section className={classes.content}>
-          <nav className={classes.linkbox}>
-            <div className={classes.linkcolumn}>
-              <div className={classes.link}>LINK</div>
-              <div className={classes.link}>LINK</div>
-              <div className={classes.link}>LINK</div>
-              <div className={classes.link}>LINK</div>
-            </div>
-          </nav>
+        <section
+          style={{
+            display: "flex",
+            width: "100%",
+            minHeight: "35px",
+            justifyContent: "flex-end",
+          }}
+        >
+          <section className={classes.content}>
+            <nav className={classes.linkbox}>
+              <div className={classes.linkcolumn}>
+                <Link href="/">
+                  <div className={classes.link}>Home</div>
+                </Link>
+                <Link href="/forums/explore">
+                  <div className={classes.link}>Forums</div>
+                </Link>
+                <div className={classes.link}>Explore</div>
+                {/* <div className={classes.link}>LINK</div> */}
+              </div>
+            </nav>
           </section>
-        <section className={classes.content}>
-          <nav className={classes.linkbox}>
-            <div className={classes.linkcolumn}>
-              <div className={classes.link}>LINK</div>
-              <div className={classes.link}>LINK</div>
-              <div className={classes.link}>LINK</div>
-              <div className={classes.link}>LINK</div>
-            </div>
-          </nav>
-        </section>
+          <section className={classes.content}>
+            <nav className={classes.linkbox}>
+              <div className={classes.linkcolumn}>
+                <div className={classes.link}>Affiliates</div>
+                <div className={classes.link}>Pricing</div>
+                <div className={classes.link}>About Us</div>
+                {/* <div className={classes.link}>LINK</div> */}
+              </div>
+            </nav>
+          </section>
         </section>
         <div className={classes.subfooter}>
           <Typography variant="body2">

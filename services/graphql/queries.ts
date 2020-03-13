@@ -1,13 +1,33 @@
 import gql from "graphql-tag";
 
 export const GET_USER = gql`
-  query selectUserByID($uid: String!) {
-    users(where: { firebase_uid: { _eq: $uid } }) {
+  query SelectUser {
+    users {
       id
       first_name
       last_name
       username
       email_address
+      created_at
+      avatar_url
+      reviews {
+        id
+      }
+      responses {
+        id
+      }
+      posts {
+        id
+      }
+      post_likes {
+        id
+        post_id
+      }
+      responses_likes {
+        id
+        response_id
+      }
+      updated_at
     }
   }
 `;
@@ -25,8 +45,9 @@ export const GET_BUSINESS_CATEGORIES = gql`
 export const GET_BUSINESS_DETAILS = gql`
   query selectBasicDetails($id: Int!) {
     businesses(where: { id: { _eq: $id } }) {
+      id
       name
-      average_rating
+      # average_rating
       claimed
       created_at
       description
@@ -45,27 +66,6 @@ export const GET_BUSINESS_DETAILS = gql`
     }
   }
 `;
-
-//? where is this used?
-// export const GET_BUSINESSES = gql`
-//   query {
-//     businesses {
-//       id
-//       name
-//       average_rating
-//       location {
-//         address_1
-//         address_2
-//         city
-//         state
-//         zip
-//       }
-//       contacts(where: { contact_type: { _eq: office } }) {
-//         contact_value
-//       }
-//     }
-//   }
-// `;
 
 export const GET_RECENT_BUSINESSES_BY_CITY = gql`
   query selectRecentlyAddedByCity($city: String!, $limit: Int!) {
@@ -92,56 +92,28 @@ export const GET_RECENT_BUSINESSES_BY_CITY = gql`
   }
 `;
 
-export const GET_BUSINESSES_BY_CATEGORY = gql`
-  query getBusinessesByCategory($categoryFilter: String!) {
-    businesses(where: { category: { name: { _eq: $categoryFilter } } }) {
-      category {
-        id
-        name
-      }
-      id
-      name
-      location {
-        id
-        address_1
-        address_2
-        city
-        state
-        zip
-      }
-      contacts(where: { contact_type: { _eq: office } }) {
-        contact_value
-      }
-      average_rating
-    }
-  }
-`;
-
-// export const SearchBusinessesByTag = gql`
-//   query SearchBusinesses($city: String!, $tag: String!) {
-//     businesses(where: { tags: { _like: $tag } }) {
+//# possible deprecated query
+// export const GET_BUSINESSES_BY_CATEGORY = gql`
+//   query getBusinessesByCategory($categoryFilter: String!) {
+//     businesses(where: { category: { name: { _eq: $categoryFilter } } }) {
+//       category {
+//         id
+//         name
+//       }
 //       id
 //       name
-//       average_rating
-//       tags
-//       category {
-//         text
-//       }
 //       location {
+//         id
 //         address_1
 //         address_2
 //         city
 //         state
 //         zip
 //       }
-//       contacts {
+//       contacts(where: { contact_type: { _eq: office } }) {
 //         contact_value
-//         contact_type
 //       }
-//       claimed
-//       created_at
-//       description
-//       verified
+//       average_rating
 //     }
 //   }
 // `;
@@ -210,12 +182,10 @@ export const SEARCH_BUSINESSES = gql`
   }
 `;
 
-export const GET_REVIEWS_AND_USER = gql`
-  query GetReviewsAndUser($businessID: Int!) {
+export const GET_REVIEWS = gql`
+  query GetReviews($businessID: Int!) {
     reviews(
-      where: {
-        business_id: { _eq: $businessID }
-      },
+      where: { business_id: { _eq: $businessID } }
       order_by: { created_at: asc }
     ) {
       id
@@ -229,10 +199,125 @@ export const GET_REVIEWS_AND_USER = gql`
         avatar_url
       }
     }
-    users {
-      avatar_url
+  }
+`;
+
+export const GET_USER_REVIEWS = gql`
+  query GetUserReviews($businessID: Int!) {
+    reviews(where: { business_id: { _eq: $businessID } }) {
       id
-      username
+      rating
+      title
+      description
+      user_id
+    }
+  }
+`;
+
+//! FORUMS
+
+export const GET_FORUMS_WITH_POST_COUNT = gql`
+  query SelectForumsWithPostCount {
+    forums(order_by: { name: asc }) {
+      posts_aggregate {
+        aggregate {
+          count
+        }
+      }
+      created_at
+      description
+      id
+      name
+      forum_type_id
+    }
+  }
+`;
+
+export const GET_FORUMS_BY_TYPE = gql`
+  query GetForumsByType {
+    forum_types {
+      name
+      id
+      type
+      forums {
+        created_at
+        description
+        id
+        name
+        posts_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_FORUM_BY_ID = gql`
+  query SelectForumById($forumID: Int!) {
+    forums(where: { id: { _eq: $forumID } }) {
+      description
+      id
+      name
+      posts(where: { active: { _eq: true } }) {
+        id
+        created_at
+        title
+        updated_at
+        user {
+          username
+          avatar_url
+        }
+        responses_aggregate {
+          aggregate {
+            count
+          }
+        }
+        post_likes_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_POST_WITH_RESPONSES = gql`
+  query GetPostsWithResponses($postID: Int!) {
+    posts(where: { id: { _eq: $postID }, _and: { active: { _eq: true } } }) {
+      post_likes_aggregate {
+        aggregate {
+          count
+        }
+      }
+      responses(order_by: { created_at: asc }) {
+        content
+        created_at
+        id
+        parent_id
+        post_id
+        updated_at
+        user {
+          avatar_url
+          username
+        }
+        responses_likes_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+      content
+      created_at
+      id
+      title
+      updated_at
+      user {
+        avatar_url
+        username
+      }
     }
   }
 `;

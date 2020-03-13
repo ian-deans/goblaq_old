@@ -1,6 +1,7 @@
 import React from "react";
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
+import {metaDescription } from "../common/writtenContent";
 // import { AppTheme } from "../src/components/Theme/Theme";
 
 export default class MyDocument extends Document {
@@ -14,7 +15,7 @@ export default class MyDocument extends Document {
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           <meta name="description" 
-            content="A community directory service and crowd-sourced review forum that connects individuals with African American businesses and business owners." />
+            content={metaDescription} />
           {/* PWA primary color */}
           {/* <meta name="theme-color" content={AppTheme.palette.primary.main} /> */}
           <link

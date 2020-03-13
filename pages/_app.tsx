@@ -9,6 +9,7 @@ import { Layout } from "../src/components/common/Layout/Layout";
 import { UserContext } from "../src/contexts/UserContext";
 import { LocationContext } from "../src/contexts/LocationContext";
 import { SearchQueryContext } from "../src/contexts/SearchQueryContext";
+import { ErrorBoundary } from "../src/components/common/ErrorBoundary/ErrorBoundary";
 
 export default // withRouter(
 class GoblaqApp extends App {
@@ -37,7 +38,9 @@ class GoblaqApp extends App {
         <ApolloProvider client={client}>
           <Contexts>
             <Styles>
-              <Component {...pageProps} />
+              <ErrorBoundary>
+                <Component {...pageProps} />
+              </ErrorBoundary>
             </Styles>
           </Contexts>
         </ApolloProvider>

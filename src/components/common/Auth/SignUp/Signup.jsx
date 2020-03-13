@@ -118,7 +118,6 @@ export const Signup = () => {
 
   //* Form Input Change Handler
   const handleChange = (event, data) => {
-    console.log("TARGET ", typeof event)
     if ( !event.target && typeof event === "string") {
       // the event is the ReCaptcha value
       updateForm({recaptchaString: event})
@@ -394,23 +393,3 @@ function formatCategoryData(dataArray) {
 function stringContainsOnlyNumbers(str){
   return /^\d+$/.test(str);
 }
-
-// function addToMailChimpList() {
-//         let addToList;
-
-//       if (onBusinessForm()) {
-//         addToList = mailChimpAPI.addToBusinessList;
-//       } else {
-//         addToList = mailChimpAPI.addToSubscriberList;
-//       }
-
-//       addToList({
-//         email: state.form.email,
-//         // name: state.form.name,
-//         status: "subscribed",
-//       })
-//         .then(() => {
-//           addFireStoreEntry(id)
-//         })
-//         .catch(errorLogger.log);
-// }

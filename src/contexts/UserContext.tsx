@@ -1,55 +1,109 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import firebase from "../../services/firebase";
-// import apollo from "~/services/graphql/apollo";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { GET_USER } from "~/services/graphql/queries";
-import { useApolloClient } from "@apollo/react-hooks";
 
-const userContext = createContext({ user: undefined });
+const userContext = createContext({
+  user: undefined,
+  userObj: undefined,
+  refetchUser: undefined,
+});
 
 export const useSession = () => {
-  const { user } = useContext(userContext);
-  return user;
+  const { user, refetchUser, userObj } = useContext(userContext);
+  return { user, refetchUser, userObj };
 };
 
-// hook for... well, using auth
-export const useAuth = () => {
-  const client = useApolloClient();
-  const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER);
+const useAuth = () => {
+  const [fetchUserFromHasura, fetchData] = useLazyQuery(GET_USER, {
+    fetchPolicy: "no-cache",
+  });
+
+  // Initiate state for holding user data from firebase and hasura
   const [state, setState] = useState(() => {
-    const user = firebase.auth.currentUser;
-    if (user) {
-      loadUser({ variables: { uid: user.uid } });
-    }
+    // use whatever user might already be logged in
+    const { currentUser } = firebase.auth;
     return {
-      initializing: !user,
-      user: user ? user.toJSON() : user,
+      initializing: !currentUser,
+      user: {
+        firebase: currentUser ? currentUser.toJSON() : currentUser,
+        hasura: undefined,
+      },
+      userObj: currentUser,
+      refetchUser: fetchData ? fetchData.refetch : undefined,
     };
   });
 
+  // auth state change handler
   function onChange(user) {
+    const USER_TOKEN = "userToken";
     if (user) {
+      // a user has logged in
       user.getIdToken(true).then(token => {
-        sessionStorage.setItem("userToken", token); // JWT token
+        console.info("[AUTH] user found, setting JWT.");
+        sessionStorage.setItem(USER_TOKEN, token); // JWT token
 
-        //^ Get user from hasura
-        loadUser({ variables: { uid: user.uid } });
-        setState({ initializing: false, user: user.toJSON() });
+        const newState = { ...state };
+        newState.user.firebase = user.toJSON();
+        newState.userObj = user;
+        newState.initializing = true;
+        setState(newState);
+
+        fetchUserFromHasura();
       });
     } else {
-      console.info("--> no user found <--");
-      sessionStorage.removeItem("userToken");
-      setState({ initializing: false, user: undefined });
+      // the user logged out
+      console.info("[AUTH] user not found, removing JWT.");
+      sessionStorage.removeItem(USER_TOKEN);
+
+      // clear user data from state
+      setState({
+        initializing: false,
+        user: { firebase: undefined, hasura: undefined },
+        userObj: undefined,
+        refetchUser: undefined,
+      });
     }
   }
 
-  useEffect(() => {
-    // listen for auth state changes ( user logs in or out )
-    const unsubscribe = firebase.auth.onAuthStateChanged(onChange);
+  function handleHasuraQuery(): void {
+    const { called, loading, error, data, refetch } = fetchData;
 
-    // unsubscribe to the listener when unmounting
+    if (!called) {
+      return;
+    }
+
+    const newState = { ...state };
+
+    if (loading) {
+      newState.initializing = true;
+    } else {
+      newState.initializing = false;
+    }
+
+    if (error) {
+      console.error("Error while requesting user data from Hasura.");
+      console.error(error);
+    }
+
+    if (data) {
+      newState.user.hasura = data.users[0];
+    }
+
+    newState.refetchUser = refetch;
+
+    setState(newState);
+  }
+
+  // watch state.user.firebase. on change handle hasura side effects
+  useEffect(() => {
+    const unsubscribe = firebase.auth.onAuthStateChanged(onChange);
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    handleHasuraQuery();
+  }, [fetchData]);
 
   return state;
 };
@@ -58,7 +112,7 @@ export const UserProvider = userContext.Provider;
 export const UserConsumer = userContext.Consumer;
 
 export const UserContext = ({ children }) => {
-  const { initializing, user } = useAuth();
+  const { initializing, user, userObj, refetchUser } = useAuth();
 
   // in the scenario where we want to refrain from rendering
   // children unless the user is loaded we could do something
@@ -67,5 +121,15 @@ export const UserContext = ({ children }) => {
     console.info("[User] intializing...");
   }
 
-  return <UserProvider value={{ user }}>{children}</UserProvider>;
+  return (
+    <UserProvider
+      value={
+        initializing
+          ? { user: undefined, userObj: undefined, refetchUser: undefined }
+          : { user, userObj, refetchUser }
+      }
+    >
+      {children}
+    </UserProvider>
+  );
 };

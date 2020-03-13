@@ -34,7 +34,9 @@ const useMapbox = () => {
   };
 
   useEffect(() => {
-    resolveLocation();
+    if(process.browser) {
+      resolveLocation();
+    }
   }, []);
 
   return state;
