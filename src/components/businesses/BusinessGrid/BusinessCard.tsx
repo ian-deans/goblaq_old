@@ -27,19 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // Card
-      maxWidth: "150px",
+      width: "150px",
       minWidth: "145px",
-      height: "200px",
+      height: "100px",
       position: "relative",
       [theme.breakpoints.up("lg")]: {
-        maxWidth: "200px",
+        width: "200px",
         minWidth: "200px",
-        height: "250px",
+        height: "125px",
       },
       [theme.breakpoints.up("xl")]: {
-        maxWidth: "250px",
+        width: "250px",
         minwidth: "250px",
-        height: "300px",
+        height: "150px",
       },
     },
     header: {}, // Card Header
@@ -119,9 +119,9 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   const locationString = buildLocationString(location);
   return (
     <Card component="article" className={classes.root}>
-      <Link href={`${businessDetailsURL}?businessID=${id}`}>
+      {/* <Link href={`${businessDetailsURL}?businessID=${id}`}>
         <CardMedia alt="Gallery Image" className={classes.media} component="img" src="https://fakeimg.pl/300x200/" />
-      </Link>
+      </Link> */}
 
       <CardContent className={classes.content}>
         <header className={classes.titleContainer}>
