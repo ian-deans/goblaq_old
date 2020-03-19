@@ -11,6 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
 
+import {HeaderBackground} from "~/components/common/Headers/Home/HeaderBackground";
+
 import firebase from "../../../../services/firebase";
 import { UserConsumer, useSession } from "~/contexts/UserContext";
 import Typography from "@material-ui/core/Typography";
@@ -21,9 +23,15 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     appbar: {
+      position: "absolute",
+      top: "0",
+      left: "0",
       flexGrow: 1,
-      minHeight: "80px",
+      // minHeight: "25vh",
       boxShadow: "none",
+      backgroundColor: "transparent",
+      // zIndex: "10",
+      borderBottom: "solid white 1px",
     },
     toolbar: {
       display: "flex",
@@ -57,6 +65,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  //* wtf is this?
   const blarg = useSession();
 
   const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
@@ -74,6 +83,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
 
   return (
     // <header className={classes.root}>
+    // <HeaderBackground>
     <AppBar position="static" className={classes.appbar}>
       <Toolbar component="nav" className={classes.toolbar}>
         <Link href="/">
@@ -83,6 +93,9 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
             alt="goblaq logo"
           />
         </Link>
+        <div>
+          <Link href="/forums/explore">Forums</Link>
+          </div>
 
         <UserConsumer>
           {({ user }) =>
@@ -172,6 +185,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
         </UserConsumer>
       </Toolbar>
     </AppBar>
+    // </HeaderBackground>
     // </header>
   );
 };
