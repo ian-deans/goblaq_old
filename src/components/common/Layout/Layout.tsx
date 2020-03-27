@@ -85,11 +85,11 @@ export const Layout = props => {
 
   return (
     <Box className={classes.layout}>
-      <header className={classes.navbarBox}>
-        <Container maxWidth={containerWidth}>
+      {/* <header className={classes.navbarBox}> */}
+        {/* <Container maxWidth={containerWidth}> */}
           <NavBar />
-        </Container>
-      </header>
+        {/* </Container> */}
+      {/* </header> */}
       <main className={classes.pageBox}>
         <Container maxWidth={containerWidth} className={classes.pageContainer}>
           {props.children}

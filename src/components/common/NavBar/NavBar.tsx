@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
 
-import {HeaderBackground} from "~/components/common/Headers/Home/HeaderBackground";
+// import {Banner} from "~/components/common/Headers/Home/Banner";
 
 import firebase from "../../../../services/firebase";
 import { UserConsumer, useSession } from "~/contexts/UserContext";
@@ -83,7 +83,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
 
   return (
     // <header className={classes.root}>
-    // <HeaderBackground>
+    // <Banner>
     <AppBar position="static" className={classes.appbar}>
       <Toolbar component="nav" className={classes.toolbar}>
         <Link href="/">
@@ -185,7 +185,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
         </UserConsumer>
       </Toolbar>
     </AppBar>
-    // </HeaderBackground>
+    // </Banner>
     // </header>
   );
 };

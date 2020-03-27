@@ -3,7 +3,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import { HeaderBackground } from "./HeaderBackground";
+import { Banner } from "./Banner";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      zIndex: 50,
-      marginTop: "20vh",
+      zIndex: 100,
+      marginTop: "10vh",
       height: "40vh",
       // minHeight: "300px",
     }
@@ -37,17 +37,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export const HomeHeader: React.SFC = props => {
   const classes = useStyles(props);
   return (
-    <HeaderBackground>
-      <Box className={classes.root}>
-        {/* <BannerImage className={classes.background}/> */}
-        <Typography color="secondary" variant="h3">
-          Goblaq and Beyond
+    <Box className={classes.root}>
+      <Typography color="secondary" variant="h3">
+        Goblaq and Beyond
         </Typography>
-        <Typography variant="subtitle1">
-          Discover more experiences within the Black Community
+      <Typography variant="subtitle1">
+        Discover more experiences within the Black Community
         </Typography>
-      </Box>
-    </HeaderBackground>
+      <Banner />
+    </Box>
   );
 };
 
