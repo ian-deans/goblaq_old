@@ -5,6 +5,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { ListingHeader } from "./ListingHeader";
 import { UserConsumer } from "~/contexts/UserContext";
 import { useQuery } from "@apollo/react-hooks";
+import { Page } from "../../../../pages/Page";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,15 +75,19 @@ export const BusinessDetails: React.FunctionComponent<Props> = ({
   const listing = data.businesses[0];
 
   return (
-    <article className={classes.root}>
-      <ListingHeader {...listing} />
-      <SideBar className={classes.sideSection} />
-      <div className={classes.contentFrame}>
-        <section className={classes.mainSection}>
-          <Description className={classes.description} {...listing} />
-        </section>
-      </div>
-    </article>
+    <Page>
+
+
+      <article className={classes.root}>
+        <ListingHeader {...listing} />
+        <SideBar className={classes.sideSection} />
+        <div className={classes.contentFrame}>
+          <section className={classes.mainSection}>
+            <Description className={classes.description} {...listing} />
+          </section>
+        </div>
+      </article>
+    </Page>
   );
 };
 
@@ -94,7 +99,7 @@ function SideBar({ className }) {
       <UsersOnly>
         {/* visible only to users */}
         {/* <span>More Features To Come!</span> */}
-        <div className="user-consumer"> 
+        <div className="user-consumer">
           {/* <section>Location</section> */}
           {/* <section>video - phase3+</section> */}
           {/* <section>social media links</section> //TODO: once claimed these will be visible */}
@@ -121,8 +126,8 @@ function UsersOnly({ children }) {
         user && user.hasura ? (
           <div>{children}</div>
         ) : (
-          <div>Sign up for free to see more information!</div>
-        )
+            <div>Sign up for free to see more information!</div>
+          )
       }
     </UserConsumer>
   );

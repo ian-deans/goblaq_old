@@ -3,12 +3,14 @@ import {
   SearchBar,
   SearchResults,
 } from "../../src/components/businesses/Search";
+import { Page } from "../Page"
+
 
 export default props => {
   return (
-    <React.Fragment>
+    <Page>
       <SearchBar />
       <SearchResults />
-    </React.Fragment>
+    </Page>
   );
 };

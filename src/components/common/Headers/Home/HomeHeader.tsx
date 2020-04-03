@@ -3,7 +3,6 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import { Banner } from "./Banner";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       justifyContent: "center",
       zIndex: 100,
-      marginTop: "10vh",
-      height: "40vh",
+      // marginTop: "10vh",
+      // height: "40vh",
       // minHeight: "300px",
     }
     //* style for banner image; giving me grief so fuck it for now;
@@ -44,7 +43,7 @@ export const HomeHeader: React.SFC = props => {
       <Typography variant="subtitle1">
         Discover more experiences within the Black Community
         </Typography>
-      <Banner />
+      {/* <Banner /> */}
     </Box>
   );
 };

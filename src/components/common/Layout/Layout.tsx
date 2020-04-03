@@ -5,6 +5,8 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { NavBar } from "../NavBar/NavBar";
 import Container from "@material-ui/core/Container";
 import { Footer } from "../Footer/Footer";
+import { Banner } from "../PageBanner/Banner";
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,7 +59,10 @@ const useStyles = makeStyles((theme: Theme) =>
     pageContainer: {
       display: "flex",
       flexDirection: "column",
-      backgroundColor: "rgba(255,255,255,.5)",
+      backgroundColor: "rgba(255,255,255, 1.0)",
+      zIndex: 100,
+      marginTop: "25vh",
+      width: "100%",
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 0,
         paddingRight: 0,
@@ -88,12 +93,13 @@ export const Layout = props => {
       {/* <header className={classes.navbarBox}> */}
         {/* <Container maxWidth={containerWidth}> */}
           <NavBar />
+          <Banner />
         {/* </Container> */}
       {/* </header> */}
       <main className={classes.pageBox}>
-        <Container maxWidth={containerWidth} className={classes.pageContainer}>
+        <div  className={classes.pageContainer}>
           {props.children}
-        </Container>
+        </div>
       </main>
       <footer className={classes.footerBox}>
         <Container maxWidth={containerWidth}>
