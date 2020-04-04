@@ -8,15 +8,23 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        pageContainer: {
             width: "100%",
             overflowX: "visible",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            zIndex: 100,
+            // zIndex: 100,
+            // display: "flex",
+            // flexDirection: "column",
+            // zIndex: 100,
+            // width: "100%",
+            [theme.breakpoints.down("sm")]: {
+                paddingLeft: 0,
+                paddingRight: 0,
+            },
         }
-   
+
     })
 );
 
@@ -24,7 +32,7 @@ export const Page = props => {
     const classes = useStyles(props);
 
     return (
-        <Container maxWidth="xl">
+        <Container className={classes.pageContainer} maxWidth="xl">
             {props.children}
         </Container>
     )

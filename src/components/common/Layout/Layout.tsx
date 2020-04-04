@@ -42,39 +42,37 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     navbarBox: {
-      width: "100%",
-      display: "flex",
       alignItems: "center",
+      display: "flex",
+      width: "100%",
     },
     pageBox: {
-      minHeight: "70vh",
       display: "flex",
+      backgroundColor: "#fff",
+      justifyContent: "stretch",
       justifyItems: "stretch",
-      justifyContent: "stretch",
-      // backgroundColor: theme.palette.background.default,
-      // backgroundImage: "url('images/backgrounds/01.jpg')",
-      // backgroundRepeat: "no-repeat",
-      // backgroundSize: "cover",
-    },
-    pageContainer: {
-      display: "flex",
-      flexDirection: "column",
-      backgroundColor: "rgba(255,255,255, 1.0)",
-      zIndex: 100,
       marginTop: "25vh",
-      width: "100%",
-      [theme.breakpoints.down("sm")]: {
-        paddingLeft: 0,
-        paddingRight: 0,
-      },
+      minHeight: "70vh",
+      zIndex: 100,
     },
+    // pageContainer: {
+    //   display: "flex",
+    //   flexDirection: "column",
+    //   zIndex: 100,
+    //   width: "100%",
+    //   [theme.breakpoints.down("sm")]: {
+    //     paddingLeft: 0,
+    //     paddingRight: 0,
+    //   },
+    // },
     footerBox: {
-      width: "100%",
-      display: "flex",
-      backgroundColor: "#4d4d4d",
-      minHeight: "20vh",
-      justifyContent: "stretch",
       alignContent: "stretch",
+      backgroundColor: "#4d4d4d",
+      display: "flex",
+      justifyContent: "stretch",
+      minHeight: "20vh",
+      width: "100%",
+      zIndex: 100,
     },
   })
 );
@@ -91,20 +89,20 @@ export const Layout = props => {
   return (
     <Box className={classes.layout}>
       {/* <header className={classes.navbarBox}> */}
-        {/* <Container maxWidth={containerWidth}> */}
-          <NavBar />
-          <Banner />
-        {/* </Container> */}
+      {/* <Container maxWidth={containerWidth}> */}
+      <NavBar />
+      <Banner />
+      {/* </Container> */}
       {/* </header> */}
       <main className={classes.pageBox}>
-        <div  className={classes.pageContainer}>
+        {/* <Container className={classes.pageContainer}> */}
           {props.children}
-        </div>
+        {/* </Container> */}
       </main>
       <footer className={classes.footerBox}>
-        <Container maxWidth={containerWidth}>
+        {/* <Container maxWidth={containerWidth}> */}
           <Footer />
-        </Container>
+        {/* </Container> */}
       </footer>
     </Box>
   );

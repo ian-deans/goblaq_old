@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundImage: "url('/images/backgrounds/header-img.jpg')",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            // backgroundAttachment: "fixed",
+            backgroundAttachment: "fixed",
             backgroundPosition: "0px -200px",
             width: "100%",
             left: "0",

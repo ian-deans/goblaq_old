@@ -10,22 +10,22 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
-
-// import {Banner} from "~/components/common/Headers/Home/Banner";
+import Container from "@material-ui/core/Container";
 
 import firebase from "../../../../services/firebase";
 import { UserConsumer, useSession } from "~/contexts/UserContext";
 import Typography from "@material-ui/core/Typography";
-// import navbarLinks from "../../config";
 import { FacebookButton, GoogleButton } from "~/components/common/Auth/AuthButtons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     appbar: {
-      position: "absolute",
+      // position: "absolute",
       top: "0",
       left: "0",
+      display: "flex",
+      justifyContent: "center",
       flexGrow: 1,
       // minHeight: "25vh",
       boxShadow: "none",
@@ -37,6 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
       padding: "0 .5em",
+      maxWidth: "1100px",
+      color: "#fff",
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -82,9 +84,10 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   };
 
   return (
-    <header className={classes.root}>
-    {/* // <Banner> */}
+    // <header className={classes.root}>
     <AppBar position="static" className={classes.appbar}>
+      <Container maxWidth="xl">
+
       <Toolbar component="nav" className={classes.toolbar}>
         <Link href="/">
           <img
@@ -184,8 +187,9 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
           }
         </UserConsumer>
       </Toolbar>
+      </Container>
+
     </AppBar>
-    {/* // </Banner> */}
-    </header>
+    // </header>
   );
 };

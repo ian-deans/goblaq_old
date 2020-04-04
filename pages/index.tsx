@@ -10,8 +10,9 @@ import { Page } from "./Page";
 const Home: React.SFC = (props: any) => {
   return (
     <Page>
-      <HomeHeader />
-      <SearchBar />
+      <HomeHeader>
+        <SearchBar />
+      </HomeHeader>
       <CategorySearchLinks {...props} />
       <hr />
       <PopularPlaces top3={true} />

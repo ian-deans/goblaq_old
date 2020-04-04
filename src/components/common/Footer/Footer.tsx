@@ -2,11 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    footer: {
       display: "flex",
       justifyContent: "space-between",
       minHeight: "65%",
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Footer: React.SFC = props => {
   const classes = useStyles(props);
   return (
-    <div className={classes.root}>
+    <Container maxWidth="xl" className={classes.footer}>
       <article className={classes.article}>
         <section className={classes.content}>
           <img width="100" src="/images/goblaq_logo_2.png" alt="Goblaq Logo" />
@@ -113,6 +114,6 @@ export const Footer: React.SFC = props => {
           </Typography>
         </div>
       </article>
-    </div>
+    </Container>
   );
 };
