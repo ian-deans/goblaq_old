@@ -5,7 +5,7 @@ import { PopularPlaces } from "../src/components/businesses/PopularPlaces/Popula
 import { HomeHeader } from "../src/components/common/Headers/Home/HomeHeader";
 import { SearchBar } from "~/components/businesses/Search";
 import Paper from "@material-ui/core/Paper";
-import { Page } from "./Page";
+import { Page } from "../src/components/common/Page";
 
 const Home: React.SFC = (props: any) => {
   return (

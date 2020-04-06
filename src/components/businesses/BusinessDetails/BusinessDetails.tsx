@@ -5,7 +5,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { ListingHeader } from "./ListingHeader";
 import { UserConsumer } from "~/contexts/UserContext";
 import { useQuery } from "@apollo/react-hooks";
-import { Page } from "../../../../pages/Page";
+import { Page } from "../../common/Page";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

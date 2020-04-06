@@ -8,7 +8,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Toolbar from "@material-ui/core/Toolbar";
 // import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { Page } from "../../Page";
+import { Page } from "../../../src/components/common/Page";
 
 
 const WritePostPage = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { ForumList } from "../../src/components/forums/ForumList/ForumList";
 import {UserConditional} from "~/components/common/UserConditional/UserConditional";
-import { Page } from "../Page";
+import { Page } from "../../src/components/common/Page";
 
 const ExploreForums: React.FC = () => {
   return (

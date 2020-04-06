@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { AddListingForm } from "../../src/components/businesses/Forms/AddListingForm";
-import { Page } from "../Page"
+import { Page } from "../../src/components/common/Page"
 
 
 

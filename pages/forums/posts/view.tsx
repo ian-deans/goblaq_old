@@ -7,7 +7,7 @@ import { UserConditional } from "~/components/common/UserConditional/UserConditi
 import Toolbar from "@material-ui/core/Toolbar";
 // import Link from "@material-ui/core/Link";
 // import Button from "@material-ui/core/Button";
-import { Page } from "../../Page";
+import { Page } from "../../../src/components/common/Page";
 
 
 export default () => {

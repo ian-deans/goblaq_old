@@ -7,7 +7,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {UserConditional} from "~/components/common/UserConditional/UserConditional";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Page } from "../Page";
+import { Page } from "../../src/components/common/Page";
 
 const addPostURL = "/forums/posts/add";
 

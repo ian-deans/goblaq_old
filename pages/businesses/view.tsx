@@ -6,7 +6,7 @@ import { UserConditional } from "~/components/common/UserConditional/UserConditi
 import { Reviews } from "~/components/businesses/Reviews";
 import { BackButton } from "~/components/common/BackButton";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Page } from "../Page"
+import { Page } from "../../src/components/common/Page"
 
 const ViewListing = () => {
   const { businessID } = useRouter().query;

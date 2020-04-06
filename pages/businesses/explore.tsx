@@ -3,7 +3,7 @@ import {
   SearchBar,
   SearchResults,
 } from "../../src/components/businesses/Search";
-import { Page } from "../Page"
+import { Page } from "../../src/components/common/Page"
 
 
 export default props => {
