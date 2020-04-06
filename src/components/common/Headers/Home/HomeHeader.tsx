@@ -24,18 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // minHeight: "300px",
     }
     //* style for banner image; giving me grief so fuck it for now;
-    // background: {
-    //   position: "absolute",
-    //   height: "20vh",
-    //   minHeight: "300px",
-    //   width: "100vw",
-    //   left: "0",
-    //   backgroundRepeat: "no-repeat",
-    //   backgroundImage: "url(https://dummyimage.com/900x300/c2c0c2/ffffff.png)",
-    //   backgroundPosition: "fill",
-    //   backgroundSize: "cover",
-    //   zIndex: -51,
-    // },
   })
 );
 
@@ -44,7 +32,7 @@ export const HomeHeader: React.SFC = props => {
   return (
     <Container maxWidth="xl" className={classes.homeHeaderContainer}>
       <Box className={classes.homeHeader}>
-        <Typography color="secondary" variant="h3">
+        <Typography color="primary" variant="h3">
           Discover More
         </Typography>
         <Typography color="primary" variant="subtitle1">

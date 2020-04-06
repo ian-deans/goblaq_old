@@ -38,7 +38,7 @@ export const HomeHeader: React.SFC = props => {
   return (
     <Box className={classes.root}>
       {/* <BannerImage className={classes.background}/> */}
-      <Typography color="secondary" variant="h3">Goblaq and Beyond</Typography>
+      <Typography variant="h3">Goblaq and Beyond</Typography>
       <Typography variant="subtitle1">
         A little message from yours truly
       </Typography>

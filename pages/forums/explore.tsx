@@ -1,10 +1,11 @@
 import React from "react";
 import { ForumList } from "../../src/components/forums/ForumList/ForumList";
 import {UserConditional} from "~/components/common/UserConditional/UserConditional";
+import { Page } from "../Page";
 
 const ExploreForums: React.FC = () => {
   return (
-    <div>
+    <Page>
       <header>
         <h1>Explore the Forums</h1>
       </header>
@@ -13,7 +14,7 @@ const ExploreForums: React.FC = () => {
           <ForumList />
         </UserConditional>
       </section>
-    </div>
+    </Page>
   );
 };
 

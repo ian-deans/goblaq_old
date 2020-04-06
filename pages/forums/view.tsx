@@ -7,6 +7,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {UserConditional} from "~/components/common/UserConditional/UserConditional";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Page } from "../Page";
 
 const addPostURL = "/forums/posts/add";
 
@@ -18,8 +19,7 @@ const ViewForumPage = () => {
   }
 
   return (
-    <section>
-      <div>
+    <Page>
         <Toolbar color="secondary">
           <Link href={`/forums/explore`}>
             <Button style={{marginRight: "1em"}} color="primary" variant="contained">Back</Button>
@@ -31,9 +31,8 @@ const ViewForumPage = () => {
         <UserConditional>
           <ForumDetails forumID={forumID} />
         </UserConditional>
-      </div>
 
-    </section>
+    </Page>
   );
 };
 

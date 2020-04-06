@@ -7,6 +7,8 @@ import { UserConditional } from "~/components/common/UserConditional/UserConditi
 import Toolbar from "@material-ui/core/Toolbar";
 // import Link from "@material-ui/core/Link";
 // import Button from "@material-ui/core/Button";
+import { Page } from "../../Page";
+
 
 export default () => {
   const { postID } = useRouter().query;
@@ -16,7 +18,7 @@ export default () => {
   }
 
   return (
-    <div>
+    <Page>
       <Toolbar color="secondary">
         <BackButton color="primary" variant="contained">
           &lt; Back
@@ -25,6 +27,6 @@ export default () => {
       <UserConditional>
         <PostView postID={postID} />
       </UserConditional>
-    </div>
+    </Page>
   );
 };

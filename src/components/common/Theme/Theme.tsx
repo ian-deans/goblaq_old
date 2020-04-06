@@ -16,14 +16,14 @@ const theme = createMuiTheme({
     background: { paper: "#fff", default: "#f2f2f2" },
     primary: {
       main: "#fff",
-      light: "#ff5131",
-      dark: "#9b0000",
+      light: "#000",
+      dark: "#fff",
       contrastText: "#e60000",
     },
     secondary: {
       main: "#e60000",
       light: "#ffffff",
-      dark: "#c7c7c7",
+      dark: "#fff",
       contrastText: "#fff",
     },
     error: {
@@ -35,7 +35,7 @@ const theme = createMuiTheme({
     text: {
       // primary: "#e60000",
       primary: "#000",
-      secondary: "#e60000",
+      secondary: "#000",
       disabled: "rgba(0, 0, 0, 0.38)",
       hint: "rgba(0, 0, 0, 0.38)",
     },
