@@ -19,11 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      // marginTop: "10vh",
-      // height: "40vh",
-      // minHeight: "300px",
     }
-    //* style for banner image; giving me grief so fuck it for now;
   })
 );
 
@@ -43,7 +39,3 @@ export const HomeHeader: React.SFC = props => {
     </Container>
   );
 };
-
-// function BannerImage({ className }) {
-//   return <div className={className}/>;
-// }

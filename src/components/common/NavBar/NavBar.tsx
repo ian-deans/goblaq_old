@@ -98,6 +98,11 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
         </Link>
         <div>
           <Link href="/forums/explore">Forums</Link>
+          <Link href="/about">About</Link>
+          <Link href="/faq">FAQs</Link>
+          <Link href="/pricing">Pricing</Link>
+          <Link href="/terms">Terms &amp; Conditions</Link>
+          <Link href="/contact">Contact</Link>
           </div>
 
         <UserConsumer>
