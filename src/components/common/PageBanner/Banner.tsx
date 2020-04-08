@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             position: "absolute",
-            backgroundImage: "url('/images/backgrounds/header-img.jpg')",
+            // backgroundImage: "url('/images/backgrounds/header-img.jpg')",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: 20,
             filter: "brightness(90%)",
         },
+        backgroundImage: (props: any) => ({
+            backgroundImage:`url(/images/backgrounds/${props.backgroundImage})`
+        }),
         overlay: {
             // position: "absolute",
             height: "100%",
@@ -31,9 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Banner: React.SFC = props => {
-    const classes = useStyles(props);
+    const classes = useStyles({backgroundImage: "header-img.jpg"});
     return (
-        <div className={classes.root}>
+        // <div className={`${classes.root}`}>
+        <div className={`${classes.root} ${classes.backgroundImage}`}>
             <div className={classes.overlay}>
                 {/* {props.children} */}
             </div>
