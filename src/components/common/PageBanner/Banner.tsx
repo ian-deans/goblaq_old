@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             position: "absolute",
-            // backgroundImage: "url('/images/backgrounds/header-img.jpg')",
+            backgroundImage: "url('/images/backgrounds/header-img.jpg')",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
