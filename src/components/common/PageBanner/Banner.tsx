@@ -5,12 +5,12 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             position: "absolute",
-            // backgroundImage: "url('/images/backgrounds/header-img.jpg')",
+            backgroundImage: "url('/images/backgrounds/header-img.jpg')",
             // backgroundSize: "cover",
             // backgroundRepeat: "no-repeat",
             // backgroundAttachment: "fixed",
             // backgroundPosition: "0px -200px",
-            backgroundColor: "#ff1010",
+            //backgroundColor: "#ff1010",
             width: "100%",
             left: "0",
             top: "0",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
             // position: "absolute",
             height: "100%",
             width: "100%",
-            // backgroundColor: "rgba(255, 0, 0, 0.4);",
+            backgroundColor: "rgba(255, 0, 0, 0.4);",
             top: "0",
             left: "0",
             zIndex: 21,
