@@ -43,7 +43,7 @@ const theme = createMuiTheme({
   typography: {
     // htmlFontSize: 16,
     // fontSize: 13,
-    fontFamily: "Roboto",
+    fontFamily: "Raleway",
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
