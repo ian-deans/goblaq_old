@@ -33,13 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export const Banner: React.SFC = props => {
+export const Banner: React.SFC = (props: any) => {
     const classes = useStyles({backgroundImage: "header-img.jpg"});
+    const rootClass = props.imageName ? `${classes.root} ${classes.backgroundImage}` : `${classes.root}`;
     return (
-        // <div className={`${classes.root}`}>
-        <div className={`${classes.root} ${classes.backgroundImage}`}>
+        <div className={rootClass}>
             <div className={classes.overlay}>
-                {/* {props.children} */}
             </div>
         </div>
     );
