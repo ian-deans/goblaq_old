@@ -29,7 +29,7 @@ export const HomeHeader: React.SFC = props => {
     <Container maxWidth="xl" className={classes.homeHeaderContainer}>
       <Box className={classes.homeHeader}>
         <Typography color="primary" variant="h3">
-          Discover More
+          Discover more
         </Typography>
         <Typography color="primary" variant="subtitle1">
           experiences within the Black Community
