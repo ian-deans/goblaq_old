@@ -92,17 +92,42 @@ export const Footer: React.SFC = props => {
                 <Link href="/forums/explore">
                   <div className={classes.link}>Forums</div>
                 </Link>
-                <div className={classes.link}>Explore</div>
-                {/* <div className={classes.link}>LINK</div> */}
+                <Link href="/businesses/explore">
+                  <div className={classes.link}>Explore</div>
+                </Link>
+                <Link href="/about">
+                  <div className={classes.link}>
+                    About
+                  </div>
+                </Link>
               </div>
             </nav>
           </section>
           <section className={classes.content}>
             <nav className={classes.linkbox}>
               <div className={classes.linkcolumn}>
-                <div className={classes.link}>Affiliates</div>
-                <div className={classes.link}>Pricing</div>
-                <div className={classes.link}>About Us</div>
+
+                <Link href="/faq">
+                  <div className={classes.link}>
+                    FAQs
+                  </div>
+                </Link>
+                <Link href="/contact">
+                  <div className={classes.link}>
+                    Contact
+                  </div>
+                </Link>
+                <Link href="/terms">
+                  <div className={classes.link}>
+                    Terms &amp; Conditions
+                </div>
+                </Link>
+                <Link href="/pricing">
+                  <div className={classes.link}>
+                    Pricing
+                </div>
+                </Link>
+
                 {/* <div className={classes.link}>LINK</div> */}
               </div>
             </nav>
