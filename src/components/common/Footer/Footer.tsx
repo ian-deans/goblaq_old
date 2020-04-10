@@ -120,7 +120,7 @@ export const Footer: React.SFC = props => {
                 <Link href="/terms">
                   <div className={classes.link}>
                     Terms &amp; Conditions
-                </div>
+                  </div>
                 </Link>
                 <Link href="/pricing">
                   <div className={classes.link}>
