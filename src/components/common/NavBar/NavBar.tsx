@@ -46,6 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    links: {
+      display: "flex",
+      justifyContent: "space-evenly",
+      width: "50%",
+    },
     link: {
       "&:hover": {
         cursor: "pointer",
@@ -96,13 +101,25 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
             alt="goblaq logo"
           />
         </Link>
-        <div>
-          <Link href="/forums/explore">Forums</Link>
-          <Link href="/about">About</Link>
-          <Link href="/faq">FAQs</Link>
-          <Link href="/pricing">Pricing</Link>
-          <Link href="/terms">Terms &amp; Conditions</Link>
-          <Link href="/contact">Contact</Link>
+        <div className={classes.links}>
+          <Link href="/forums/explore">
+            <div className={classes.link}>Forums</div>
+          </Link>
+          <Link href="/about">
+            <div className={classes.link}>About</div>
+          </Link>
+          <Link href="/faq">
+            <div className={classes.link}>FAQs</div>
+          </Link>
+          <Link href="/pricing">
+            <div className={classes.link}>Pricing</div>
+          </Link>
+          {/* <Link href="/terms">
+            <div className={classes.link}>Terms &amp; Conditions</div>
+          </Link> */}
+          <Link href="/contact">
+            <div className={classes.link}>Contact</div>
+          </Link>
           </div>
 
         <UserConsumer>
