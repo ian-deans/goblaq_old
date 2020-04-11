@@ -55,17 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const CategorySearchLinks: React.SFC = props => {
   const classes = useStyles(props);
   const linkData = [
-    {
-      icon: <SportsFootballIcon color="secondary" />,
-      name: "Sports",
-      href: `${exploreURL}?search_desc=sports&search_loc=${searchLocation}`,
-    },
-    {
-      icon: <HotelIcon color="secondary" />,
-      name: "Hotels",
-      href: `${exploreURL}?search_desc=hotelsandtravel&search_loc=${searchLocation}`,
-    },
-    {
+     {
       icon: <RestaurantIcon color="secondary" />,
       name: "Food",
       href: `${exploreURL}?search_desc=food&search_loc=${searchLocation}`,
@@ -85,6 +75,17 @@ export const CategorySearchLinks: React.SFC = props => {
       name: "Nightlife",
       href: `${exploreURL}?search_desc=bars&search_loc=${searchLocation}`,
     },
+    {
+      icon: <SportsFootballIcon color="secondary" />,
+      name: "Sports",
+      href: `${exploreURL}?search_desc=sports&search_loc=${searchLocation}`,
+    },
+    {
+      icon: <HotelIcon color="secondary" />,
+      name: "Hotels",
+      href: `${exploreURL}?search_desc=hotelsandtravel&search_loc=${searchLocation}`,
+    },
+    
   ];
   return (
     <div className={classes.categoryLinkBox}>
