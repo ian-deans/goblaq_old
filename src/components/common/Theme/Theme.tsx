@@ -87,7 +87,7 @@ const theme = createMuiTheme({
       fontFamily: "Proxima Nova",
     },
     body2: {
-      fontSize: ".8rem",
+      fontSize: "1.2rem",
       color: "secondary", //? Not sure if this is doing anything
       fontWeight: 400,
       fontFamily: "Proxima Nova",
