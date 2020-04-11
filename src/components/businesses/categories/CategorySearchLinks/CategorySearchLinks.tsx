@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       //border: "solid transparent 1px",
       //"&:hover": {
       //  border: "solid #ff0000 1px",
-      },
+      //},
     },
     categoryLinkBox: {
       display: "grid",
