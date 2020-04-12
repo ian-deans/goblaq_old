@@ -93,8 +93,8 @@ const theme = createMuiTheme({
       fontFamily: "Proxima Nova",
     },
     button: {
-      fontSize: ".6rem",
-      fontWeight: 400,
+      fontSize: "1rem",
+      fontWeight: 600,
       lineHeight: 1.5,
     },
     caption: {
