@@ -51,7 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "40px",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center"
+      justifyContent: "center",
+       ["&:hover"]: {
+        cursor: "pointer"
+      }
     },
     media: {
       ["&:hover"]: {
