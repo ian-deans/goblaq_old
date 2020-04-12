@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
 
       //border: "solid transparent 1px",
-      //"&:hover": {
-      //  border: "solid #ff0000 1px",
-      //},
+      "&:hover": {
+        cursor: "pointer",
+      },
     },
     categoryLinkBox: {
       display: "grid",
