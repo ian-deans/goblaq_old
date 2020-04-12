@@ -114,7 +114,7 @@ function SideBar({ className }) {
 function Description({ description, className }) {
   return (
     <section className={className}>
-      <p>{description || "No description provided."}</p>
+      <p>{description || "No description provided. Is this your business? Claim to update"}</p>
     </section>
   );
 }
