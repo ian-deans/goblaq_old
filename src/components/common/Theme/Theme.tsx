@@ -80,7 +80,6 @@ const theme = createMuiTheme({
     subtitle2: {
       fontSize: "1rem",
       fontWeight: 600,
-      cursor: "pointer",
     },
     body1: {
       fontSize: "1rem",
