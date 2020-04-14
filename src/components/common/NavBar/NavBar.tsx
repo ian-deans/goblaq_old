@@ -19,7 +19,6 @@ import { FacebookButton, GoogleButton } from "~/components/common/Auth/AuthButto
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
     appbar: {
       // position: "absolute",
       top: "0",
