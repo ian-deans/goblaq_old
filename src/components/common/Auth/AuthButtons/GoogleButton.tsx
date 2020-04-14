@@ -1,8 +1,6 @@
 import React from "react";
 import firebase from "~/services/firebase";
 import Button from "@material-ui/core/Button";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import { Button, Form } from "semantic-ui-react";
 
 interface Props {
   disabled?: boolean;
