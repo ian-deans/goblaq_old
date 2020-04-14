@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Container } from "semantic-ui-react";
+// import { Container } from "semantic-ui-react";
 
 export const Layout = props => {
   return (
