@@ -89,8 +89,9 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   };
 
   return (
-    // <header className={classes.root}>
-    <AppBar position="static" className={classes.appbar}>
+     //<AppBar position="static" className={classes.appbar}>
+    <header className={classes.root}>
+   
       <Container maxWidth="xl">
 
       <Toolbar component="nav" className={classes.toolbar}>
