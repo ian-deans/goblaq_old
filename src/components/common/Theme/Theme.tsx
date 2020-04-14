@@ -2,9 +2,7 @@ import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 const theme = createMuiTheme({
-  appbar: {
-   colorPrimary:{backgroundColor: "transparent"},
-  },
+  
   breakpoints: {
     //? Customizing breakpoint keys isn't yet supported, but it is a feature that is under discussion.
     //? https://stackoverflow.com/questions/49739635/adding-breakpoint-to-custom-theme-in-material-ui-next-reactjs
