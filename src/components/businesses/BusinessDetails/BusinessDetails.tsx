@@ -2,10 +2,12 @@ import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { GET_BUSINESS_DETAILS } from "~/services/graphql/queries";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Container from "@material-ui/core/Container";
 import { ListingHeader } from "./ListingHeader";
 import { UserConsumer } from "~/contexts/UserContext";
 import { useQuery } from "@apollo/react-hooks";
 import { Page } from "../../common/Page";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,8 +78,6 @@ export const BusinessDetails: React.FunctionComponent<Props> = ({
 
   return (
     <Page>
-
-
       <article className={classes.root}>
         <ListingHeader {...listing} />
         <SideBar className={classes.sideSection} />
@@ -111,11 +111,14 @@ function SideBar({ className }) {
 }
 
 
-function Description({ description, className }) {
+function Description({ claimed, description, className }) {
   return (
-    <section className={className}>
-      <p>{description || "No description provided. Is this your business? Claim to update"}</p>
-    </section>
+    <Container className={className}>
+      <p>
+        {description || "No description provided. Is this your business? "} 
+        { claimed ? null : <Link href="">Claim here!</Link>}
+      </p>
+    </Container>
   );
 }
 

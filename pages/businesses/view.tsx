@@ -17,23 +17,9 @@ const ViewListing = () => {
 
   return (
     <Page>
-      {/* <div
-        className="heading-carousel"
-        style={{
-          position: "absolute",
-          left: 0,
-          height: "15vh",
-          backgroundColor: "black",
-          color: "white",
-          width: "100%",
-        }}
-      >
-        gallery carousel or banner image
-      </div> */}
       <div
         className="details-container"
         style={{
-          // marginTop: "15vh",
           padding: "0 1em",
         }}
       >
