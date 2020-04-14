@@ -211,8 +211,8 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
         </UserConsumer>
       </Toolbar>
       </Container>
+    </header>
+    //</AppBar>
 
-    </AppBar>
-    // </header>
   );
 };
