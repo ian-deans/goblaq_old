@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       // minHeight: "25vh",
       boxShadow: "none",
-      backgroundColor: "transparent",
+      backgroundColor: Colors.transparent,
       // zIndex: "10",
       borderBottom: "solid white 1px",
     },
