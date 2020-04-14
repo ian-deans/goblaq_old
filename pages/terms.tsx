@@ -1,6 +1,7 @@
 /* Home */
 import React from "react";
 import { Page } from "../src/components/common/Page";
+import Typography from "@material-ui/core/Typography";
 
 const Terms: React.SFC = (props: any) => {
     return (
