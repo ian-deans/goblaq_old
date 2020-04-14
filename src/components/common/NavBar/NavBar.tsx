@@ -19,6 +19,7 @@ import { FacebookButton, GoogleButton } from "~/components/common/Auth/AuthButto
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root:{},
     appbar: {
       // position: "absolute",
       top: "0",
@@ -90,7 +91,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
 
   return (
      //<AppBar position="static" className={classes.appbar}>
-    <header className={classes.root}>
+    <header className={classes.appbar}>
    
       <Container maxWidth="xl">
 
