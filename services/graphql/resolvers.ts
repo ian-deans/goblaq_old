@@ -1,22 +1,64 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const typeDefs = gql`
   extend type Query {
-    # cartItems: [ID!]!
+    isLoggedIn: Boolean!
+    location: Object
+    place: String
+  }
+
+  type Location {
+    long: String
+    lat: String
   }
 
   type User {
-    isLoggedIn: Boolean!
+    username: String
+    email: String
   }
 
-  # extend type Launch {
-  #   isInCart: Boolean!
-  # }
+  type appState {
+    user: User
+    place: String
+    isDarkModeEnabled: Boolean
+  }
 
   extend type Mutation {
-    # addOrRemoveFromCart(id: ID!): [Launch]
-    setOrUnsetUser(user: USER!): [User]
+    setUser
   }
 `;
 
-export const resolvers = {};
+// export const resolvers = {
+//   Mutation: {
+//     setUser
+//   }
+// };
+
+const getAppState = gql`
+  query {
+    state @client {
+      appState {
+        user
+      }
+    }
+  }
+`;
+
+export const resolvers = (getState: any, writeState: any) => {
+  return {
+    Mutation: {
+      updateAppState(_, appState) {
+        // get current / initial state from cache
+        const state = getState(getAppState);
+
+        const newState = {
+          ...state,
+          appState: Object.assign({}, state.appState, appState),
+        };
+
+        writeState(newState);
+        return newState;
+      },
+    },
+  };
+};

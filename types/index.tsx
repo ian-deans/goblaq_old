@@ -1,6 +1,6 @@
-export interface NavProps {
-  links: LinkData[];
-}
+// export interface NavProps {
+//   links: LinkData[];
+// }
 
 
 
