@@ -90,9 +90,9 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   };
 
   return (
-     //<AppBar position="static" className={classes.appbar}>
-    <header className={classes.appbar}>
-   
+    //<header className={classes.appbar}>
+     <AppBar position="static" className={classes.appbar}>
+       
       <Container maxWidth="xl">
 
       <Toolbar component="nav" className={classes.toolbar}>
@@ -212,8 +212,9 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
         </UserConsumer>
       </Toolbar>
       </Container>
-    </header>
-    //</AppBar>
+   
+   </AppBar>
+    // </header>
 
   );
 };
