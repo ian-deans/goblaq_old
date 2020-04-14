@@ -8,12 +8,10 @@ const Terms: React.SFC = (props: any) => {
         <Page>
             <h2>Terms and Conditions</h2>
             <Typography variant="body1">
-            Last Updated on November 27, 2012. These terms and conditions are effective immediately for those registering accounts 
-            after that date and will become effective December 27, 2012 for those with pre-existing accounts.These terms and conditions 
-            (the Terms) govern your access to and use of GoBlaq’s websites and mobile applications that link to or reference 
-            these Terms (Site). By accessing or using the Site, you are agreeing to these Terms and concluding a legally binding 
-            contract with GoBlaq Inc., a Delaware corporation headquartered in San Francisco, California (GoBlaq). 
-            Do not access or use the Site if you are unwilling or unable to be bound by the Terms.
+            Last Updated on March 13, 2020. These Terms of Service (which, together with the Business Terms below, a
+                re the “Terms”) are effective immediately for users accessing or using the Service without an Account or those 
+                registering Accounts on or after March 13, 2020, and will become effective January 31, 2020 for users with 
+                pre-existing Accounts. To review the previous terms, please click here.
             </Typography>
         </Page>
     );
