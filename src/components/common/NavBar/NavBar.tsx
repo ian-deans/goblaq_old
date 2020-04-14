@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       // minHeight: "25vh",
       boxShadow: "none",
-      backgroundColor: "red",
+      backgroundColor: "transparent",
       // zIndex: "10",
       borderBottom: "solid white 1px",
     },
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "0 .5em",
       maxWidth: "1100px",
       color: "#fff",
+      backgroundColor: "transparent",
     },
     menuButton: {
       marginRight: theme.spacing(2),
