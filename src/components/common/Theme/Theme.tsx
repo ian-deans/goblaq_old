@@ -16,14 +16,14 @@ const theme = createMuiTheme({
     background: { paper: "#fff", default: "#f2f2f2" },
     primary: {
       main: "#fff",
-      light: "#ff5131",
-      dark: "#9b0000",
+      light: "#000",
+      dark: "#fff",
       contrastText: "#e60000",
     },
     secondary: {
       main: "#e60000",
       light: "#ffffff",
-      dark: "#c7c7c7",
+      dark: "#fff",
       contrastText: "#fff",
     },
     error: {
@@ -35,7 +35,7 @@ const theme = createMuiTheme({
     text: {
       // primary: "#e60000",
       primary: "#000",
-      secondary: "#e60000",
+      secondary: "#000",
       disabled: "rgba(0, 0, 0, 0.38)",
       hint: "rgba(0, 0, 0, 0.38)",
     },
@@ -43,7 +43,7 @@ const theme = createMuiTheme({
   typography: {
     // htmlFontSize: 16,
     // fontSize: 13,
-    fontFamily: "Roboto",
+    fontFamily: "Raleway",
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
@@ -57,8 +57,8 @@ const theme = createMuiTheme({
       fontWeight: 900,
     },
     h3: {
-      fontSize: "2.3em",
-      fontWeight: 900,
+      fontSize: "4em",
+      fontWeight: 800,
     },
     h4: {
       fontSize: "2.1em",
@@ -73,25 +73,28 @@ const theme = createMuiTheme({
       fontWeight: 700,
     },
     subtitle1: {
-      fontSize: "1.3rem",
+      fontSize: "3rem",
       fontWeight: 500,
+      lineHeight: 1,
     },
     subtitle2: {
-      fontSize: "1.1rem",
-      fontWeight: 500,
+      fontSize: "1rem",
+      fontWeight: 600,
     },
     body1: {
       fontSize: "1rem",
       fontWeight: 400,
+      fontFamily: "Proxima Nova",
     },
     body2: {
-      fontSize: ".8rem",
+      fontSize: "1rem",
       color: "secondary", //? Not sure if this is doing anything
       fontWeight: 400,
+      fontFamily: "Proxima Nova",
     },
     button: {
-      fontSize: ".6rem",
-      fontWeight: 400,
+      fontSize: "1rem",
+      fontWeight: 600,
       lineHeight: 1.5,
     },
     caption: {

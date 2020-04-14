@@ -6,6 +6,7 @@ import { UserConditional } from "~/components/common/UserConditional/UserConditi
 import { Reviews } from "~/components/businesses/Reviews";
 import { BackButton } from "~/components/common/BackButton";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Page } from "../../src/components/common/Page"
 
 const ViewListing = () => {
   const { businessID } = useRouter().query;
@@ -15,24 +16,10 @@ const ViewListing = () => {
   }
 
   return (
-    <React.Fragment>
-      {/* <div
-        className="heading-carousel"
-        style={{
-          position: "absolute",
-          left: 0,
-          height: "15vh",
-          backgroundColor: "black",
-          color: "white",
-          width: "100%",
-        }}
-      >
-        gallery carousel or banner image
-      </div> */}
+    <Page>
       <div
         className="details-container"
         style={{
-          // marginTop: "15vh",
           padding: "0 1em",
         }}
       >
@@ -46,7 +33,7 @@ const ViewListing = () => {
           <Reviews businessID={businessID} />
         </UserConditional>
       </div>
-    </React.Fragment>
+    </Page>
   );
 };
 

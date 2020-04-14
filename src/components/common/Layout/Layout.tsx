@@ -5,6 +5,8 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { NavBar } from "../NavBar/NavBar";
 import Container from "@material-ui/core/Container";
 import { Footer } from "../Footer/Footer";
+import { Banner } from "../PageBanner/Banner";
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,36 +42,37 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     navbarBox: {
-      width: "100%",
-      display: "flex",
       alignItems: "center",
+      display: "flex",
+      width: "100%",
     },
     pageBox: {
-      minHeight: "70vh",
       display: "flex",
+      backgroundColor: "#fff",
+      justifyContent: "stretch",
       justifyItems: "stretch",
-      justifyContent: "stretch",
-      // backgroundColor: theme.palette.background.default,
-      backgroundImage: "url('images/backgrounds/01.jpg')",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
+      marginTop: "25vh",
+      minHeight: "70vh",
+      zIndex: 100,
     },
-    pageContainer: {
-      display: "flex",
-      flexDirection: "column",
-      backgroundColor: "rgba(255,255,255,.5)",
-      [theme.breakpoints.down("sm")]: {
-        paddingLeft: 0,
-        paddingRight: 0,
-      },
-    },
+    // pageContainer: {
+    //   display: "flex",
+    //   flexDirection: "column",
+    //   zIndex: 100,
+    //   width: "100%",
+    //   [theme.breakpoints.down("sm")]: {
+    //     paddingLeft: 0,
+    //     paddingRight: 0,
+    //   },
+    // },
     footerBox: {
-      width: "100%",
-      display: "flex",
-      backgroundColor: "#4d4d4d",
-      minHeight: "20vh",
-      justifyContent: "stretch",
       alignContent: "stretch",
+      backgroundColor: "#4d4d4d",
+      display: "flex",
+      justifyContent: "stretch",
+      minHeight: "20vh",
+      width: "100%",
+      zIndex: 100,
     },
   })
 );
@@ -85,20 +88,21 @@ export const Layout = props => {
 
   return (
     <Box className={classes.layout}>
-      <header className={classes.navbarBox}>
-        <Container maxWidth={containerWidth}>
-          <NavBar />
-        </Container>
-      </header>
+      {/* <header className={classes.navbarBox}> */}
+      {/* <Container maxWidth={containerWidth}> */}
+      <NavBar />
+      <Banner />
+      {/* </Container> */}
+      {/* </header> */}
       <main className={classes.pageBox}>
-        <Container maxWidth={containerWidth} className={classes.pageContainer}>
+        {/* <Container className={classes.pageContainer}> */}
           {props.children}
-        </Container>
+        {/* </Container> */}
       </main>
       <footer className={classes.footerBox}>
-        <Container maxWidth={containerWidth}>
+        {/* <Container maxWidth={containerWidth}> */}
           <Footer />
-        </Container>
+        {/* </Container> */}
       </footer>
     </Box>
   );

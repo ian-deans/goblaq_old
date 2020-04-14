@@ -12,7 +12,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useLocation } from "~/contexts/LocationContext";
 
 //^ VARIABLES
-const RETURN_LIMIT = 9;
+const RETURN_LIMIT = 15;
 
 //TODO: set this to the location determined by geolocation or ip lookup
 const default_loc = "Houston";

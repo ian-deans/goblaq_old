@@ -9,7 +9,6 @@ import PhoneTwoToneIcon from "@material-ui/icons/PhoneTwoTone";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
-
 const businessDetailsURL = "/businesses/view";
 
 interface BusinessCardProps {
@@ -34,48 +33,50 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("lg")]: {
         width: "200px",
         minWidth: "200px",
-        height: "125px",
+        height: "125px"
       },
       [theme.breakpoints.up("xl")]: {
         width: "250px",
         minwidth: "250px",
-        height: "150px",
-      },
+        height: "150px"
+      }
     },
     header: {}, // Card Header
     title: {
       lineHeight: "1.25em",
       minHeight: "25%",
-      [theme.breakpoints.down("md")]: {
-      },
+      [theme.breakpoints.down("md")]: {}
     },
     titleContainer: {
       minHeight: "40px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
+       ["&:hover"]: {
+        cursor: "pointer"
+      }
     },
     media: {
       ["&:hover"]: {
-        cursor: "pointer",
-      },
+        cursor: "pointer"
+      }
     },
     content: {
       justifyContent: "space-between",
-      padding: "0em 0em 0em 1em",
+      padding: "0em 0em 0em 1em"
     },
     caption: {
       display: "flex",
       justifyContent: "flex-start",
-      alignItems: "center",
+      alignItems: "center"
     },
     captionContent: {
-      marginLeft: "1em",
+      marginLeft: "1em"
     },
     avgRating: {
       position: "absolute",
       bottom: ".5em",
-      right: "1em",
+      right: "1em"
     },
     skeleton: {
       display: "flex",
@@ -90,20 +91,20 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("lg")]: {
         maxWidth: "250px",
         minWidth: "220px",
-        height: "280px",
+        height: "280px"
       },
       [theme.breakpoints.up("xl")]: {
         maxWidth: "300px",
         minwidth: "260px",
-        height: "330px",
-      },
+        height: "330px"
+      }
     },
     skeletonContent: {
       height: "40%",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-around",
-    },
+      justifyContent: "space-around"
+    }
   })
 );
 
@@ -113,21 +114,25 @@ export const BusinessCard: React.SFC<BusinessCardProps> = ({
   location,
   contact = "Information Unavailable",
   averageRating = "",
-  theme,
+  theme
 }) => {
   const classes = useStyles(theme);
   const locationString = buildLocationString(location);
   return (
     <Card component="article" className={classes.root}>
-      {/* <Link href={`${businessDetailsURL}?businessID=${id}`}>
-        <CardMedia alt="Gallery Image" className={classes.media} component="img" src="https://fakeimg.pl/300x200/" />
-      </Link> */}
+      {/* <CardMedia alt="Gallery Image" className={classes.media} component="img" src="https://fakeimg.pl/300x200/" /> */}
 
       <CardContent className={classes.content}>
         <header className={classes.titleContainer}>
-          <Typography color="textPrimary" className={classes.title} variant="subtitle2">
-            {name}
-          </Typography>
+          <Link href={`${businessDetailsURL}?businessID=${id}`}>
+            <Typography
+              color="textPrimary"
+              className={classes.title}
+              variant="subtitle2"
+            >
+              {name}
+            </Typography>
+          </Link>
         </header>
         <section>
           <div className={classes.caption}>

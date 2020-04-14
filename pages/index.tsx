@@ -5,17 +5,18 @@ import { PopularPlaces } from "../src/components/businesses/PopularPlaces/Popula
 import { HomeHeader } from "../src/components/common/Headers/Home/HomeHeader";
 import { SearchBar } from "~/components/businesses/Search";
 import Paper from "@material-ui/core/Paper";
-
+import { Page } from "../src/components/common/Page";
 
 const Home: React.SFC = (props: any) => {
   return (
-    <React.Fragment>
-      <HomeHeader />
-      <SearchBar />
+    <Page>
+      <HomeHeader>
+        <SearchBar />
+      </HomeHeader>
       <CategorySearchLinks {...props} />
       <hr />
       <PopularPlaces top3={true} />
-    </React.Fragment>
+    </Page>
   );
 };
 

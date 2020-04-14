@@ -3,7 +3,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { SearchBar } from "~/components/businesses/Search";
-import Paper from "@material-ui/core/Paper";
+// import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +38,7 @@ export const HomeHeader: React.SFC = props => {
   return (
     <Box className={classes.root}>
       {/* <BannerImage className={classes.background}/> */}
-      <Typography color="secondary" variant="h3">Goblaq and Beyond</Typography>
+      <Typography variant="h3">Goblaq and Beyond</Typography>
       <Typography variant="subtitle1">
         A little message from yours truly
       </Typography>

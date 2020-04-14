@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       marginTop: "2rem",
       backgroundColor: theme.palette.common.white,
+      borderRadius: "5px",
       [theme.breakpoints.down("sm")]: {
         alignItems: "center",
         padding: "0 1em",
@@ -125,7 +126,7 @@ export const SearchBar: React.FunctionComponent = (props: any) => {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <div style={{display: "flex", height: "100%", width: "100%"}}>
+      <div style={{display: "flex", height: "100%", width: "100%", alignContent: "stretch"}}>
 
       <div className={classes.inputCol}>
         <TextField

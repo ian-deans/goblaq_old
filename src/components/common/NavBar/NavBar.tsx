@@ -10,31 +10,46 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
+import Container from "@material-ui/core/Container";
 
 import firebase from "../../../../services/firebase";
 import { UserConsumer, useSession } from "~/contexts/UserContext";
 import Typography from "@material-ui/core/Typography";
-// import navbarLinks from "../../config";
 import { FacebookButton, GoogleButton } from "~/components/common/Auth/AuthButtons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     appbar: {
+      // position: "absolute",
+      top: "0",
+      left: "0",
+      display: "flex",
+      justifyContent: "center",
       flexGrow: 1,
-      minHeight: "80px",
+      // minHeight: "25vh",
       boxShadow: "none",
+      backgroundColor: "transparent",
+      // zIndex: "10",
+      borderBottom: "solid white 1px",
     },
     toolbar: {
       display: "flex",
       justifyContent: "space-between",
       padding: "0 .5em",
+      maxWidth: "1100px",
+      color: "#fff",
     },
     menuButton: {
       marginRight: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
+    },
+    links: {
+      display: "flex",
+      justifyContent: "space-evenly",
+      width: "50%",
     },
     link: {
       "&:hover": {
@@ -57,6 +72,7 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  //* wtf is this?
   const blarg = useSession();
 
   const handleLogout = (event: React.MouseEvent<HTMLElement>) => {
@@ -75,6 +91,8 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
   return (
     // <header className={classes.root}>
     <AppBar position="static" className={classes.appbar}>
+      <Container maxWidth="xl">
+
       <Toolbar component="nav" className={classes.toolbar}>
         <Link href="/">
           <img
@@ -83,6 +101,26 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
             alt="goblaq logo"
           />
         </Link>
+        <div className={classes.links}>
+          <Link href="/forums/explore">
+            <div className={classes.link}>Forums</div>
+          </Link>
+          <Link href="/about">
+            <div className={classes.link}>About</div>
+          </Link>
+          <Link href="/faq">
+            <div className={classes.link}>FAQs</div>
+          </Link>
+          <Link href="/pricing">
+            <div className={classes.link}>Pricing</div>
+          </Link>
+          {/* <Link href="/terms">
+            <div className={classes.link}>Terms &amp; Conditions</div>
+          </Link> */}
+          <Link href="/contact">
+            <div className={classes.link}>Contact</div>
+          </Link>
+          </div>
 
         <UserConsumer>
           {({ user }) =>
@@ -171,6 +209,8 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
           }
         </UserConsumer>
       </Toolbar>
+      </Container>
+
     </AppBar>
     // </header>
   );
