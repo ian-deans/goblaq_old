@@ -71,7 +71,7 @@ export const Footer: React.SFC = props => {
           </Typography>
         </section>
         <div className={classes.subfooter}>
-          <Typography variant="body2">Made in Texas. </Typography>
+          <Typography variant="body2">Made in Texas & LA </Typography>
         </div>
       </article>
       <article className={classes.article}>
