@@ -26,7 +26,6 @@ const About: React.SFC = (props: any) => {
                     Our Staff
                 </Typography>
             </div>
-
         </Page>
     );
 };
