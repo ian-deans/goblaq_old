@@ -92,9 +92,6 @@ export const Footer: React.SFC = props => {
                 <Link href="/forums/explore">
                   <div className={classes.link}>Forums</div>
                 </Link>
-                <Link href="/businesses/explore">
-                  <div className={classes.link}>Explore</div>
-                </Link>
                 <Link href="/about">
                   <div className={classes.link}>
                     About
@@ -117,11 +114,6 @@ export const Footer: React.SFC = props => {
                     Contact
                   </div>
                 </Link>
-                <Link href="/terms">
-                  <div className={classes.link}>
-                    Terms &amp; Conditions
-                  </div>
-                </Link>
                 <Link href="/pricing">
                   <div className={classes.link}>
                     Pricing
@@ -135,7 +127,7 @@ export const Footer: React.SFC = props => {
         </section>
         <div className={classes.subfooter}>
           <Typography variant="body2">
-            Terms of Service | Privacy Policy | 2019 Goblaq
+            Content Guidelines | Terms of Service | Privacy Policy |  2019 Goblaq
           </Typography>
         </div>
       </article>
