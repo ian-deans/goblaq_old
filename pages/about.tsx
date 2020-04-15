@@ -8,19 +8,15 @@ const About: React.SFC = (props: any) => {
         <Page>
             <h2>About</h2>
             <Typography variant="body1">
-                Goblaq was built for the digital age of consumers/retailers. 
-                Our transformative point-of-sale technologies give our users 
-                the tools to sell more and to engage more deeply with consumers, 
-                continually building value over the lifetime of their relationship.
+               Goblaq is an online engagement platform that empowers the  African Americans
+community to build, launch and grow an online community.
             </Typography>
             <Typography variant="body1">
-                Goblaq customized solutions designed to optimize business impact
-                by putting the retailer’s brand first with a flexible pricing options.
+                Our goal is to connect black-owned local businesses with millions of users looking for their products.
             </Typography>
             <Typography variant="body1">
-                We handle all the heavy lifting, allowing you to focus on 
-                growing your business through partnerships with bloggers, 
-                influencers, ambassadors, and promoters.
+              Goblaq customized solutions designed to optimize business impact by putting the  
+retailer’s brand first with a flexible pricing options.
             </Typography>
 
             <div>
