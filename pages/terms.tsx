@@ -13,7 +13,7 @@ const Terms: React.SFC = (props: any) => {
                 registering Accounts on or after March 13, 2020, and will become effective January 31, 2020 for users with 
                 pre-existing Accounts. To review the previous terms, please click here.
             </Typography>
- <div style="width: 500px;white-space: pre-line">{{property}}</div>        
+“\n”      
              <Typography variant="body1">
             Last Updated on March 13, 2020. These Terms of Service (which, together with the Business Terms below, a
                 re the “Terms”) are effective immediately for users accessing or using the Service without an Account or those 
