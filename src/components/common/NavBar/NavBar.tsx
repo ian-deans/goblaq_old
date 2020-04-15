@@ -104,18 +104,19 @@ export const NavBar: React.FunctionComponent<NavBarProps> = props => {
           />
         </Link>
         <div className={classes.links}>
-          <Link href="/forums/explore">
-            <div className={classes.link}>Forums</div>
-          </Link>
           <Link href="/about">
             <div className={classes.link}>About</div>
-          </Link>
-          <Link href="/faq">
-            <div className={classes.link}>FAQs</div>
           </Link>
           <Link href="/pricing">
             <div className={classes.link}>Pricing</div>
           </Link>
+          <Link href="/forums/explore">
+            <div className={classes.link}>Forums</div>
+          </Link>
+          <Link href="/faq">
+            <div className={classes.link}>FAQs</div>
+          </Link>
+          
           {/* <Link href="/terms">
             <div className={classes.link}>Terms &amp; Conditions</div>
           </Link> */}
