@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       // Card
       width: "150px",
-      minWidth: "145px",
-      height: "100px",
+      minWidth: "100px",
+      height: "125px",
       position: "relative",
       [theme.breakpoints.up("lg")]: {
         width: "200px",

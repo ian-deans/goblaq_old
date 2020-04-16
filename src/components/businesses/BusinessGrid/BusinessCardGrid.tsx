@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 200px))",
+      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 150px))",
       justifyContent: "space-around",
       justifyItems: "center",
       alignItems: "center",
