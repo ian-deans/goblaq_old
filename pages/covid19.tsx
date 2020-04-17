@@ -18,7 +18,7 @@ const Covid19: React.SFC = (props: any) => {
             </Typography>
             
             <Typography variant="body1">
-                Because of our commitment to keep small business open during and after the covid19, we are offering a $4.99/year to all the black owned business during this covid-19 pandemic."
+                Because of our commitment to keep small business open during and after the covid19, we are offering a $49.99/year to all the black owned business during this covid-19 pandemic."
             </Typography>
 
             <Button>GET STARTED</Button>
