@@ -24,12 +24,6 @@ const About: React.SFC = (props: any) => {
                 Goblaq customized solutions designed to optimize business impact by putting the  retailer’s brand first with a
                 flexible pricing options.
             </Typography>
-
-            <div>
-                <Typography variant="h5">
-                    Our Staff
-                </Typography>
-            </div>
         </Page>
     );
 };
