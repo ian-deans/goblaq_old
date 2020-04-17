@@ -151,6 +151,7 @@ export default function Pricing() {
       </Container>
      
     </React.Fragment>
+</Page>
   );
 }
 
