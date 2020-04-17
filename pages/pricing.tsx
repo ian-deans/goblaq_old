@@ -1,4 +1,4 @@
-/* Home 
+/* Home */
 import React from "react";
 import { Page } from "../src/components/common/Page";
 
