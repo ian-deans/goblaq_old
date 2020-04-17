@@ -153,3 +153,6 @@ export default function Pricing() {
     </React.Fragment>
   );
 }
+
+
+export default Pricing; 
