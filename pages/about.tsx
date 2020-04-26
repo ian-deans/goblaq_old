@@ -5,7 +5,7 @@ import { Page } from "../src/components/common/Page";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Container, Avatar, Box }  from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { TEAM, COMPANY_VALUES, VALUE_ITEMS } from './constants/about';
+import { TEAM, COMPANY_VALUES, VALUE_ITEMS, COMPANY_DESCRIPTION } from './constants/about';
 import Link from "next/link";
 
 
@@ -16,86 +16,120 @@ const About: React.SFC = (props: any) => {
             <Head>
                 <title>Goblaq - About Us</title>
             </Head>
-            <Container maxWidth={false} className={classes.topBanner}>
-                <h1 className={classes.centered}>
-                    <strong>Discover more</strong>
+            <Container
+                maxWidth={false}
+                className={`${classes.sectionContainer} ${classes.darkBackground}`}
+            >
+                <h1 className={classes.mainHeader}>
+                    <span className={classes.discoverMore}>Discover more</span>
                     <br/>
                     <span className={classes.normal}>within the Black Community</span>
                 </h1>
             </Container>
-            <Container maxWidth={false} className={classes.valueBanner}>
-                <h2 className={classes.centered}>What we do for you</h2>
+            <Container maxWidth={false} className={classes.sectionContainer}>
+                <h2 className={classes.sectionHeader}>What we do for you</h2>
                 <Grid container spacing={3}>
                     {VALUE_ITEMS.map((value, idx) => (
-                        <Grid key={idx} item xs={4} className={classes.valuesContainer}>
+                        <Grid key={idx} item lg={4} xs={12}>
                             <img
                                 style={{ height: 120 }}
                                 src={value.img}
                             />
-                            <h4>{value.title}</h4>
+                            <h2 className={classes.valuesTitle}>{value.title}</h2>
+                            <h4 className={classes.valuesSubtitle}>{value.subtitle}</h4>
                         </Grid>
                     ))}
                 </Grid>
             </Container>
-            <Container maxWidth={false}>
-                {COMPANY_VALUES.map((value, idx) => (
-                    <Typography key={idx} variant="body2">
-                        {value}
-                    </Typography>
-                ))}
-            </Container>
-            <Container maxWidth={false} className={classes.teamBanner}>
-                <h4>
-                    Our company reflects respect, diversity, hard work, humility, and a unified drive for our
-                    mission. We're upfront about who we are and what we offer our clients, and we encourage a
-                    sense of community across our teams to provide the best possible solutions.
-                </h4>
-                <h2>Our Staff</h2>
-                <Grid
-                    container
-                    spacing={3}
-                    justify="center"
-                    alignItems="center"
-                >
-                    {TEAM.map((member, idx) => (
-                        <Grid
-                            item
-                            lg={4}
-                            sm={4}
+            <Container
+                maxWidth={false}
+                className={`${classes.sectionContainer} ${classes.darkBackground}`}
+            >
+                <h2 className={classes.sectionHeader}>About Goblaq</h2>
+                <Container maxWidth="lg">
+                    {COMPANY_VALUES.map((value, idx) => (
+                        <Typography
                             key={idx}
+                            variant="body2"
+                            className={classes.valuesText}
                         >
-                            <Box className={classes.membersContainer}>
-                                <Avatar
-                                    src={member.img}
-                                    alt={member.name}
-                                    className={classes.avatar}
-                                />
-                                <h4 className={classes.memberTitle}>{member.title}</h4>
-                                <h4 className={classes.memberName}>{member.name}</h4>  
-                            </Box>
-                        </Grid>
+                            {value}
+                        </Typography>
                     ))}
-                </Grid>
+                </Container>
             </Container>
-            <Container maxWidth={false} className={classes.supportBanner}>
+            <Container maxWidth={false} className={classes.sectionContainer}>
+                <Container maxWidth="xl">
+                    <Typography
+                        variant="body2"
+                        className={classes.valuesText}
+                    >
+                        {COMPANY_DESCRIPTION}
+                    </Typography>
+                </Container>
+                <h2 className={classes.sectionHeader}>Our Staff</h2>
+                <Container maxWidth="xl">
+                    <Grid
+                        container
+                        spacing={3}
+                        justify="center"
+                        alignItems="center"
+                    >
+                        {TEAM.map((member, idx) => (
+                            <Grid
+                                item
+                                lg={4}
+                                sm={12}
+                                key={idx}
+                                className={classes.teamItem}
+                            >
+                                <Box className={classes.membersContainer}>
+                                    <Avatar
+                                        src={member.img}
+                                        alt={member.name}
+                                        className={classes.avatar}
+                                    />
+                                    <h4 className={classes.memberTitle}>{member.title}</h4>
+                                    <h4 className={classes.memberName}>{member.name}</h4>  
+                                </Box>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Container>
+            </Container>
+            <Container
+                maxWidth={false}
+                className={`${classes.sectionContainer} ${classes.darkBackground} ${classes.minimalSection}`}
+            >
                 <Grid 
                     justify="space-between"
                     spacing={3}
                     container
                 >
                    <Grid item lg={3} xs={3}>
-                        <img
-                            style={{ height: 120 }}
-                            src='../static/goblaq_contact.png'
-                        />
-                        <h4>We love to hear from you</h4>
+                        <Link href="/contact">
+                            <a className={classes.link}>
+                                <img
+                                    className={classes.contactIcon}
+                                    src='../static/goblaq_contact.png'
+                                />
+                                <br />
+                                <span>We love to hear from you</span>
+                            </a>
+                        </Link>
                    </Grid>
+
                    <Grid item lg={3} xs={3}>
-                        <img
-                            style={{ height: 120 }}
-                            src='../static/goblaq_support.png'
-                        />
-                        <h4>Support</h4>
+                        <Link href="/contact">
+                            <a className={classes.link}>
+                                <img
+                                    className={classes.contactIcon}
+                                    src='../static/goblaq_support.png'
+                                />
+                                <br />
+                                <span>Support</span>
+                            </a>
+                        </Link>
                    </Grid>
                 </Grid>   
             </Container>
@@ -105,22 +139,59 @@ const About: React.SFC = (props: any) => {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        h4: {
-            fontSize: "1rem",
-            fontWeight: 400,
+        root: {
             fontFamily: "Graphik,Helvetica,Arial,sans-serif",
         },
-        icon: {
-            height: 140,
+        pageContainer: {
+            width: "100% important",
+            padding: 0,
+            margin: 0,
         },
         avatar: {
-            height: 120,
-            width: 120,
+            height: 150,
+            width: 150,
+            margin: "0 auto",
         },
-        valuesContainer: {
+        link: {
+            fontSize: "1.2rem",
+            color: "white",
+            textDecoration: "none",
+        },
+        sectionHeader: {
+            fontSize: "2.2rem",
+            fontWeight: 600,
+            marginTop: 10,
+            marginBottom: 50,
+        },
+        sectionContainer: {
             flexDirection: "column",
             justifyContent: "center",
+            padding: 70,
+            border: "1px solid red",
             textAlign: "center",
+        },
+        darkBackground: {
+            backgroundColor: "red",
+            fontColor: "white",
+            color: "white",
+        },
+        minimalSection: {
+            alignItems: "center",
+            paddingTop: 15,
+            paddingBottom: 15,
+            margin: 0,
+        },
+        mainHeader: {
+            fontSize: "2.75rem",
+        },
+        discoverMore: {
+            fontWeight: 700,
+            fontSize: "3.5rem",
+        },
+        valuesText: {
+            fontSize: "1.4rem",
+            fontWeight: 500,
+            margin: 20,
         },
         membersContainer: {
             flexDirection: "column",
@@ -128,45 +199,40 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: "center",
         },
         memberName: {
-            fontSize: "1rem",
+            fontSize: "1.25rem",
             color: "red",
             fontWeight: 600,
-            fontFamily: "Graphik,Helvetica,Arial,sans-serif",
             padding: 0,
-            margin: "5 0",
-            border: '1px solid red',
+            margin: 0,
+        },
+        teamItem: {
+            marginTop: 20,
+            marginBottom: 40,
         },
         memberTitle: {
-            fontSize: "1rem",
+            fontSize: ".9rem",
             fontWeight: 300,
-            fontFamily: "Graphik,Helvetica,Arial,sans-serif",
+            textTransform: "uppercase",
             padding: 0,
-            margin: "5 0",
-            border: '1px solid red',
+            margin: 10,
+            marginBottom: 0,
         },
-        valueBanner: {
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
+        valuesTitle: {
+            fontSize: "1.8rem",
+            fontWeight: 600,
+            padding: 0,
+            margin: 0,
         },
-        teamBanner: {
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
+        valuesSubtitle: {
+            fontSize: "1.1rem",
+            fontWeight: 400,
+            padding: 0,
+            margin: 0,
         },
-        topBanner: {
-            backgroundColor: "transparent",
-            height: 300,
-        },
-        supportBanner: {
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            backgroundColor: "red",
-            width: "100%",
-        },
-        centered: {
-            textAlign: "center",
+        contactIcon: {
+            height: 70,
+            padding: 0,
+            margin: 0,
         },
         normal: {
             fontWeight: 300,

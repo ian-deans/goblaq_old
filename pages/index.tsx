@@ -6,6 +6,7 @@ import { PopularPlaces } from "../src/components/businesses/PopularPlaces/Popula
 import { HomeHeader } from "../src/components/common/Headers/Home/HomeHeader";
 import { SearchBar } from "~/components/businesses/Search";
 import Paper from "@material-ui/core/Paper";
+import { Container }  from '@material-ui/core';
 import { Page } from "../src/components/common/Page";
 
 const Home: React.SFC = (props: any) => {
@@ -14,12 +15,14 @@ const Home: React.SFC = (props: any) => {
       <Head>
         <title>Goblaq - Discover More</title>
       </Head>
-      <HomeHeader>
-        <SearchBar />
-      </HomeHeader>
-      <CategorySearchLinks {...props} />
-      <hr />
-      <PopularPlaces top3={true} />
+      <Container maxWidth="xl">
+        <HomeHeader>
+          <SearchBar />
+        </HomeHeader>
+        <CategorySearchLinks {...props} />
+        <hr />
+        <PopularPlaces top3={true} />
+      </Container>
     </Page>
   );
 };

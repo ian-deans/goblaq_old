@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Page: React.SFC = props => {
     const classes = useStyles(props);
-
     return (
         <Container className={classes.pageContainer} maxWidth={false}>
             {props.children}
