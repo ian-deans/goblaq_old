@@ -63,6 +63,7 @@ const theme = createMuiTheme({
     h4: {
       fontSize: "2.1em",
       fontWeight: 700,
+      fontFamily: "Graphik,Helvetica,Arial,sans-serif",
     },
     h5: {
       fontSize: "1.8em",
@@ -90,7 +91,7 @@ const theme = createMuiTheme({
       fontSize: "1rem",
       color: "secondary", //? Not sure if this is doing anything
       fontWeight: 400,
-      fontFamily: "Proxima Nova",
+      fontFamily: "Graphik,Helvetica,Arial,sans-serif",
     },
     button: {
       fontSize: "1rem",
