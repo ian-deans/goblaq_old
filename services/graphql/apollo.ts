@@ -17,7 +17,7 @@ import { graphqlURL } from "../../config";
 
 import ws from "ws";
 
-const WS_PATH = "wss://goblaq.herokuapp.com/v1/graphql";
+const WS_PATH = graphqlURL.replace("https", "wss");
 
 const typeDefs = gql`
   extend type Query {

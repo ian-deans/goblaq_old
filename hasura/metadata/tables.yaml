@@ -1,0 +1,1059 @@
+- table: locations
+  is_enum: false
+  object_relationships:
+  - using:
+      manual_configuration:
+        remote_table: coordinates
+        column_mapping:
+          id: location_id
+    name: coordinates
+    comment: null
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: location_id
+        table: businesses
+    name: businesses
+    comment: null
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check: {}
+      columns:
+      - id
+      - address_1
+      - address_2
+      - city
+      - state
+      - zip
+      - created_at
+      - updated_at
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - address_1
+      - address_2
+      - city
+      - state
+      - zip
+      limit: 100
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - address_1
+      - address_2
+      - city
+      - state
+      - zip
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: business_features
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: feature_id
+    name: feature
+    comment: null
+  - using:
+      foreign_key_constraint_on: business_id
+    name: business
+    comment: null
+  array_relationships: []
+  insert_permissions: []
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - business_id
+      - feature_id
+      limit: 100
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: contacts
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: contact_type
+    name: type
+    comment: null
+  - using:
+      foreign_key_constraint_on: business_id
+    name: business
+    comment: null
+  array_relationships: []
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check: {}
+      columns:
+      - business_id
+      - id
+      - contact_type
+      - contact_value
+      - created_at
+      - updated_at
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - business_id
+      - contact_type
+      - contact_value
+      limit: 100
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - business_id
+      - id
+      - contact_type
+      - contact_value
+      - created_at
+      - updated_at
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: contact_types
+  is_enum: true
+  object_relationships: []
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: contact_type
+        table: contacts
+    name: contacts
+    comment: null
+  insert_permissions: []
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - type
+      - description
+      limit: 100
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - description
+      - type
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: coordinates
+  is_enum: false
+  object_relationships: []
+  array_relationships: []
+  insert_permissions: []
+  select_permissions: []
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: reviews
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: user_id
+    name: user
+    comment: null
+  - using:
+      foreign_key_constraint_on: business_id
+    name: business
+    comment: null
+  array_relationships: []
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+      columns:
+      - business_id
+      - description
+      - id
+      - rating
+      - title
+      - user_id
+  select_permissions:
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - business_id
+      - created_at
+      - description
+      - id
+      - rating
+      - title
+      - updated_at
+      - user_id
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - user_id
+      - business_id
+      - rating
+      - title
+      - description
+      filter: {}
+  update_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      columns:
+      - description
+      - rating
+      - title
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    comment: null
+    permission:
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  event_triggers: []
+- table: early_signups
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: business_category_id
+    name: category
+    comment: null
+  array_relationships: []
+  insert_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      set: {}
+      check: {}
+      columns:
+      - address
+      - business_category_id
+      - business_name
+      - city
+      - email_address
+      - logo_url
+      - name
+      - state
+      - zip
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: users
+  is_enum: false
+  object_relationships: []
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: reviews
+    name: reviews
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: owner_id
+        table: businesses
+    name: businesses
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: posts
+    name: posts
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: responses
+    name: responses
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: post_likes
+    name: post_likes
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: user_id
+        table: responses_likes
+    name: responses_likes
+    comment: null
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        firebase_uid:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - username
+      - email_address
+      - first_name
+      - firebase_uid
+      - last_name
+  select_permissions:
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - avatar_url
+      - created_at
+      - email_address
+      - firebase_uid
+      - first_name
+      - id
+      - last_name
+      - updated_at
+      - username
+      limit: 1
+      filter:
+        firebase_uid:
+          _eq: X-Hasura-User-Id
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns: []
+      limit: 100
+      filter: {}
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - avatar_url
+      - id
+      - username
+      filter: {}
+  update_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      columns:
+      - first_name
+      - updated_at
+      filter:
+        firebase_uid:
+          _eq: X-Hasura-User-Id
+  delete_permissions: []
+  event_triggers: []
+- table: days
+  is_enum: true
+  object_relationships: []
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: day
+        table: business_hours
+    name: business_hours
+    comment: null
+  insert_permissions: []
+  select_permissions:
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - name
+      filter: {}
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - name
+      limit: 100
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: forum_types
+  is_enum: false
+  object_relationships: []
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: forum_type_id
+        table: forums
+    name: forums
+    comment: null
+  insert_permissions: []
+  select_permissions:
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - type
+      - name
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: responses_likes
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: user_id
+    name: user
+    comment: null
+  - using:
+      foreign_key_constraint_on: response_id
+    name: response
+    comment: null
+  array_relationships: []
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+      columns:
+      - response_id
+      - user_id
+  select_permissions:
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - user_id
+      - response_id
+      filter: {}
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - user_id
+      - response_id
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - response_id
+      - user_id
+      - created_at
+      - updated_at
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  update_permissions: []
+  delete_permissions:
+  - role: user
+    comment: null
+    permission:
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  event_triggers: []
+- table: responses
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: user_id
+    name: user
+    comment: null
+  - using:
+      foreign_key_constraint_on: post_id
+    name: post
+    comment: null
+  - using:
+      foreign_key_constraint_on: parent_id
+    name: response
+    comment: null
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: parent_id
+        table: responses
+    name: responses
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: response_id
+        table: responses_likes
+    name: responses_likes
+    comment: null
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+      columns:
+      - content
+      - parent_id
+      - post_id
+      - user_id
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - parent_id
+      - user_id
+      - post_id
+      - content
+      filter: {}
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - content
+      - created_at
+      - id
+      - parent_id
+      - post_id
+      - updated_at
+      - user_id
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - parent_id
+      - post_id
+      - user_id
+      - content
+      - created_at
+      - updated_at
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      columns:
+      - content
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    comment: null
+    permission:
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  event_triggers: []
+- table: businesses
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: location_id
+    name: location
+    comment: null
+  - using:
+      foreign_key_constraint_on: owner_id
+    name: user
+    comment: null
+  - using:
+      foreign_key_constraint_on: category_id
+    name: category
+    comment: null
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: business_id
+        table: reviews
+    name: reviews
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: business_id
+        table: business_hours
+    name: hours
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: business_id
+        table: business_features
+    name: features
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: business_id
+        table: contacts
+    name: contacts
+    comment: null
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check: {}
+      columns:
+      - category_id
+      - created_at
+      - description
+      - id
+      - location_id
+      - name
+      - owner_id
+      - updated_at
+  select_permissions:
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - claimed
+      - verified
+      - category_id
+      - id
+      - location_id
+      - owner_id
+      - average_rating
+      - description
+      - name
+      - created_at
+      - updated_at
+      - tags
+      filter: {}
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - average_rating
+      - location_id
+      - owner_id
+      - category_id
+      - verified
+      - tags
+      - claimed
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: forums
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: forum_type_id
+    name: forum_type
+    comment: null
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: forum_id
+        table: posts
+    name: posts
+    comment: null
+  insert_permissions: []
+  select_permissions:
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - created_at
+      - description
+      - forum_type_id
+      - id
+      - name
+      - updated_at
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: posts
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: user_id
+    name: user
+    comment: null
+  - using:
+      foreign_key_constraint_on: forum_id
+    name: forum
+    comment: null
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: post_id
+        table: responses
+    name: responses
+    comment: null
+  - using:
+      foreign_key_constraint_on:
+        column: post_id
+        table: post_likes
+    name: post_likes
+    comment: null
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+      columns:
+      - content
+      - forum_id
+      - title
+      - user_id
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - user_id
+      - forum_id
+      - title
+      - content
+      filter: {}
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - active
+      - content
+      - created_at
+      - forum_id
+      - id
+      - title
+      - updated_at
+      - user_id
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - active
+      - content
+      - created_at
+      - forum_id
+      - id
+      - title
+      - updated_at
+      - user_id
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      columns:
+      - active
+      - content
+      - title
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  delete_permissions: []
+  event_triggers: []
+- table: business_hours
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: business_id
+    name: business
+    comment: null
+  - using:
+      foreign_key_constraint_on: day
+    name: dayByDay
+    comment: null
+  array_relationships: []
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        business:
+          user:
+            firebase_uid:
+              _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - business_id
+      - day
+      - opens
+      - closes
+  select_permissions:
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - business_id
+      - closes
+      - day
+      - opens
+      filter: {}
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - business_id
+      - day
+      - opens
+      - closes
+      limit: 100
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: features
+  is_enum: false
+  object_relationships: []
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: feature_id
+        table: business_features
+    name: feature
+    comment: null
+  insert_permissions: []
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - image_url
+      - key
+      limit: 100
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: business_categories
+  is_enum: false
+  object_relationships: []
+  array_relationships:
+  - using:
+      foreign_key_constraint_on:
+        column: business_category_id
+        table: early_signups
+    name: early_signups
+    comment: null
+  insert_permissions: []
+  select_permissions:
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - name
+      - text
+      - created_at
+      - updated_at
+      filter: {}
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: false
+      columns:
+      - id
+      - name
+      - text
+      - created_at
+      - updated_at
+      filter: {}
+  update_permissions: []
+  delete_permissions: []
+  event_triggers: []
+- table: post_likes
+  is_enum: false
+  object_relationships:
+  - using:
+      foreign_key_constraint_on: user_id
+    name: user
+    comment: null
+  - using:
+      foreign_key_constraint_on: post_id
+    name: post
+    comment: null
+  array_relationships: []
+  insert_permissions:
+  - role: user
+    comment: null
+    permission:
+      set: {}
+      check:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+      columns:
+      - post_id
+      - user_id
+  select_permissions:
+  - role: user
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - post_id
+      - user_id
+      - created_at
+      - updated_at
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  - role: anonymous
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - user_id
+      - post_id
+      filter: {}
+  - role: viewer
+    comment: null
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - user_id
+      - post_id
+      filter: {}
+  update_permissions: []
+  delete_permissions:
+  - role: user
+    comment: null
+    permission:
+      filter:
+        user:
+          firebase_uid:
+            _eq: X-Hasura-User-Id
+  event_triggers: []
