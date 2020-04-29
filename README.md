@@ -1,6 +1,6 @@
-#Goblaq
+# Goblaq
 
-###React App
+### React App
 
 Web application for services provided by Goblaq. 
 
@@ -12,7 +12,7 @@ Web application for services provided by Goblaq.
 
 * Firebase ( Auth, StorageBucket, FireStore )
 
-###Instructions to run application locally
+### Instructions to run application locally
 
 Clone the repo:
 
