@@ -23,7 +23,7 @@ export const TEAM = [
         name: 'Marvin Mante',
         title: 'Associate Frontend Developer',
         img: '',
-        linkedInUrl: 'https://wwww.linkedin.com/in/marvin-mante-6335232',
+        linkedInUrl: 'https://www.linkedin.com/in/marvin-mante-6335232',
     },
     {
         name: 'Jocelyn Jeriah',
