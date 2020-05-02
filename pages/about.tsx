@@ -5,7 +5,7 @@ import { Page } from "../src/components/common/Page";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Container, Avatar, Box }  from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { TEAM, COMPANY_VALUES, VALUE_ITEMS, COMPANY_DESCRIPTION } from './constants/about';
+import { TEAM, COMPANY_VALUES, VALUE_ITEMS, COMPANY_DESCRIPTION } from '../constants/about';
 import Link from "next/link";
 
 
