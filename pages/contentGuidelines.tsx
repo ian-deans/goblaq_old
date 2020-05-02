@@ -1,10 +1,9 @@
 import React from "react";
 import { Page } from "../src/components/common/Page";
-import Typography from "@material-ui/core/Typography";
-import {Container, emphasize} from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
 
-const TermsOfService = (props: any) => {
+const ContentGuidelines = (props: any) => {
     return (
         <Page>
             <Container>
@@ -230,5 +229,5 @@ const TermsOfService = (props: any) => {
     );
 };
 
-export default TermsOfService; 
+export default ContentGuidelines; 
 
