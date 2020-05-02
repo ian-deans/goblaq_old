@@ -45,9 +45,12 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: "1em",
     },
     link: {
+      color: "white",
+      textDecoration: "none",
       marginTop: "1em",
       ["&:hover"]: {
         cursor: "pointer",
+        textDecoration: "underline",
       }
     },
     subfooter: {
@@ -127,7 +130,19 @@ export const Footer: React.SFC = props => {
         </section>
         <div className={classes.subfooter}>
           <Typography variant="body2">
-            Content Guidelines | Terms of Service | Privacy Policy |  2019 Goblaq
+            <Link href="/contentGuidelines">
+              <a className={classes.link}>
+                Content Guidelines
+              </a>
+            </Link>
+            {' | '} 
+            <Link href="/termsOfService">
+              <a className={classes.link}>
+                Terms of Service
+              </a>
+            </Link>
+            {' | '} 
+            Privacy Policy |  2019 Goblaq
           </Typography>
         </div>
       </article>
