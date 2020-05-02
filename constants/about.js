@@ -4,13 +4,13 @@ export const TEAM = [
     {
         name: 'Nenaji Agbolabori',
         title: 'CEO / Co-founder',
-        img: '',
+        img: '../static/nenaji.jpg',
         linkedInUrl: 'https://www.linkedin.com/in/nenaji-agbolabori-22a301195',
     },
     {
         name: 'Ian Deans',
         title: 'CTO / Co-founder',
-        img: '',
+        img: '../static/ian.jpg',
         linkedInUrl: 'https://www.linkedin.com/in/ian-deans',
     },
     {
