@@ -3,9 +3,9 @@ import React from "react";
 import Head from "next/head";
 import { Page } from "../src/components/common/Page";
 import Typography from "@material-ui/core/Typography";
-import { Grid, Container, Avatar, Box }  from '@material-ui/core';
+import { Grid, Container, Avatar, Box, Link as MuiLink }  from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { TEAM, COMPANY_VALUES, VALUE_ITEMS, COMPANY_DESCRIPTION } from './constants/about';
+import { TEAM, COMPANY_VALUES, VALUE_ITEMS, COMPANY_DESCRIPTION } from '../constants/about';
 import Link from "next/link";
 
 
@@ -83,14 +83,24 @@ const About: React.SFC = (props: any) => {
                                 key={idx}
                                 className={classes.teamItem}
                             >
-                                <Box className={classes.membersContainer}>
-                                    <Avatar
-                                        src={member.img}
-                                        alt={member.name}
-                                        className={classes.avatar}
-                                    />
-                                    <h4 className={classes.memberTitle}>{member.title}</h4>
-                                    <h4 className={classes.memberName}>{member.name}</h4>  
+                                <Box className={classes.memberContainer}>
+                                    <MuiLink
+                                        target="_blank"
+                                        underline="none"
+                                        rel="noreferrer noopener"
+                                        href={member.linkedInUrl}
+                                        className={classes.linkedInLink}
+                                    >
+                                        <div className={classes.avatarContainer}>
+                                            <Avatar
+                                                src={member.img}
+                                                alt={member.name}
+                                                className={classes.avatar}
+                                            />
+                                        </div>
+                                        <h4 className={classes.memberTitle}>{member.title}</h4>
+                                        <h4 className={classes.memberName}>{member.name}</h4>  
+                                    </MuiLink>
                                 </Box>
                             </Grid>
                         ))}
@@ -147,10 +157,19 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 0,
             margin: 0,
         },
+        avatarContainer: {
+            background: "url('/static/linkedin-hover.png') no-repeat center",
+            backgroundSize: 160,
+        },
         avatar: {
             height: 150,
             width: 150,
             margin: "0 auto",
+            transition: "opacity .25s ease-in-out",
+            "&:hover": {
+                opacity: 0,
+                transition: "opacity .25s ease-in-out",
+            }
         },
         link: {
             fontSize: "1.2rem",
@@ -193,7 +212,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 500,
             margin: 20,
         },
-        membersContainer: {
+        memberContainer: {
             flexDirection: "column",
             justifyContent: "center",
             textAlign: "center",
@@ -236,7 +255,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         normal: {
             fontWeight: 300,
-        }
+        },
+        linkedInLink: {
+            textDecoration: "none",
+            color: "inherit",
+        },
     })
 );
 

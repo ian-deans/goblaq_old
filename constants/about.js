@@ -4,32 +4,38 @@ export const TEAM = [
     {
         name: 'Nenaji Agbolabori',
         title: 'CEO / Co-founder',
-        img: '',
+        img: '../static/nenaji.jpg',
+        linkedInUrl: 'https://www.linkedin.com/in/nenaji-agbolabori-22a301195',
     },
     {
         name: 'Ian Deans',
-        title: 'CEO / Co-founder',
-        img: '',
+        title: 'CTO / Co-founder',
+        img: '../static/ian.jpg',
+        linkedInUrl: 'https://www.linkedin.com/in/ian-deans',
     },
     {
         name: 'Seth Syberg',
         title: 'Associate CTO',
         img: '',
+        linkedInUrl: 'https://www.linkedin.com/in/sethsyberg',
     },
     {
         name: 'Marvin Mante',
         title: 'Associate Frontend Developer',
-        img: '../static/marvin-mante.jpeg',
+        img: '',
+        linkedInUrl: 'https://www.linkedin.com/in/marvin-mante-6335232',
     },
     {
         name: 'Jocelyn Jeriah',
         title: 'Associate Backend Developer',
         img: '',
+        linkedInUrl: 'https://www.linkedin.com/in/jocelynjeriah',
     },
     {
         name: 'Trey Williams',
         title: 'Junior Frontend Developer',
         img: '',
+        linkedInUrl: null,
     },    
 ];
 
