@@ -16,19 +16,19 @@ export const TEAM = [
     {
         name: 'Seth Syberg',
         title: 'Associate CTO',
-        img: '',
+        img: '../static/seth.jpg',
         linkedInUrl: 'https://www.linkedin.com/in/sethsyberg',
     },
     {
         name: 'Marvin Mante',
         title: 'Associate Frontend Developer',
-        img: '',
+        img: '../static/marvin.jpeg',
         linkedInUrl: 'https://www.linkedin.com/in/marvin-mante-6335232',
     },
     {
         name: 'Jocelyn Jeriah',
         title: 'Associate Backend Developer',
-        img: '',
+        img: '../static/jocelyn.jpg',
         linkedInUrl: 'https://www.linkedin.com/in/jocelynjeriah',
     },
     {
