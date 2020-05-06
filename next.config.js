@@ -22,5 +22,6 @@ module.exports = withCSS({
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
+    DEV_DB: process.env.DEV_DB,
   }
 })
