@@ -4,10 +4,18 @@ import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
 import Table from './cookiesTable';
 
+const containerStyle = {
+  backgroundColor: '#ffffff',
+};
+
+const olStyle = {
+  paddingInlineStart: '15px'
+};
+
 const PrivacyPolicy = (props: any) => {
   return (
     <Page>
-      <Container>
+      <Container style={containerStyle}>
         <br />
         <h2>Privacy Policy</h2>
         <Typography variant='body1'>
@@ -22,7 +30,7 @@ const PrivacyPolicy = (props: any) => {
           you use the Service, you consent to our collection, use, and
           disclosure of information about you as described in this Privacy
           Policy.
-          <ol>
+          <ol style={olStyle}>
             <li>INFORMATION WE COLLECT AND HOW WE USE IT</li>
             We may collect and store information about you in connection with
             your use of the Service, including any information you transmit to
@@ -392,9 +400,9 @@ const PrivacyPolicy = (props: any) => {
             may contact us at the address listed above in Section 8.
           </ol>
         </Typography>
+        <br />
+        <br />
       </Container>
-      <br />
-      <br />
     </Page>
   );
 };

@@ -3,10 +3,18 @@ import { Page } from '../src/components/common/Page';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
 
+const containerStyle = {
+  backgroundColor: '#ffffff',
+};
+
+const olStyle = {
+  paddingInlineStart: '15px'
+};
+
 const TermsOfService = (props: any) => {
   return (
     <Page>
-      <Container>
+      <Container style={containerStyle}>
         <br />
         <h2>Terms of Service</h2>
         <Typography variant='body1'>
@@ -22,7 +30,7 @@ const TermsOfService = (props: any) => {
           Goblaq Inc., a Delaware corporation headquartered in Houston, Texas(
           <strong>“Goblaq”</strong>). Do not access or use the Site if you are
           unwilling or unable to be bound by the Terms.
-          <ol>
+          <ol style={olStyle}>
             <li>DEFINITIONS</li>
             <ol>
               <li>Parties</li>
@@ -589,7 +597,7 @@ const TermsOfService = (props: any) => {
           are unwilling or unable to be bound by the Terms. For more information
           about our policies and instructions relating to the Service, click
           here.
-          <ol>
+          <ol style={olStyle}>
             <li>DEFINITIONS</li>
             <ol type='A'>
               <li>
@@ -1309,7 +1317,7 @@ const TermsOfService = (props: any) => {
           In the event of any termination of these Business Terms, whether by
           you or us, these Business Terms in their entirety will continue in
           full force and effect.
-          <ol>
+          <ol style={olStyle}>
             <li>REQUIREMENTS, REPRESENTATIONS AND WARRANTIES</li>
             <ol type='A'>
               <li>In order to access or use the Services, you agree that:</li>
@@ -1511,8 +1519,9 @@ const TermsOfService = (props: any) => {
           </ol>
           Copyright © 2020 GOBLAQ Inc., P.O BOX 2383 SUGAR LAND TX 77487, U.S.A.
         </Typography>
+        <br />
+        <br />
       </Container>
-      <br />
     </Page>
   );
 };
