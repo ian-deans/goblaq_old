@@ -17,7 +17,7 @@ import { graphqlURL } from "../../config";
 
 import ws from "ws";
 
-const WS_PATH = graphqlURL.replace("https", "wss");
+const WS_PATH = graphqlURL.replace("https:", "wss:").replace("http:", "ws:");
 
 const typeDefs = gql`
   extend type Query {

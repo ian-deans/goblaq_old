@@ -1,0 +1,45 @@
+---
+version: '3.6'
+services:
+  postgres:
+    image: postgres:alpine
+    restart: always
+    volumes:
+    - db_data:/var/lib/postgresql/data
+    - ./hasura-dev/initdb.sql.gz:/docker-entrypoint-initdb.d/init.sql.gz
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_USER: application
+  graphql-engine:
+    image: hasura/graphql-engine:v1.2.1
+    ports:
+    - "${GRAPHQL_PORT:-8080}:8080"
+    depends_on:
+    - "postgres"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://application:postgrespassword@postgres:5432/application
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      HASURA_GRAPHQL_ADMIN_SECRET: |-
+        ${HASURA_GRAPHQL_ADMIN_SECRET:-verysecret}
+      HASURA_GRAPHQL_JWT_SECRET: |-
+        {"type":"RS512", "jwk_url": "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com", "audience": "${JWT_NAME:-goblaq-b07dc}", "issuer": "https://securetoken.google.com/${JWT_NAME:-goblaq-b07dc}"}
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
+
+  nodejs:
+    image: node:alpine
+    depends_on:
+    - graphql-engine
+    ports:
+    - "3000:3000"
+    volumes:
+    - .:/app
+    environment:
+      DEV_DB: "http://${GRAPHQL_SERVER:-localhost}:${GRAPHQL_PORT:-8080}/v1/graphql"
+    command: "sh -c 'cd /app && npm i && npm run dev'"
+
+volumes:
+  db_data:
+

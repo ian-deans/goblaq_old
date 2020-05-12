@@ -1,5 +1,44 @@
 # Developer Installation
 
+## Docker Users (Recommended)
+
+1. Install [Docker](https://docs.docker.com/get-docker/) and make sure the service is started.
+2. Clone the `goblaq_app` repository: 
+
+```
+git clone git@github.com:goblaq/goblaq_app.git
+cd goblaq_app
+```
+
+3. (Optional) Create `.env` Environment File.
+
+Not needed for a normal `localhost` development server.
+
+.env file:
+```
+HASURA_GRAPHQL_ADMIN_SECRET=somerandomsecret
+GRAPHQL_SERVER=10.0.0.249
+GRAPHQL_PORT=8080
+```
+
+4. Initialize Database
+
+```
+docker-compose run postgres
+```
+
+Wait for the server to initialize.  It will say _ready to accept connections._
+Then enter `ctrl-C` to stop it.
+
+5. Start services
+
+```
+docker-compose up
+```
+
+That's it!  Go on and make your changes.
+
+
 
 ## Windows Users Start Here
 
