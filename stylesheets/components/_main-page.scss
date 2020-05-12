@@ -1,0 +1,21 @@
+
+.goblaq-main-page {
+    background-image: url('/images/backgrounds/header-img.jpg');
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+}
+
+.goblaq-main-page:before {
+    content: "";
+    position: absolute;
+    width : 100%;
+    height: 100%;
+    background: inherit;
+    z-index: -1;
+    filter: grayscale(32%) opacity(95%);
+}
+
