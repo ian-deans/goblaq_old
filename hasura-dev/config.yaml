@@ -1,6 +1,4 @@
 version: 2
-endpoint: https://goblaq.herokuapp.com
-admin_secret: BlueCow2new$sled
 metadata_directory: metadata
 actions:
   kind: synchronous

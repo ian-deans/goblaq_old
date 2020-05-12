@@ -1,8 +1,7 @@
 require( "dotenv" ).config()
 const path = require( "path" )
-const withCSS = require("@zeit/next-css");
 
-module.exports = withCSS({
+module.exports = {
   webpack( config, {isServer} ) {
     config.resolve.extensions.push(".ts", ".tsx")
     config.resolve.alias[ "~/components" ] = path.join( __dirname, "src", "components" )
@@ -22,5 +21,6 @@ module.exports = withCSS({
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
-  }
-})
+    DEV_DB: process.env.DEV_DB,
+  },
+};

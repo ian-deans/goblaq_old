@@ -1,0 +1,67 @@
+.goblaq-main-footer {
+    background-color:  #4d4d4d;
+    padding: 5% 0;
+    color: #FFFFFF;
+
+    .goblaq-main-footer-logo {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .navbar-brand {
+            padding: 0;
+            margin: 0;
+            position: relative;
+            left: -15px;
+        }
+    }
+
+    .goblaq-footer-links a {
+        color: #FFFFFF;
+    }
+
+    .goblaq-footer-contact-info li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    @media (max-width: 576px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-center;
+        align-items: flex-center;
+
+        * {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-center;
+            align-items: flex-center;
+        }
+    }
+
+    // Medium devices (tablets, 768px and up)
+    // @media (min-width: 768px) {
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: flex-center;
+    //     align-items: flex-center;
+    // }
+    
+    // // Large devices (desktops, 992px and up)
+    // @media (min-width: 992px) {
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: flex-center;
+    //     align-items: flex-center;
+    // }
+    
+    // // Extra large devices (large desktops, 1200px and up)
+    // @media (min-width: 1200px) {
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: flex-center;
+    //     align-items: flex-center;
+    // }
+}

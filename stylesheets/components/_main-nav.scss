@@ -1,0 +1,18 @@
+.goblaq-main-nav {
+    .nav-item {
+        .nav-link {
+            color: #FFFFFF;
+            font-size: 1.25em;
+            font-weight: 700;
+            
+            &:hover {
+                color: red;
+            }
+        }
+    }
+    .main-nav-logo {
+        align-self: flex-start;
+        justify-self: flex-start;
+        font-size: 3em;
+    }
+}
