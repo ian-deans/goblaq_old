@@ -2,7 +2,7 @@ import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 const theme = createMuiTheme({
-  
+
   breakpoints: {
     //? Customizing breakpoint keys isn't yet supported, but it is a feature that is under discussion.
     //? https://stackoverflow.com/questions/49739635/adding-breakpoint-to-custom-theme-in-material-ui-next-reactjs
@@ -43,7 +43,7 @@ const theme = createMuiTheme({
   typography: {
     // htmlFontSize: 16,
     // fontSize: 13,
-    fontFamily: "Raleway",
+    fontFamily: "Graphik, sans-serif",
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
@@ -63,7 +63,6 @@ const theme = createMuiTheme({
     h4: {
       fontSize: "2.1em",
       fontWeight: 700,
-      fontFamily: "Graphik,Helvetica,Arial,sans-serif",
     },
     h5: {
       fontSize: "1.8em",
@@ -85,13 +84,11 @@ const theme = createMuiTheme({
     body1: {
       fontSize: "1rem",
       fontWeight: 400,
-      fontFamily: "Proxima Nova",
     },
     body2: {
       fontSize: "1rem",
       color: "secondary", //? Not sure if this is doing anything
       fontWeight: 400,
-      fontFamily: "Graphik,Helvetica,Arial,sans-serif",
     },
     button: {
       fontSize: "1rem",
