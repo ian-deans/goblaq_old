@@ -6,12 +6,11 @@ import Layout from '../src/components/common/Layout';
 import MainNav from '../src/components/common/MainNav';
 import Footer from '../src/components/common/Footer';
 
-const Contact: React.SFC = (props: any) => {
-    const style = { border: "none" }
+const NewsLetter: React.SFC = (props: any) => {
     return (
         <Layout>
             <Head>
-                <title>Goblaq - Contact</title>
+                <title>Goblaq - Newsletter</title>
             </Head>            
             <MainNav />
             <div className="jumbotron-fluid goblaq-main-banner">
@@ -21,12 +20,11 @@ const Contact: React.SFC = (props: any) => {
                 </div>
             </div>
             <div className="row justify-content-md-center goblaq-main-content">
-                <h2>Contact</h2>
-                <iframe style={style} width="100%" height="500px" src="https://goblaq.freshdesk.com/widgets/feedback_widget/new?"></iframe>
+                <h2>NewsLetter</h2>
             </div>
             <Footer />
         </Layout>
     );
 };
 
-export default Contact;
+export default NewsLetter;

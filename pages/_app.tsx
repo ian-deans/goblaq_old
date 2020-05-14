@@ -44,12 +44,9 @@ class GoblaqApp extends App {
         </Head>
         <ApolloProvider client={client}>
           <Contexts>
-            {/* TODO: remove styles when ready to use Bootstrap/SASS */}
-            <Styles> 
-                <ErrorBoundary>
-                  <Component {...pageProps} />
-                </ErrorBoundary>
-              </Styles>
+              <ErrorBoundary>
+                <Component {...pageProps} />
+              </ErrorBoundary>
           </Contexts>
         </ApolloProvider>
       </div>

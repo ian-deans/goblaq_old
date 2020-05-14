@@ -3,6 +3,7 @@
 @import 'components/main-banner';
 @import 'components/main-search';
 @import 'components/main-footer';
+@import 'components/main-content';
 
 @import 'pages/about';
 @import 'pages/affiliate';
@@ -18,12 +19,17 @@ body {
   font: 100% $font-family;
   font-weight: 400;
   font-style: normal;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 200px;
 
   .row {
     margin-left: 0; // override bootstrap style.
     margin-right: 0; // override bootstrap style.
   }
 }
+
+
 
 // @include media-breakpoint-up(xs) { }
 // @include media-breakpoint-up(sm) { }

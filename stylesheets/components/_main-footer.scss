@@ -1,5 +1,7 @@
 .goblaq-main-footer {
+    position: absolute;
     background-color:  #4d4d4d;
+    width: 100%;
     padding: 5% 0;
     color: #FFFFFF;
 
@@ -14,6 +16,21 @@
             margin: 0;
             position: relative;
             left: -15px;
+        }
+    }
+
+    .goblaq-legal-content a {
+        color: #FFFFFF;
+        font-size: .8em;
+        margin-left: .3em;
+        margin-right: .3em;
+        
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
         }
     }
 
