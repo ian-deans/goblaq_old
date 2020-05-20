@@ -1,9 +1,9 @@
-
 @import 'components/main-page';
 @import 'components/main-nav';
 @import 'components/main-banner';
 @import 'components/main-search';
 @import 'components/main-footer';
+@import 'components/main-content';
 
 @import 'pages/about';
 @import 'pages/affiliate';
@@ -11,17 +11,25 @@
 @import 'pages/sign-in';
 @import 'pages/sign-up';
 @import 'pages/404';
+@import url(http://webfonts-plus.herokuapp.com?family=Graphik);
 
+$font-family: 'Graphik', sans-serif;
 
 body {
-    font-family: Raleway, Graphik, Helvetica, Arial, sans-serif;
+  font: 100% $font-family;
+  font-weight: 400;
+  font-style: normal;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 200px;
 
-
-    .row {
-        margin-left: 0; // override bootstrap style.
-        margin-right: 0; // override bootstrap style.
-    }
+  .row {
+    margin-left: 0; // override bootstrap style.
+    margin-right: 0; // override bootstrap style.
+  }
 }
+
+
 
 // @include media-breakpoint-up(xs) { }
 // @include media-breakpoint-up(sm) { }

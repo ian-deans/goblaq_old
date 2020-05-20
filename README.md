@@ -1,168 +1,62 @@
-# Developer Installation
+# Linux / MacOS Setup
 
-
-## Windows Users Start Here
-
-Cygwin and GitBash are both usable but can sometimes have problems. The Windows Subsystem for Linux ( WSL ) is the better option for Windows users. 
-https://docs.microsoft.com/en-us/windows/wsl/install-win10
-
-To streamline development environments, Ubuntu 18.04 LTS is recommended.
-
-
-## Shell Profile
-
-The instructions below make some changes to your shell profile.
-So as not to assume which shell you use, let's set up `$PROFILE` to point to
-the right place.  For most of you it will be:
-
-```
-PROFILE=~/.bashrc
-```
-
-If you don't know, please ask or else skip the steps below that change this file.
-
-## Install NodeJS
-
-These instructions use NVM for installing node.  Modify as needed for your favorite
-way to install.
-
-```
-sudo apt-get install git xclip # If needed
-# Install Node Version Manager
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-
-# Install NodeJS
-nvm install 12.16.1
-
-
-echo 'export NVM_DIR="\$HOME/.nvm"' >> $PROFILE
-echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"' >> $PROFILE
-echo '[ -s "$NVM_DIR/bash_completion" ] && \. "\$NVM_DIR/bash_completion"' >> $PROFILE
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-```
-
-## Install Command-line Tools
-
-```
-# Install Firebase and Hasura tools
-npm install -g firebase-tools hasura-cli
-
-# Install Heroku client (Ubuntu):
-sudo snap install --classic heroku
-echo 'export PATH=\$PATH:/snap/bin' >> $PROFILE
-export PATH=$PATH:/snap/bin
-
-# Windows users:
-curl https://cli-assets.heroku.com/install.sh | sh
-
-# Now sign in to Heroku from the command-line
-heroku login
-
-# If you're logging in on an SSH connection and can't use a browser:
-heroku login --interactive
-
-```
-
-Mac or other users see [Heroku](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
-for installation links.
-
-
-## Clone this repository
+1. Install [Docker](https://docs.docker.com/get-docker/) and make sure the service is started.
+2. Clone the `goblaq_app` repository: 
 
 ```
 git clone git@github.com:goblaq/goblaq_app.git
 cd goblaq_app
-nvm use     # setup NVM here.
-npm install
-
 ```
 
-## Set up Development Database
+3. (Optional) Create `.env` Environment File.
 
-[Create a heroku account](https://signup.heroku.com/) if you don’t already have one.
+Not needed for a normal `localhost` development server.
 
-[Go here](https://heroku.com/deploy?template=https://github.com/hasura/graphql-engine-heroku) 
-to deploy a postgres/hasura container (when prompted, I’d suggest following the app naming convention: 
-goblaq-<your name> (e.g. goblaq-seth))
-
-> I'm going to refer to your database name as $DB_NAME, so I suggest the following command to make things easier:
+.env file:
 ```
-DB_NAME=goblaq-<your name>
+HASURA_GRAPHQL_ADMIN_SECRET=somerandomsecret
+GRAPHQL_SERVER=10.0.0.249
+GRAPHQL_PORT=8080
 ```
 
-Restore a backup of the production database in your newly created instance:
+4. Initialize Database
 
 ```
-heroku pg:backups:restore --app=$DB_NAME --confirm=$DB_NAME \
-    'http://157.245.165.61/latest.dump' DATABASE_URL
-
+docker-compose run postgres
 ```
 
-## Secure Your Database
+Wait for the server to initialize.  It will say _ready to accept connections._
+Then enter `ctrl-C` to stop it.
 
-There are several ways to handle setting up a secret key
-for authenticating as an admin to your database.  This is one, fairly easy method:
-
-```
-# Select a secret key for admin access.  The following will do, on linux.
-# I don't know if WSL has openssl so you might just make up your own random string instead.
-# The point is to create a nice secure password.
-export HASURA_GRAPHQL_ADMIN_SECRET=$(openssl rand -hex 20)
-
-# Save it in your .bashrc to be loaded in later sessions.
-echo export HASURA_GRAPHQL_ADMIN_SECRET=$HASURA_GRAPHQL_ADMIN_SECRET >> $PROFILE
-
-# Configure your database with this admin secret.
-heroku config:set \
-   HASURA_GRAPHQL_ADMIN_SECRET=$HASURA_GRAPHQL_ADMIN_SECRET \
-   --app=$DB_NAME
+5. Start services
 
 ```
-
-## Reload Database Metadata
-
-This will reset the metadata from the restored database, to work in your new instance.
-
-```
-# Also, the following will prevent you from having to specify an endpoint
-# every time you use the hasura command:
-
-export HASURA_GRAPHQL_ENDPOINT=https://${DB_NAME}.herokuapp.com
-echo export HASURA_GRAPHQL_ENDPOINT=$HASURA_GRAPHQL_ENDPOINT >> $PROFILE
-
-# Assuming that we're currently in the root of the repository:
-
-hasura metadata reload --project hasura-dev
-
+docker-compose up
 ```
 
-## Verify database functionality:
+# Windows Setup
 
-First copy the access key from earlier, into your clipboard:
+Required: Windows 10.
 
-```
-echo $HASURA_GRAPHQL_ADMIN_SECRET
-```
+This is a little experimental, and will result in a set of Docker containers running within an Ubuntu
+container inside of Hyper-V, controlled by Vagrant.  I think you can install Vagrant on WSL but that
+sounds (maybe?) sketchy because of possibly an added virtualization layer.  Maybe someone can try
+and let me know how it goes.
 
-Open the web console in your browser, at: https://$DB_NAME.herokuapp.com/console.
-Paste the secret into the password field when prompted.
+Another question that's not answered, is that of which to use between VirtualBox and Hyper-V.  If you're
+already using VirtualBox then you'll have to stick with that.  The Vagrant Box used here has images for
+both VirtualBox and Hyper-V, so both should technically be possible.
 
-You should now be able to run queries against your database.
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) for Windows.
+2. Git should also be installed.
+3. Clone this repository, and `cd` into the directory.
+4. Run `vagrant up`.  This will set up Ubuntu system with Docker, and run it.
+   
+   > I'd be interested to hear the results of `vagrant up --provider hyperv`, to run inside of hyperv.
+   > I think this will require running with admin privileges and should be fine but just not sure what that
+   > will look like.
+5. Run `vagrant ssh`.  This will get you an SSH session into the machine.
+6. Go to the app root in your vagrant machine: `cd /app`
+7. Initialize database (once): `docker-compose run postgres`.  Press `Ctrl-C` after initialized.
+8. Run the app: `docker-compose up`
 
-## Add DEV_DB setting to your environment file:
-
-```
-echo DEV_DB="https://${DB_NAME}.herokuapp.com/v1/graphql" >> .env
-```
-
-## Start Web Server:
-
-```
-
-npm run dev
-```
-
-You should now be able to access the app via browser at http://localhost:3000

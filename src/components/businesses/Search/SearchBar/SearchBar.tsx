@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "stretch",
       alignItems: "stretch",
       width: "100%",
-      marginTop: "2rem",
-      backgroundColor: theme.palette.common.white,
+      // marginTop: "2rem",
+      // backgroundColor: theme.palette.common.white,
       borderRadius: "5px",
       [theme.breakpoints.down("sm")]: {
         alignItems: "center",
@@ -46,20 +46,23 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down("sm")]: {
         borderRadius: "4px 0 0 4px !important",
       },
+      backgroundColor: theme.palette.common.white,
+      borderRadius: 4,
     },
     input: {
-      // borderRadius: "4px",
+      borderRadius: "4px",
       // borderRadius: "4px 0 0 4px",
       // [theme.breakpoints.down("sm")]: {
       //   borderRadius: "4px 0 0 4px !important",
       // },
+      backgroundColor: theme.palette.common.white,
     },
 
     btn: {
       "-webkit-box-flex": "1 0 auto",
       "-ms-flex": "1 0 auto",
       flex: "1 0 auto",
-      height: "100%",
+      // height: "100%",
       boxShadow: "none",
       ["&:hover"]: {
         boxShadow: "none",

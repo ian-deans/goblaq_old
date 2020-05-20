@@ -1,21 +1,26 @@
 /* About */
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { Page } from "../src/components/common/Page";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Container, Avatar, Box, Link as MuiLink }  from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { TEAM, COMPANY_VALUES, VALUE_ITEMS, COMPANY_DESCRIPTION } from '../constants/about';
-import Link from "next/link";
+import Layout from '../src/components/common/Layout';
+import MainNav from '../src/components/common/MainNav';
+import Footer from '../src/components/common/Footer';
 
 
 const About: React.SFC = (props: any) => {
     const classes = useStyles(props);
     return (
-        <Page>
+        <Layout>
             <Head>
                 <title>Goblaq - About Us</title>
             </Head>
+            <MainNav />
+            <div className="jumbotron-fluid goblaq-main-banner" />
             <Container
                 maxWidth={false}
                 className={`${classes.sectionContainer} ${classes.darkBackground}`}
@@ -143,15 +148,13 @@ const About: React.SFC = (props: any) => {
                    </Grid>
                 </Grid>   
             </Container>
-        </Page>
+            <Footer />
+        </Layout>
     );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            fontFamily: "Graphik,Helvetica,Arial,sans-serif",
-        },
         pageContainer: {
             width: "100% important",
             padding: 0,
@@ -186,7 +189,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: "column",
             justifyContent: "center",
             padding: 70,
-            border: "1px solid red",
+            backgroundColor: "#FFFFFF",
             textAlign: "center",
         },
         darkBackground: {
