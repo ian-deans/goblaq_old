@@ -26,7 +26,7 @@ export const navbarLinks: NavbarLinks = {
 
 };
 
-const graphqlProductionURL = 'https://goblaq.herokuapp.com/v1/graphql';
+const graphqlProductionURL = process.env.GRAPHQL_PRODUCTION_URL;
 const graphqlDevURL = process.env.DEV_DB;
 
 export const graphqlURL = inProduction ? graphqlProductionURL : graphqlDevURL

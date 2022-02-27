@@ -14,3 +14,9 @@ export interface MutationPayload {
 export interface MutationVariables {
   objects: any[];
 }
+
+export interface BusinessData {
+  name: string;
+  location: string;
+  phoneNumber: string;
+};
